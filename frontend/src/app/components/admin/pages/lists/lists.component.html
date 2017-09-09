@@ -1,116 +1,489 @@
 <div>
   <div class="col s12 tabs-container">
-    <ul class="tabs list-states" materialize="tabs" (click)="test()">
-      <li class="tab pointer-half"><a [routerLinkActive]="['active']" (click)="state = false">Студенты</a></li>
-      <li class="tab pointer-half"><a [routerLinkActive]="['active']" (click)="state = true">Преподаватели</a></li>
+    <ul class="tabs list-states" materialize="tabs">
+      <li class="tab pointer-half"><a [routerLinkActive]="['active']" (click)="studentState = true">Студенты</a></li>
+      <li class="tab pointer-half"><a [routerLinkActive]="['active']" (click)="studentState = false">Преподаватели</a></li>
     </ul>
   </div>
-  <div *ngIf="!state">
+  <div *ngIf="studentState">
     <table class="table bordered highlight centred">
       <tr>
         <th></th>
+        <th (click)="changeStudentSort('name')" class="pointer-center">
+          ФИО
+          <i *ngIf="studentSorts[0] === 'name' && !studentSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+          <i *ngIf="studentSorts[0] === 'name' && studentSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
+        </th>
+        <th (click)="changeStudentSort('course')" class="pointer-center">
+          Курс
+          <i *ngIf="studentSorts[0] === 'course' && !studentSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+          <i *ngIf="studentSorts[0] === 'course' && studentSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
+        </th>
+        <th (click)="changeStudentSort('squad')" class="pointer-center">
+          Взвод
+          <i *ngIf="studentSorts[0] === 'squad' && !studentSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+          <i *ngIf="studentSorts[0] === 'squad' && studentSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
+        </th>
+        <th>Действия</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="search">
+          <input type="text" class="form-control" placeholder="Поиск по имени" [(ngModel)]="studentFilters.name">
+        </td>
+        <td class="search">
+          <input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="studentFilters.course">
+        </td>
+        <td class="search">
+          <input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="studentFilters.squad">
+        </td>
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center" (click)="openAddStudentModal()">add</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить отмеченные" class="small material-icons pointer-center" (click)="openDeleteStudentModal()">delete_sweep</i>
+        </td>
+      </tr>
+      <tr *ngFor="let student of students | filterBy: studentFilters | orderBy: studentSorts; let i = index">
+        <td>
+          <input type="checkbox" class="filled-in" [(ngModel)]="student.deleted" (click)="changeDeletedStudents(student)">
+        </td>
+        <td>{{student.name}}</td>
+        <td>{{student.course}}</td>
+        <td>{{student.squad}}</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i (click)="openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i (click)="openChangeStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i (click)="setDeletedStudent(student); openDeleteStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="!studentState">
+    <table class="table bordered highlight centred">
+      <tr>
+        <th></th>
+        <th (click)="changeTeacherSort('name')" class="pointer-center">
+          ФИО
+          <i *ngIf="teacherSorts[0] === 'name' && !teacherSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+          <i *ngIf="teacherSorts[0] === 'name' && teacherSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
+        </th>
+        <th>Действия</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="search">
+          <input type="text" class="form-control" placeholder="Поиск по имени" [(ngModel)]="teacherFilters.name">
+        </td>
+        <td>
+          <i materialize="tooltip" data-position="bottom" data-delay="10"
+             data-tooltip="Добавить" class="small material-icons pointer-center" (click)="openAddTeacherModal()">add</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить отмеченные" class="small material-icons pointer-center" (click)="openDeleteTeacherModal()">delete_sweep</i>
+        </td>
+      </tr>
+      <tr *ngFor="let teacher of teachers | filterBy: teacherFilters | orderBy: teacherSorts">
+        <td>
+          <input type="checkbox" class="filled-in" [(ngModel)]="teacher.deleted" (click)="changeDeletedTeachers(teacher)">
+        </td>
+        <td>{{teacher.name}}</td>
+        <!--редактировать профиль, редактировать логин и пароль, удалить-->
+        <td>
+          <i (click)="openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+          <i (click)="openChangeTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i (click)="setDeletedTeacher(teacher); openDeleteTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div id="addStudentModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="addStudentModal">
+  <div class="modal-content">
+    <h4 class="main">Добавить нового студента</h4>
+    <div class="main-divider">
+      <h6>Распределение:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Курс:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Взвод:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="main-divider">
+      <h6>Личные данные:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Фамилия:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Имя:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Отчество:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="main-divider">
+      <h6>Аккаунт:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Логин:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Пароль:</span>
+      <input type="text" class="form-control"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeAddStudentModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeAddStudentModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="addTeacherModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="addTeacherModal">
+  <div class="modal-content">
+    <h4 class="main">Добавить нового преподавателя</h4>
+    <div class="main-divider">
+      <h6>Личные данные:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Фамилия:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Имя:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Отчество:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="main-divider">
+      <h6>Аккаунт:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Логин:</span>
+      <input type="text" class="form-control"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Пароль:</span>
+      <input type="text" class="form-control"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeAddTeacherModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeAddTeacherModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="changePasswordModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="changePasswordModal">
+  <div class="modal-content">
+    <h4 class="main">Изменить пароль</h4>
+    <div class="main-divider">
+      <h6>Аккаунт:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Логин:</span>
+      <input type="text" class="form-control" disabled/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Пароль:</span>
+      <input type="text" class="form-control"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeChangePasswordModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangePasswordModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="changeStudentModal" class="modal modal-changer bottom-sheet" materialize="modal" [materializeActions]="changeStudentModal">
+  <div class="modal-content modal-changer">
+    <h4 class="main">Редактирование студента</h4>
+    <div>
+      <div class="main-divider">
+        <h6>Данные кафедры:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Курс:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Взвод:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Личные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Фамилия:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Имя:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Отчество:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Дата рождения:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Персональные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Образование:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Место рождения:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Семейное положение:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Общественная работа:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Год приёма:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Факультет:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Заключение ВВК:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Контактные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес, номер телефона:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>ФИО матери, место работы:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес матери, номер телефона:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>ФИО отца, место работы:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес отца, место работы:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Документы:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Номер прописного свидетельства:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Номер студенческого билета:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Номер военного билета:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Дата, номер приказа ректора о заключении контракта:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeChangeStudentModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangeStudentModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="changeTeacherModal" class="modal modal-changer bottom-sheet" materialize="modal" [materializeActions]="changeTeacherModal">
+  <div class="modal-content modal-changer">
+    <h4 class="main">Редактирование преподавателя</h4>
+    <div>
+      <div class="main-divider">
+        <h6>Служебные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Воинское звание:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Должность на кафедре:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Личные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Фамилия:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Имя:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Отчество:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Дата рождения:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Персональные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Образование:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Начало работы:</span>
+        <input type="text" class="form-control"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес проживния:</span>
+        <input type="text" class="form-control"/>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeChangeTeacherModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangeTeacherModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="deleteStudentModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="deleteStudentModal">
+  <div class="modal-content">
+    <h4 class="main">Удаление состава:</h4>
+    <span>Вы уверены, что хотите удалить данные студентов:</span>
+
+    <table class="table bordered highlight centred">
+      <tr>
         <th>№</th>
         <th>ФИО</th>
         <th>Курс</th>
         <th>Взвод</th>
-        <th>Действия</th>
       </tr>
-      <tr>
-        <td></td>
-        <td>-</td>
-        <td>Input1</td>
-        <td>Input2</td>
-        <td>Input3</td>
-        <td><i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>1</td>
-        <td>Жуков В. А.</td>
-        <td>3</td>
-        <td>7</td>
-        <!--редактировать профиль, редактировать логин и пароль, удалить-->
-        <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>1</td>
-        <td>Жуков В. А.</td>
-        <td>3</td>
-        <td>7</td>
-        <!--редактировать профиль, редактировать логин и пароль, удалить-->
-        <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>1</td>
-        <td>Жуков В. А.</td>
-        <td>3</td>
-        <td>7</td>
-        <!--редактировать профиль, редактировать логин и пароль, удалить-->
-        <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
-        </td>
+      <tr *ngFor="let student of studentsForDelete; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{student.name}}</td>
+        <td>{{student.course}}</td>
+        <td>{{student.squad}}</td>
       </tr>
     </table>
   </div>
-  <div *ngIf="state">
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeDeleteStudentModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeDeleteStudentModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="deleteTeacherModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="deleteTeacherModal">
+  <div class="modal-content">
+    <h4 class="main">Удаление состава:</h4>
+    <span>Вы уверены, что хотите удалить данные преподавателей:</span>
+
     <table class="table bordered highlight centred">
       <tr>
-        <th></th>
         <th>№</th>
         <th>ФИО</th>
-        <th>Действия</th>
       </tr>
-      <tr>
-        <td></td>
-        <td>-</td>
-        <td>Input1</td>
-        <td><i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>1</td>
-        <td>Жуков В. А.</td>
-        <!--редактировать профиль, редактировать логин и пароль, удалить-->
-        <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>1</td>
-        <td>Жуков В. А.</td>
-        <!--редактировать профиль, редактировать логин и пароль, удалить-->
-        <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>1</td>
-        <td>Жуков В. А.</td>
-        <!--редактировать профиль, редактировать логин и пароль, удалить-->
-        <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
-        </td>
+      <tr *ngFor="let teacher of teachersForDelete; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{teacher.name}}</td>
       </tr>
     </table>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeDeleteTeacherModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeDeleteTeacherModal()">Отмена</button>
   </div>
 </div>

@@ -50,24 +50,3 @@
 .modal-input-block input {
   margin-bottom: 10px;
 }
-
-.modal.bottom-sheet {
-  max-height: 100%;
-  height: 100%;
-}
-
-.modal.modal-changer {
-  display: flex !important;
-  flex-direction: column;
-}
-
-.modal-content.modal-changer {
-  height: 100%;
-  overflow-y: auto;
-}
-
-[type="checkbox"] {
-  position: relative !important;
-  left: 0 !important;
-  opacity: 1 !important;
-}

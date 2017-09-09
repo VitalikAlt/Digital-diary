@@ -66,19 +66,35 @@
     <div class="teachers-list">
       <table class="table bordered highlight centred">
         <tr>
-          <th>Добавленна</th>
-          <th>Курс</th>
-          <th>Взвод</th>
+          <th (click)="changeSubjectsSort('assigned')" class="pointer-center">
+            Добавленна
+            <i *ngIf="subjectsSort[0] === 'assigned' && !subjectsSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="subjectsSort[0] === 'assigned' && subjectsSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeSubjectsSort('course')" class="pointer-center">
+            Курс
+            <i *ngIf="subjectsSort[0] === 'course' && !subjectsSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="subjectsSort[0] === 'course' && subjectsSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
+          <th (click)="changeSubjectsSort('squad')" class="pointer-center">
+            Взвод
+            <i *ngIf="subjectsSort[0] === 'squad' && !subjectsSort[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="subjectsSort[0] === 'squad' && subjectsSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+          </th>
         </tr>
         <tr>
-          <td><input type="checkbox" class="filled-in" id="filled-in-box" [(ngModel)]="groupAssignedSearch" [ngModelOptions]="{standalone: true}"/></td>
+          <td>
+            <span *ngIf="groupAssignedSearchPower" (click)="groupAssignedSearchPower = !groupAssignedSearchPower" class="pointer-center">вкл</span>
+            <span *ngIf="!groupAssignedSearchPower" (click)="groupAssignedSearchPower = !groupAssignedSearchPower" class="pointer-center">выкл</span>
+            <input *ngIf="groupAssignedSearchPower" type="checkbox" class="filled-in" id="filled-in-box" [(ngModel)]="groupAssignedSearch" [ngModelOptions]="{standalone: true}"/>
+          </td>
           <td class="search"><input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupCourseSearch" [ngModelOptions]="{standalone: true}"></td>
           <td class="search"><input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupSquadSearch" [ngModelOptions]="{standalone: true}"></td>
         </tr>
         <tr *ngFor="let group of groupsByFilter()" class="pointer-center">
           <td><input type="checkbox" class="filled-in" [(ngModel)]="group.assigned" [ngModelOptions]="{standalone: true}"></td>
-          <td>{{group.course}}</td>
-          <td>{{group.squad}}</td>
+          <td (click)="group.assigned = !group.assigned">{{group.course}}</td>
+          <td (click)="group.assigned = !group.assigned">{{group.squad}}</td>
         </tr>
       </table>
     </div>

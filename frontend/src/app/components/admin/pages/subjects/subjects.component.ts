@@ -19,8 +19,10 @@ export class AdminSubjectsComponent implements OnInit {
   public groupCourseSearch: string = '';
   public groupSquadSearch: string = '';
   public groupAssignedSearch: boolean = false;
+  public groupAssignedSearchPower: boolean = false;
 
   public sort = ['name', false];
+  public subjectsSort = ['course', false];
 
   public subjects = [
     {
@@ -167,10 +169,28 @@ export class AdminSubjectsComponent implements OnInit {
   }
 
   groupsByFilter() {
-    return this.groups.filter((el) => {
+    const groups = this.groups.filter((el) => {
       return String(el.course).indexOf(this.groupCourseSearch) !== -1 &&
           String(el.squad).indexOf(this.groupSquadSearch) !== -1 &&
-          el.assigned === this.groupAssignedSearch
+         (el.assigned === this.groupAssignedSearch || !this.groupAssignedSearchPower)
     });
+
+    return groups.sort((a, b) => {
+      if (a[`${this.subjectsSort[0]}`] > b[`${this.subjectsSort[0]}`]) {
+        return (this.subjectsSort[1])? -1 : 1;
+      } else {
+        return (this.subjectsSort[1])? 1 : -1;
+      }
+    })
+  }
+
+  changeSubjectsSort(type) {
+    if (this.subjectsSort[0] === type) {
+      this.subjectsSort[1] = !this.subjectsSort[1];
+    } else {
+      this.subjectsSort[1] = false;
+    }
+
+    this.subjectsSort[0] = type;
   }
 }

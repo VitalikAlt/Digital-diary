@@ -27,8 +27,11 @@ import { TeacherReportsComponent } from './components/teacher/pages/reports/repo
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGroupsComponent } from './components/admin/pages/groups/groups.component';
 import { AdminListsComponent } from './components/admin/pages/lists/lists.component';
+import { ChangeTeacherComponent } from './components/admin/pages/lists/pages/changeTeacher/change_teacher.component';
 import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjects.component';
 
+import { ArraySortPipe } from './pipes/orderBy';
+import { ArrayFilterPipe } from './pipes/filterBy';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,11 @@ import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjec
     AdminComponent,
     AdminGroupsComponent,
     AdminListsComponent,
-    AdminSubjectsComponent
+    ChangeTeacherComponent,
+    AdminSubjectsComponent,
+
+    ArraySortPipe,
+    ArrayFilterPipe
   ],
   imports: [
     BrowserModule,
