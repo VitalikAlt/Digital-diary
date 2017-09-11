@@ -7,7 +7,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { NgSpinningPreloader } from 'ng2-spinning-preloader';
 
 import { AppComponent } from './app.component';
-import { UserService } from './user.service';
+import { UserService1 } from './user.service';
+import { HttpService } from './services/http.service';
+import { UserService } from './services/user.service';
+import { AuthGuard } from './services/auth_guard.service';
 
 import { AuthComponent } from './components/auth/auth.component';
 
@@ -66,7 +69,13 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     AppRoutingModule,
     MaterializeModule
   ],
-  providers: [NgSpinningPreloader, UserService],
+  providers: [
+    NgSpinningPreloader,
+    UserService1,
+    UserService,
+    HttpService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

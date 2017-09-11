@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
+import { AuthGuard } from './services/auth_guard.service';
 import { AuthComponent } from './components/auth/auth.component';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -39,7 +40,8 @@ const routes: Routes = [
         { path: 'profile', component: StudentProfileComponent},
         { path: 'progress', component: StudentProgressComponent},
         { path: 'schedule', component: StudentScheduleComponent},
-      ]
+      ],
+    canActivate: [ AuthGuard ]
   },
   { path: 'teacher', component : TeacherComponent,
     children:
@@ -49,7 +51,8 @@ const routes: Routes = [
         { path: 'journal', component: TeacherJournalComponent},
         { path: 'schedule', component: TeacherScheduleComponent},
         { path: 'reports', component: TeacherReportsComponent}
-      ]
+      ],
+    canActivate: [ AuthGuard ]
   },
   { path: 'admin', component: AdminComponent,
     children:
@@ -59,7 +62,8 @@ const routes: Routes = [
         { path: 'change_teacher', component:  ChangeTeacherComponent},
         { path: 'groups', component: AdminGroupsComponent},
         { path: 'subjects', component: AdminSubjectsComponent},
-      ]
+      ],
+    canActivate: [ AuthGuard ]
   },
   { path: '**', component: PageNotFoundComponent }
 ];

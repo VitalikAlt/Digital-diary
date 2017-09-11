@@ -7,6 +7,14 @@ class ErrorCodes {
         }
     }
 
+    static UNAUTHORIZED(param) {
+        return {
+            status: 401,
+            error: 'User unauthorized',
+            message: 'Incorrect login or password'
+        }
+    }
+
     static UNSUPPORTED_METHOD(param) {
         return {
             status: 405,
@@ -43,7 +51,7 @@ class ErrorCodes {
         return {
             status: 500,
             error: 'Json parse error',
-            message: `error, when parse json ${JSON.parse(err)}`
+            message: `error, when parse json ${JSON.stringify(err)}`
         }
     }
 }
