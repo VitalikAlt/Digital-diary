@@ -6,6 +6,8 @@ import { AuthComponent } from './components/auth/auth.component';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
+import { AdminResetComponent } from './components/admin-reset/admin-reset.component'
+
 import { StudentComponent } from './components/student/student.component';
 import { StudentProfileComponent } from './components/student/pages/student-profile/student-profile.component';
 import { StudentProgressComponent } from './components/student/pages/student-progress/student-progress.component'
@@ -64,8 +66,11 @@ const routes: Routes = [
         { path: 'subjects', component: AdminSubjectsComponent},
       ],
     canActivate: [ AuthGuard ]
-  },
-  { path: '**', component: PageNotFoundComponent }
+  }, {
+    path: 'admin_reset', component: AdminResetComponent
+  }, {
+    path: '**', component: PageNotFoundComponent
+  }
 ];
 
 @NgModule(

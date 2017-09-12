@@ -1,6 +1,6 @@
 const User = require('./table');
 
-class SearchQuery {
+class UserQuery {
     static getUser(login, pass) {
         return new Promise((res, rej) => {
             User.find({login: login, password: pass}, (err, data) => {
@@ -30,6 +30,24 @@ class SearchQuery {
             });
         });
     }
+
+    static updatePassword(login, newPassword) {
+        return new Promise((res, rej) => {
+            User.update({login: el.login}, {password: newPassword}, (err, result) => {
+                return (err)? rej(err) : res(result);
+            })
+        })
+    }
+
+    static async adminReset(login, password) {
+        User.find({role: 'admin'}, (err, data) => {
+            if (!data[0]) {
+                return UserQuery.addUser({login, password, role: 'admin'})
+            } else {
+                return UserQuery.updatePassword(data[0].login, password)
+            }
+        })
+    }
 }
 
-module.exports = SearchQuery;
+module.exports = UserQuery;

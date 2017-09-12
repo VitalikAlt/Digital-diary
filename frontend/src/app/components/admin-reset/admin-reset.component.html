@@ -1,0 +1,41 @@
+<div class="error-page red" (click)="openAdminResetModal()">
+  <div class="message-container">
+    <p>404</p>
+    <p>Page not found!</p>
+  </div>
+</div>
+
+<div id="adminResetModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="adminResetModal">
+  <div class="modal-content">
+    <h4 class="main">Восстановление профиля администратора</h4>
+    <div class="main-divider">
+      <h6>Новые данные аккаунта:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Логин:</span>
+      <input type="text" class="form-control" [(ngModel)]="login" [ngModelOptions]="{standalone: true}"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Пароль:</span>
+      <input type="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"/>
+    </div>
+    <div class="main-divider">
+      <h6>Секретные данные:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Ключ восстановления:</span>
+      <input type="password" class="form-control" [(ngModel)]="secretKey" [ngModelOptions]="{standalone: true}"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="reset();">Восстановить</button>
+  </div>
+</div>

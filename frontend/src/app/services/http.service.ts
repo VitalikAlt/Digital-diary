@@ -54,6 +54,18 @@ export class HttpService {
       .catch(this.handleError);
   }
 
+  resetAdmin(secretKey: string, login: string, password: string) : Observable<string>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'reset_admin';
+
+    return this.http
+      .post(url, JSON.stringify({login, password, secret_key: secretKey}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   getStock() {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });

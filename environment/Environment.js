@@ -40,6 +40,9 @@ class Environment {
 
     initConfigs() {
         try {
+            this.core.cfg = {};
+            this.core.cfg.database = require('./../config/database/local.json');
+            this.core.cfg.secret = require('./../config/secret/config.json');
             this.core.log.info('Init configs success');
         } catch (err) {
             console.log('Init Configs error:', err);
@@ -48,7 +51,7 @@ class Environment {
 
     initDb() {
         try {
-            Db.connect('mongodb://localhost:27017');
+            Db.connect(this.core.cfg.database.url);
             this.core.db = Db;
             this.core.log.info('Init db success');
         } catch (err) {
