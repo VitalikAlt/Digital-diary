@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import  { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch'
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpService {
@@ -17,20 +18,20 @@ export class HttpService {
     return body || { };
   }
 
-  private handleError (error: Response | any) {
+  private handleError(error: Response | any) {
     let errMsg: string;
+
     if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      const err = error.json() || '';
+      errMsg = (typeof err === 'object')? err.message : err;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+
     return Observable.throw(errMsg);
   }
 
-  signIn(login: string, password: string) : Observable<any>{
+  signIn(login: string, password: string): Observable<any> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -42,7 +43,7 @@ export class HttpService {
       .catch(this.handleError);
   }
 
-  signUp(login: string, password: string, user: {login, password, role}) : Observable<string>{
+  signUp(login: string, password: string, user: {login, password, role}): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -54,23 +55,47 @@ export class HttpService {
       .catch(this.handleError);
   }
 
-  resetAdmin(secretKey: string, login: string, password: string) : Observable<string>{
+  addStudent(course: string, squad: string, surname: string, name: string, father_name: string, login: string, password: string): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'reset_admin';
+    let url = this.baseUrl + 'student/add';
 
     return this.http
-      .post(url, JSON.stringify({login, password, secret_key: secretKey}), options)
+      .post(url, JSON.stringify({course, squad, surname, name, father_name, login, password}), options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getStock() {
+  addTeacher(surname, name, father_name, login, password): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'stock/get';
+    let url = this.baseUrl + 'teacher/add';
+
+    return this.http
+      .post(url, JSON.stringify({surname, name, father_name, login, password}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  deleteTeachers(ids): Observable<Array<Object>> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'teacher/delete';
+
+    return this.http
+      .post(url, JSON.stringify({ids}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getTeacherList(): Observable<Array<Object>> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'teacher/list';
 
     return this.http
       .post(url, JSON.stringify({}), options)
@@ -78,26 +103,14 @@ export class HttpService {
       .catch(this.handleError);
   }
 
-  getReserves(user, stockId) {
+  resetAdmin(secretKey: string, login: string, password: string): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'reserves/get';
+    let url = this.baseUrl + 'reset_admin';
 
     return this.http
-      .post(url, JSON.stringify({login: user.login, password: user.password, stock_id: stockId}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  updateReserves(user, reserves) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'reserves/update';
-
-    return this.http
-      .post(url, JSON.stringify({login: user.login, password: user.password, reserves}), options)
+      .post(url, JSON.stringify({login, password, secret_key: secretKey}), options)
       .map(this.extractData)
       .catch(this.handleError);
   }

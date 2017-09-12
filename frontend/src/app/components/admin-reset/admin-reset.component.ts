@@ -25,13 +25,27 @@ export class AdminResetComponent implements OnInit {
   }
 
   reset() {
-    this.httpService.resetAdmin(this.secretKey, this.login, this.password)
+    if (!this.secretKey || !this.login || !this.password)
+      return this.showResetError('Bad params in request');
+
+    this.httpService.resetAdmin(this.secretKey, this.login, Md5.hashStr(this.password).toString())
       .subscribe((result) => {
-        toast('12323213213', 4000, 'error');
-        console.log(result)
+        toast('Профиль восстановлен!', 4000, 'success-toast');
       }, (error) => {
-        toast('12323213213', 4000, 'red');
-        console.log(error)
+        this.showResetError(error);
       })
+  }
+
+  showResetError(err) {
+    switch (err) {
+      case 'Bad params in request':
+        toast('Заполнены не все поля!', 4000, 'error-toast');
+        break;
+      case 'No permission for this request!':
+        toast('Серкретный ключ неверен!', 4000, 'error-toast');
+        break;
+      default:
+        toast(err, 4000, 'error-toast');
+    }
   }
 }

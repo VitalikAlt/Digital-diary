@@ -38,8 +38,11 @@
           <input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="studentFilters.squad">
         </td>
         <td>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center" (click)="openAddStudentModal()">add</i>
-          <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить отмеченные" class="small material-icons pointer-center" (click)="openDeleteStudentModal()">delete_sweep</i>
+          <i materialize="tooltip" data-position="bottom" data-delay="10"
+             data-tooltip="Добавить" class="small material-icons pointer-center" (click)="modalUser = {}; openAddStudentModal()">add</i>
+
+          <i materialize="tooltip" data-position="bottom" data-delay="10"
+             data-tooltip="Удалить отмеченные" class="small material-icons pointer-center" (click)="openDeleteStudentModal()">delete_sweep</i>
         </td>
       </tr>
       <tr *ngFor="let student of students | filterBy: studentFilters | orderBy: studentSorts; let i = index">
@@ -76,7 +79,8 @@
         </td>
         <td>
           <i materialize="tooltip" data-position="bottom" data-delay="10"
-             data-tooltip="Добавить" class="small material-icons pointer-center" (click)="openAddTeacherModal()">add</i>
+             data-tooltip="Добавить" class="small material-icons pointer-center" (click)="modalUser = {}; openAddTeacherModal()">add</i>
+
           <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить отмеченные" class="small material-icons pointer-center" (click)="openDeleteTeacherModal()">delete_sweep</i>
         </td>
       </tr>
@@ -108,11 +112,11 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Курс:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.course"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Взвод:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.squad"/>
     </div>
     <div class="main-divider">
       <h6>Личные данные:</h6>
@@ -123,15 +127,15 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Фамилия:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Имя:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Отчество:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.fatherName"/>
     </div>
     <div class="main-divider">
       <h6>Аккаунт:</h6>
@@ -142,16 +146,18 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Логин:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.login"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Пароль:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.password"/>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeAddStudentModal()">Добавить</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeAddStudentModal()">Отмена</button>
+    <button class="waves-effect waves-green btn-flat" (click)="addStudent();">Добавить</button>
+
+    <button class="modal-action modal-close waves-effect waves-green btn-flat"
+            style="margin-right: 10px" (click)="closeAddStudentModal()">Отмена</button>
   </div>
 </div>
 
@@ -167,15 +173,15 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Фамилия:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Имя:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Отчество:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.fatherName"/>
     </div>
     <div class="main-divider">
       <h6>Аккаунт:</h6>
@@ -186,15 +192,15 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Логин:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.login"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Пароль:</span>
-      <input type="text" class="form-control"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.password"/>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeAddTeacherModal()">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="addTeacher()">Добавить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeAddTeacherModal()">Отмена</button>
   </div>
 </div>
@@ -483,7 +489,7 @@
     </table>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeDeleteTeacherModal()">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="deleteTeachers();">Удалить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeDeleteTeacherModal()">Отмена</button>
   </div>
 </div>

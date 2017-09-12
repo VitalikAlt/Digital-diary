@@ -1,6 +1,14 @@
 const User = require('./table');
 
 class UserQuery {
+    static getUserIdExist(id) {
+        return new Promise((res, rej) => {
+            User.find({_id: id}, (err, data) => {
+                return res(!!(data[0]));
+            })
+        });
+    }
+
     static getUser(login, pass) {
         return new Promise((res, rej) => {
             User.find({login: login, password: pass}, (err, data) => {
@@ -17,7 +25,7 @@ class UserQuery {
         });
     }
 
-    static addUser(el) {
+    static add(el) {
         return new Promise((res, rej) => {
             const newItem = new User(el);
 
@@ -33,7 +41,7 @@ class UserQuery {
 
     static updatePassword(login, newPassword) {
         return new Promise((res, rej) => {
-            User.update({login: el.login}, {password: newPassword}, (err, result) => {
+            User.update({login: login}, {password: newPassword}, (err, result) => {
                 return (err)? rej(err) : res(result);
             })
         })
@@ -42,10 +50,18 @@ class UserQuery {
     static async adminReset(login, password) {
         User.find({role: 'admin'}, (err, data) => {
             if (!data[0]) {
-                return UserQuery.addUser({login, password, role: 'admin'})
+                return UserQuery.add({login, password, role: 'admin'})
             } else {
                 return UserQuery.updatePassword(data[0].login, password)
             }
+        })
+    }
+
+    static deleteByIds(ids) {
+        return new Promise((res, rej) => {
+            User.remove({_id: { $in: ids }}, (err, success) => {
+                return (!err)? res(success) : rej(err);
+            })
         })
     }
 }

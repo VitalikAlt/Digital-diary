@@ -96,3 +96,15 @@ body {
   box-shadow: 0 3px 9px rgba(0,0,0,0.5);
   padding-right: 2% !important;
 }
+
+.toast {
+  font-size: 16px;
+}
+
+.success-toast {
+  background-color: #8BC34A;
+}
+
+.error-toast {
+  background-color: #F44336;
+}

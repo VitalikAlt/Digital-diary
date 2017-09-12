@@ -18,7 +18,7 @@ class SignUpRoute extends BaseRoute {
             if (!(await this.checkDataForSignUp()))
                 return;
 
-            await this.core.db.users.addUser({
+            await this.core.db.users.add({
                 login: this.params.user.login,
                 password: this.params.user.password,
                 role: this.params.user.role

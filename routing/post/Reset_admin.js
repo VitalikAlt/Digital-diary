@@ -11,12 +11,11 @@ class AdminResetRoute extends BaseRoute {
 
     async handle() {
         try {
-            if (!this.params.secret_key !== this.core.cfg.secret.reset_key)
-                return this.complete('Error: no permission for this request!');
+            if (!this.params.secret_key || this.params.secret_key !== this.core.cfg.secret.reset_key)
+                return this.complete(null, 'Error: permission denied', 'No permission for this request!');
 
-            const result = await this.core.db.users.adminReset(this.params.login, this.params.password);
-
-            this.complete(result);
+            await this.core.db.users.adminReset(this.params.login, this.params.password);
+            this.complete(true);
         } catch (err) {
             this.complete(null, err, 'AdminReset error');
         }
