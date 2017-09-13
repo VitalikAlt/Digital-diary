@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import {MaterializeAction} from "angular2-materialize";
+import { MaterializeAction, toast } from "angular2-materialize";
+import { HttpService } from '../../../../services/http.service';
 
 @Component({
   selector: 'app-admin-subjects',
@@ -21,49 +22,21 @@ export class AdminSubjectsComponent implements OnInit {
   public groupAssignedSearch: boolean = false;
   public groupAssignedSearchPower: boolean = false;
 
-  public sort = ['name', false];
-  public subjectsSort = ['course', false];
+  //*****************************************************************************
+  public addSubjectData: any;
 
-  public subjects = [
-    {
-      name: "дисциплина 2",
-      teacher: "Жуков В. А."
-    }, {
-      name: "дисциплина 1",
-      teacher: "Куков В. А."
-    }, {
-      name: "дисциплина 3",
-      teacher: "Луков В. А."
-    }
-  ];
+  public subjectsSorts: [string, boolean] = ['name', false];
+  public subjectFilters: Object = {name: '', teacher: ''};
 
-  public teachers = [
-    {
-      name: "Жуков В. А."
-    }, {
-      name: "Куков В. А."
-    }, {
-      name: "Луков В. А."
-    },{
-      name: "Жуков В. А."
-    }, {
-      name: "Куков В. А."
-    }, {
-      name: "Луков В. А."
-    },{
-      name: "Жуков В. А."
-    }, {
-      name: "Куков В. А."
-    }, {
-      name: "Луков В. А."
-    },{
-      name: "Жуков В. А."
-    }, {
-      name: "Куков В. А."
-    }, {
-      name: "Луков В. А."
-    }
-  ];
+  public teacherFilters: Object = {name: ''};
+
+  public groupSorts: [string, boolean] = ['course', false];
+  public groupFilters: Object = {course: '', squad: ''};
+
+  //*************************************************************************
+
+  public subjects: Array<Object> = [];
+  public teachers: Array<Object> = [];
 
   public groups = [
     {
@@ -94,19 +67,33 @@ export class AdminSubjectsComponent implements OnInit {
     }
   ];
 
-  public name_search: string = '';
-  public teacher_search: string = '';
-
-  constructor() { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    this.addSubjectData = {};
+
+    this.httpService.getSubjectList()
+      .subscribe((subjects) => {
+        this.subjects = subjects;
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
   }
 
-  createSubject() {
-    this.subjects.push({
-      name: this.disciplineName,
-      teacher: this.teacherSearch
-    })
+  addSubject() {
+    this.httpService.addSubject(this.addSubjectData.name, this.addSubjectData.teacher.id)
+      .subscribe((id) => {
+        this.subjects.push({id, name: this.disciplineName, teacher: this.addSubjectData.teacher.name});
+        toast('Дисциплина добавлена!', 4000, 'success-toast');
+        this.closeModalDisciplineAdd()
+      }, (error) => {
+        if (error === 'No user with that id!')
+          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
+
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      });
   }
 
   deleteSubject() {
@@ -114,7 +101,14 @@ export class AdminSubjectsComponent implements OnInit {
   }
 
   openModalDisciplineAdd() {
-    this.addDisciplineModal.emit({action:"modal",params:['open']});
+    this.httpService.getTeacherList()
+      .subscribe((teachers) => {
+        this.teachers = teachers;
+        this.addDisciplineModal.emit({action:"modal",params:['open']});
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      });
   }
 
   openModalSubjectDelete() {
@@ -137,60 +131,18 @@ export class AdminSubjectsComponent implements OnInit {
     this.editSubjectModal.emit({action:"modal",params:['close']});
   }
 
-  subjectsByFilter() {
-    const subjects = this.subjects.filter((el) => {
-      return String(el.name).indexOf(this.name_search) !== -1 &&
-        String(el.teacher).indexOf(this.teacher_search) !== -1
-    });
 
-    return subjects.sort((a, b) => {
-      if (a[`${this.sort[0]}`] > b[`${this.sort[0]}`]) {
-        return (this.sort[1])? -1 : 1;
-      } else {
-        return (this.sort[1])? 1 : -1;
-      }
-    })
+
+  changeSubjectSort(type: string) {
+    this.changeSort(this.subjectsSorts, type);
   }
 
-  changeSort(type) {
-    if (this.sort[0] === type) {
-      this.sort[1] = !this.sort[1];
-    } else {
-      this.sort[1] = false;
-    }
-
-    this.sort[0] = type;
+  changeGroupSort(type: string) {
+    this.changeSort(this.groupSorts, type);
   }
 
-  teachersByFilter() {
-    return this.teachers.filter((el) => {
-      return String(el.name).indexOf(this.teacherSearch) !== -1
-    });
-  }
-
-  groupsByFilter() {
-    const groups = this.groups.filter((el) => {
-      return String(el.course).indexOf(this.groupCourseSearch) !== -1 &&
-          String(el.squad).indexOf(this.groupSquadSearch) !== -1 &&
-         (el.assigned === this.groupAssignedSearch || !this.groupAssignedSearchPower)
-    });
-
-    return groups.sort((a, b) => {
-      if (a[`${this.subjectsSort[0]}`] > b[`${this.subjectsSort[0]}`]) {
-        return (this.subjectsSort[1])? -1 : 1;
-      } else {
-        return (this.subjectsSort[1])? 1 : -1;
-      }
-    })
-  }
-
-  changeSubjectsSort(type) {
-    if (this.subjectsSort[0] === type) {
-      this.subjectsSort[1] = !this.subjectsSort[1];
-    } else {
-      this.subjectsSort[1] = false;
-    }
-
-    this.subjectsSort[0] = type;
+  changeSort(sort: Object, newType: string) {
+    sort[1] = (sort[0] === newType)? !sort[1] : false;
+    sort[0] = newType;
   }
 }

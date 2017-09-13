@@ -92,7 +92,7 @@
         <!--редактировать профиль, редактировать логин и пароль, удалить-->
         <td>
           <i (click)="openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-          <i (click)="openChangeTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+          <i (click)="modalUser = teacher; openChangeTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
           <i (click)="setDeletedTeacher(teacher); openDeleteTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
         </td>
       </tr>
@@ -386,11 +386,15 @@
       </div>
       <div class="form-group modal-input-block">
         <span>Воинское звание:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.military_rank"/>
       </div>
       <div class="form-group modal-input-block">
         <span>Должность на кафедре:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.work_position"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Начало работы:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.work_start_year"/>
       </div>
     </div>
     <div>
@@ -403,19 +407,25 @@
       </div>
       <div class="form-group modal-input-block">
         <span>Фамилия:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
       </div>
       <div class="form-group modal-input-block">
         <span>Имя:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
       </div>
       <div class="form-group modal-input-block">
         <span>Отчество:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.father_name"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес рождения:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.birth_place"/>
       </div>
       <div class="form-group modal-input-block">
         <span>Дата рождения:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.birth_date" materialize="pickadate"
+               [materializeParams]="[{format: 'dd/mm/yyyy', selectMonths: false, selectYears: 80}]"
+               type="text"/>
       </div>
     </div>
     <div>
@@ -428,20 +438,28 @@
       </div>
       <div class="form-group modal-input-block">
         <span>Образование:</span>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.education"/>
       </div>
       <div class="form-group modal-input-block">
-        <span>Начало работы:</span>
-        <input type="text" class="form-control"/>
+        <span>Адрес проживания:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.residence_address"/>
       </div>
       <div class="form-group modal-input-block">
-        <span>Адрес проживния:</span>
-        <input type="text" class="form-control"/>
+        <span>Номер пасспорта:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.passport_number"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Серия пасспорта:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.passport_series"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Номер военного билета:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.military_number"/>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeChangeTeacherModal()">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="saveTeacherData();">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangeTeacherModal()">Отмена</button>
   </div>
 </div>

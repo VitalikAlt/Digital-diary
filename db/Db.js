@@ -3,6 +3,7 @@ const users = require('./models/users/query');
 const groups = require('./models/groups/query');
 const studentProfile = require('./models/student_profiles/query');
 const teacherProfile = require('./models/teacher_profiles/query');
+const discipline = require('./models/discipline/query');
 
 class Db {
     static connect(url) {
@@ -23,6 +24,10 @@ class Db {
 
     static get teacherProfile() {
         return teacherProfile;
+    }
+
+    static get discipline() {
+        return discipline;
     }
 }
 

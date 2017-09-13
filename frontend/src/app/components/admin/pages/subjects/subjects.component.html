@@ -2,25 +2,25 @@
   <table class="table bordered highlight centred">
     <tr>
       <th>№</th>
-      <th (click)="changeSort('name')" class="pointer-center">
+      <th (click)="changeSubjectSort('name')" class="pointer-center">
         Название
-        <i *ngIf="sort[0] === 'name' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
-        <i *ngIf="sort[0] === 'name' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+        <i *ngIf="subjectsSorts[0] === 'name' && !subjectsSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="subjectsSorts[0] === 'name' && subjectsSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
       </th>
-      <th (click)="changeSort('teacher')" class="pointer-center">
+      <th (click)="changeSubjectSort('teacher')" class="pointer-center">
         Преподаватель
-        <i *ngIf="sort[0] === 'teacher' && !sort[1]" class="small material-icons pointer-center">arrow_downward</i>
-        <i *ngIf="sort[0] === 'teacher' && sort[1]" class="small material-icons pointer-center">arrow_upward</i>
+        <i *ngIf="subjectsSorts[0] === 'teacher' && !subjectsSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="subjectsSorts[0] === 'teacher' && subjectsSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
       </th>
       <th>Действия</th>
     </tr>
     <tr>
       <td>-</td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по названию" [(ngModel)]="name_search" [ngModelOptions]="{standalone: true}"></td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по преподавателю" [(ngModel)]="teacher_search" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по названию" [(ngModel)]="subjectFilters.name" [ngModelOptions]="{standalone: true}"></td>
+      <td class="search"><input type="text" class="form-control" placeholder="Поиск по преподавателю" [(ngModel)]="subjectFilters.teacher" [ngModelOptions]="{standalone: true}"></td>
       <td><i (click)="openModalDisciplineAdd()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
     </tr>
-    <tr *ngFor="let subject of subjectsByFilter(); let i = index">
+    <tr *ngFor="let subject of subjects | filterBy: subjectFilters | orderBy: subjectsSorts; let i = index">
       <td>{{i + 1}}</td>
       <td>{{subject.name}}</td>
       <td>{{subject.teacher}}</td>
@@ -38,21 +38,21 @@
     <div class="main-content">
       <h4 class="main">Добавить новую дисциплину</h4>
       <span>Название дисциплины:</span>
-      <input type="text" class="form-control" [(ngModel)]="disciplineName" [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control" [(ngModel)]="addSubjectData.name" [ngModelOptions]="{standalone: true}">
       <br>
       <span>Преподаватель:</span>
-      <input type="text" class="form-control" [(ngModel)]="teacherSearch" [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control" [(ngModel)]="teacherFilters.name" [ngModelOptions]="{standalone: true}">
     </div>
     <div class="teachers-list">
       <table class="table bordered highlight centred">
-        <tr *ngFor="let teacher of teachersByFilter()">
-          <td (click)="teacherSearch = teacher.name" class="pointer-center">{{teacher.name}}</td>
+        <tr *ngFor="let teacher of teachers | filterBy: teacherFilters">
+          <td (click)="addSubjectData.teacher = teacher; teacherFilters.name = teacher.name" class="pointer-center">{{teacher.name}}</td>
         </tr>
       </table>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeModalDisciplineAdd()">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="addSubject();">Добавить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalDisciplineAdd()">Отмена</button>
   </div>
 </div>
@@ -66,32 +66,30 @@
     <div class="teachers-list">
       <table class="table bordered highlight centred">
         <tr>
-          <th (click)="changeSubjectsSort('assigned')" class="pointer-center">
+          <th (click)="changeGroupSort('assigned')" class="pointer-center">
             Добавленна
-            <i *ngIf="subjectsSort[0] === 'assigned' && !subjectsSort[1]" class="small material-icons pointer-center">arrow_downward</i>
-            <i *ngIf="subjectsSort[0] === 'assigned' && subjectsSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+            <i *ngIf="groupSorts[0] === 'assigned' && !groupSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="groupSorts[0] === 'assigned' && groupSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
           </th>
-          <th (click)="changeSubjectsSort('course')" class="pointer-center">
+          <th (click)="changeGroupSort('course')" class="pointer-center">
             Курс
-            <i *ngIf="subjectsSort[0] === 'course' && !subjectsSort[1]" class="small material-icons pointer-center">arrow_downward</i>
-            <i *ngIf="subjectsSort[0] === 'course' && subjectsSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+            <i *ngIf="groupSorts[0] === 'course' && !groupSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="groupSorts[0] === 'course' && groupSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
           </th>
-          <th (click)="changeSubjectsSort('squad')" class="pointer-center">
+          <th (click)="changeGroupSort('squad')" class="pointer-center">
             Взвод
-            <i *ngIf="subjectsSort[0] === 'squad' && !subjectsSort[1]" class="small material-icons pointer-center">arrow_downward</i>
-            <i *ngIf="subjectsSort[0] === 'squad' && subjectsSort[1]" class="small material-icons pointer-center">arrow_upward</i>
+            <i *ngIf="groupSorts[0] === 'squad' && !groupSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+            <i *ngIf="groupSorts[0] === 'squad' && groupSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
           </th>
         </tr>
         <tr>
           <td>
-            <span *ngIf="groupAssignedSearchPower" (click)="groupAssignedSearchPower = !groupAssignedSearchPower" class="pointer-center">вкл</span>
-            <span *ngIf="!groupAssignedSearchPower" (click)="groupAssignedSearchPower = !groupAssignedSearchPower" class="pointer-center">выкл</span>
             <input *ngIf="groupAssignedSearchPower" type="checkbox" class="filled-in" id="filled-in-box" [(ngModel)]="groupAssignedSearch" [ngModelOptions]="{standalone: true}"/>
           </td>
-          <td class="search"><input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupCourseSearch" [ngModelOptions]="{standalone: true}"></td>
-          <td class="search"><input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupSquadSearch" [ngModelOptions]="{standalone: true}"></td>
+          <td class="search"><input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupFilters.course" [ngModelOptions]="{standalone: true}"></td>
+          <td class="search"><input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupFilters.squad" [ngModelOptions]="{standalone: true}"></td>
         </tr>
-        <tr *ngFor="let group of groupsByFilter()" class="pointer-center">
+        <tr *ngFor="let group of groups | filterBy: groupFilters | orderBy: groupSorts" class="pointer-center">
           <td><input type="checkbox" class="filled-in" [(ngModel)]="group.assigned" [ngModelOptions]="{standalone: true}"></td>
           <td (click)="group.assigned = !group.assigned">{{group.course}}</td>
           <td (click)="group.assigned = !group.assigned">{{group.squad}}</td>
@@ -100,7 +98,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeModalSubjectEdit()">Сохранить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="addSubject();">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalSubjectEdit()">Отмена</button>
   </div>
 </div>

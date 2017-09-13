@@ -1,5 +1,6 @@
 const BaseRoute = require(appRoot + '/routing/BaseRoute');
 
+//TODO добавить удаление завязанных на него групп и данных из discipline_groups
 class TeacherDeleteRoute extends BaseRoute {
     constructor(core, req, res, params) {
         super(core, req, res, params);

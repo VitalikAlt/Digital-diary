@@ -108,6 +108,21 @@ export class AdminListsComponent implements OnInit {
       })
   }
 
+  saveTeacherData() {
+    console.log(this.modalUser);
+    this.httpService.updateTeacherProfile(this.modalUser)
+      .subscribe((result) => {
+        toast('Преподаватель обновлён!', 4000, 'success-toast');
+        this.closeChangeTeacherModal();
+      }, (error) => {
+        if (error === "No user with that id!")
+          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
+
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
+  }
+
   deleteTeachers() {
     const ids = [];
 
@@ -200,7 +215,19 @@ export class AdminListsComponent implements OnInit {
   }
 
   openChangeTeacherModal() {
-    this.changeTeacherModal.emit({action:"modal",params:['open']});
+    this.httpService.getTeacherProfile(this.modalUser.id)
+      .subscribe((result) => {
+        this.changeTeacherModal.emit({action:"modal",params:['open']});
+
+        result['id'] = this.modalUser.id;
+        this.modalUser = result;
+      }, (error) => {
+        if (error === "No user with that id!")
+          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
+
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
   }
 
   closeChangeTeacherModal() {

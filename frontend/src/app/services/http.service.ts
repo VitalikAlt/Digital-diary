@@ -67,6 +67,30 @@ export class HttpService {
       .catch(this.handleError);
   }
 
+  getTeacherProfile(id): Observable<Object> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'teacher/get_profile';
+
+    return this.http
+      .post(url, JSON.stringify({id}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateTeacherProfile(teacher): Observable<string> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'teacher/update';
+
+    return this.http
+      .post(url, JSON.stringify({id: teacher.id, data: teacher}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   addTeacher(surname, name, father_name, login, password): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -96,6 +120,30 @@ export class HttpService {
     let options = new RequestOptions({ headers: headers });
 
     let url = this.baseUrl + 'teacher/list';
+
+    return this.http
+      .post(url, JSON.stringify({}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  addSubject(name, teacher_id): Observable<string> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'discipline/add';
+
+    return this.http
+      .post(url, JSON.stringify({name, teacher_id}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getSubjectList(): Observable<Array<Object>> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'discipline/list';
 
     return this.http
       .post(url, JSON.stringify({}), options)

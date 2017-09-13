@@ -13,9 +13,11 @@ const TeacherProfile = new teacherProfile({
     birth_date: { type: Date, required: false},
     residence_address: { type: String, required: false},
 
-    education: { type: String, required: false},
     work_position: { type: String, required: false},
-    start_year: { type: String, required: false},
+    military_rank: { type: String, required: false},
+
+    education: { type: String, required: false},
+    work_start_year: { type: String, required: false},
 
     passport_series: { type: String, required: false},
     passport_number: { type: String, required: false},

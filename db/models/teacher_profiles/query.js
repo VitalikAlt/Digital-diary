@@ -3,7 +3,7 @@ const TeacherProfile = require('./table');
 class TeacherProfileQuery {
     static get(params = {}) {
         return new Promise((res, rej) => {
-            TeacherProfile.find(params, (err, data) => {
+            TeacherProfile.find(params, {__v: false},  (err, data) => {
                 return res(data);
             })
         });
