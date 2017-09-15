@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import {MaterializeAction} from "angular2-materialize";
+import { MaterializeAction, toast } from "angular2-materialize";
+import { HttpService } from '../../../../services/http.service';
 
 @Component({
   selector: 'app-admin-groups',
@@ -10,46 +11,32 @@ export class AdminGroupsComponent implements OnInit {
 
   public modalCurseUp = new EventEmitter<string|MaterializeAction>();
 
-  public course_search : string = '';
-  public squad_search : string = '';
-  public count_search : string = '';
+  public groups: Array<Object> = [];
+  public groupSorts: [string, boolean] = ['course', false];
+  public groupFilters: Object = {course: '', squad: '', student_count: ''};
 
-  public sort = ['course', false];
-
-  public groups = [
-    {
-      course: 1,
-      squad: 1,
-      count: 1
-    }, {
-      course: 2,
-      squad: 2,
-      count: 2
-    }, {
-      course: 3,
-      squad: 3,
-      count: 3
-    }, {
-      course: 1,
-      squad: 3,
-      count: 3
-    }, {
-      course: 13,
-      squad: 23,
-      count: 34
-    }
-  ];
-
-  constructor() { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
-
+    this.httpService.getGroupList()
+      .subscribe((groups) => {
+        this.groups = groups;
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
   }
 
   upCourse() {
-    for( let i = 0; i < this.groups.length; i++) {
-      this.groups[i]['course'] = Number(this.groups[i]['course']) + 1;
-    }
+    this.httpService.upGroups()
+      .subscribe(() => {
+        this.ngOnInit();
+        toast('Все группы переведенны на новый курс!', 4000, 'success-toast');
+        this.closeModalCurseUp();
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      });
   }
 
   openModalCurseUp() {
@@ -60,29 +47,8 @@ export class AdminGroupsComponent implements OnInit {
     this.modalCurseUp.emit({action:"modal",params:['close']});
   }
 
-  groupsByFilter() {
-    const groups = this.groups.filter((el) => {
-      return String(el.course).indexOf(this.course_search) !== -1 &&
-        String(el.squad).indexOf(this.squad_search) !== -1 &&
-        String(el.count).indexOf(this.count_search) !== -1
-    });
-
-    return groups.sort((a, b) => {
-      if (Number(a[`${this.sort[0]}`]) > Number(b[`${this.sort[0]}`])) {
-        return (this.sort[1])? -1 : 1;
-      } else {
-        return (this.sort[1])? 1 : -1;
-      }
-    })
-  }
-
-  changeSort(type) {
-    if (this.sort[0] === type) {
-      this.sort[1] = !this.sort[1];
-    } else {
-      this.sort[1] = false;
-    }
-
-    this.sort[0] = type;
+  changeGroupSort(type: string) {
+    this.groupSorts[1] = (this.groupSorts[0] === type)? !this.groupSorts[1] : false;
+    this.groupSorts[0] = type;
   }
 }

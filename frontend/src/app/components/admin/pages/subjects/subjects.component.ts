@@ -24,6 +24,7 @@ export class AdminSubjectsComponent implements OnInit {
 
   //*****************************************************************************
   public addSubjectData: any;
+  public selectedSubject: any;
 
   public subjectsSorts: [string, boolean] = ['name', false];
   public subjectFilters: Object = {name: '', teacher: ''};
@@ -37,40 +38,13 @@ export class AdminSubjectsComponent implements OnInit {
 
   public subjects: Array<Object> = [];
   public teachers: Array<Object> = [];
-
-  public groups = [
-    {
-      course: 1,
-      squad: 1,
-      count: 1,
-      assigned: false
-    }, {
-      course: 2,
-      squad: 2,
-      count: 2,
-      assigned: true
-    }, {
-      course: 3,
-      squad: 3,
-      count: 3,
-      assigned: false
-    }, {
-      course: 1,
-      squad: 3,
-      count: 3,
-      assigned: true
-    }, {
-      course: 13,
-      squad: 23,
-      count: 34,
-      assigned: true
-    }
-  ];
+  public groups: Array<Object> = [];
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
     this.addSubjectData = {};
+    this.selectedSubject = {};
 
     this.httpService.getSubjectList()
       .subscribe((subjects) => {
@@ -84,7 +58,7 @@ export class AdminSubjectsComponent implements OnInit {
   addSubject() {
     this.httpService.addSubject(this.addSubjectData.name, this.addSubjectData.teacher.id)
       .subscribe((id) => {
-        this.subjects.push({id, name: this.disciplineName, teacher: this.addSubjectData.teacher.name});
+        this.subjects.push({id, name: this.addSubjectData.name, teacher: this.addSubjectData.teacher.name});
         toast('Дисциплина добавлена!', 4000, 'success-toast');
         this.closeModalDisciplineAdd()
       }, (error) => {
@@ -96,8 +70,34 @@ export class AdminSubjectsComponent implements OnInit {
       });
   }
 
+  updateSubjects() {
+    const assignedGroupIds = [];
+
+    for (let i = 0; i < this.groups.length; i++) {
+      if (this.groups[i]['assigned'])
+        assignedGroupIds.push(this.groups[i]['id'])
+    }
+
+    this.httpService.updateSubjectGroups(this.selectedSubject.id, assignedGroupIds)
+      .subscribe(() => {
+        toast('Группы обновленны!', 4000, 'success-toast');
+        this.closeModalSubjectEdit();
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
+  }
+
   deleteSubject() {
-    this.subjects.splice(this.subjects.indexOf(this.selectedItem), 1);
+    this.httpService.deleteSubject(this.selectedSubject.id)
+      .subscribe(() => {
+        this.ngOnInit();
+        toast('Дисциплина удалена!', 4000, 'success-toast');
+        this.closeModalSubjectDelete();
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      });
   }
 
   openModalDisciplineAdd() {
@@ -111,27 +111,32 @@ export class AdminSubjectsComponent implements OnInit {
       });
   }
 
-  openModalSubjectDelete() {
-    this.deleteSubjectModal.emit({action:"modal",params:['open']});
-  }
-
-  openModalSubjectEdit() {
-    this.editSubjectModal.emit({action:"modal",params:['open']});
-  }
-
   closeModalDisciplineAdd() {
     this.addDisciplineModal.emit({action:"modal",params:['close']});
   }
 
-  closeModalSubjectDelete() {
-    this.deleteSubjectModal.emit({action:"modal",params:['close']});
+  openModalSubjectEdit() {
+    this.httpService.getGroupsByDisciplineId(this.selectedSubject.id)
+      .subscribe((groups) => {
+        this.groups = groups;
+        this.editSubjectModal.emit({action:"modal",params:['open']});
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      });
   }
 
   closeModalSubjectEdit() {
     this.editSubjectModal.emit({action:"modal",params:['close']});
   }
 
+  openModalSubjectDelete() {
+    this.deleteSubjectModal.emit({action:"modal",params:['open']});
+  }
 
+  closeModalSubjectDelete() {
+    this.deleteSubjectModal.emit({action:"modal",params:['close']});
+  }
 
   changeSubjectSort(type: string) {
     this.changeSort(this.subjectsSorts, type);

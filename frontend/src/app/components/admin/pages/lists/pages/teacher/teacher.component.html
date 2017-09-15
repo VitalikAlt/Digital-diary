@@ -1,0 +1,218 @@
+<div>
+  <table class="table bordered highlight centred">
+    <tr>
+      <th></th>
+      <th (click)="changeTeacherSort('name')" class="pointer-center">
+        ФИО
+        <i *ngIf="teacherSorts[0] === 'name' && !teacherSorts[1]" class="small material-icons pointer-center">arrow_downward</i>
+        <i *ngIf="teacherSorts[0] === 'name' && teacherSorts[1]" class="small material-icons pointer-center">arrow_upward</i>
+      </th>
+      <th>Действия</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="search">
+        <input type="text" class="form-control" placeholder="Поиск по имени" [(ngModel)]="teacherFilters.name">
+      </td>
+      <td>
+        <i materialize="tooltip" data-position="bottom" data-delay="10"
+           data-tooltip="Добавить" class="small material-icons pointer-center" (click)="modalUser = {}; openAddTeacherModal()">add</i>
+
+        <i materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить отмеченные" class="small material-icons pointer-center" (click)="openDeleteTeacherModal()">delete_sweep</i>
+      </td>
+    </tr>
+    <tr *ngFor="let teacher of teachers | filterBy: teacherFilters | orderBy: teacherSorts">
+      <td>
+        <input type="checkbox" class="filled-in" [(ngModel)]="teacher.deleted" (click)="changeDeletedTeachers(teacher)">
+      </td>
+      <td>{{teacher.name}}</td>
+      <!--редактировать профиль, редактировать логин и пароль, удалить-->
+      <td>
+        <i (click)="openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+        <i (click)="modalUser = teacher; openChangeTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+        <i (click)="setDeletedTeacher(teacher); openDeleteTeacherModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="addTeacherModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="addTeacherModal">
+  <div class="modal-content">
+    <h4 class="main">Добавить нового преподавателя</h4>
+    <div class="main-divider">
+      <h6>Личные данные:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Фамилия:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Имя:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Отчество:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.fatherName"/>
+    </div>
+    <div class="main-divider">
+      <h6>Аккаунт:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Логин:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.login"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Пароль:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.password"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="addTeacher()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeAddTeacherModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="changePasswordModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="changePasswordModal">
+  <div class="modal-content">
+    <h4 class="main">Изменить пароль</h4>
+    <div class="main-divider">
+      <h6>Аккаунт:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Логин:</span>
+      <input type="text" class="form-control" disabled/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Пароль:</span>
+      <input type="text" class="form-control"/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeChangePasswordModal()">Добавить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangePasswordModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="changeTeacherModal" class="modal modal-changer bottom-sheet" materialize="modal" [materializeActions]="changeTeacherModal">
+  <div class="modal-content modal-changer">
+    <h4 class="main">Редактирование преподавателя</h4>
+    <div>
+      <div class="main-divider">
+        <h6>Служебные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Воинское звание:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.military_rank"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Должность на кафедре:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.work_position"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Начало работы:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.work_start_year"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Личные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Фамилия:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Имя:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Отчество:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.father_name"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес рождения:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.birth_place"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Дата рождения:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.birth_date" materialize="pickadate"
+               [materializeParams]="[{format: 'dd/mm/yyyy', selectMonths: false, selectYears: 80}]"/>
+      </div>
+    </div>
+    <div>
+      <div class="main-divider">
+        <h6>Персональные данные:</h6>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+        <div class="divider"></div>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Образование:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.education"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Адрес проживания:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.residence_address"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Номер пасспорта:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.passport_number"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Серия пасспорта:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.passport_series"/>
+      </div>
+      <div class="form-group modal-input-block">
+        <span>Номер военного билета:</span>
+        <input type="text" class="form-control" [(ngModel)]="modalUser.military_number"/>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="saveTeacherData();">Сохранить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangeTeacherModal()">Отмена</button>
+  </div>
+</div>
+
+<div id="deleteTeacherModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="deleteTeacherModal">
+  <div class="modal-content">
+    <h4 class="main">Удаление состава:</h4>
+    <span>Вы уверены, что хотите удалить данные преподавателей:</span>
+
+    <table class="table bordered highlight centred">
+      <tr>
+        <th>№</th>
+        <th>ФИО</th>
+      </tr>
+      <tr *ngFor="let teacher of teachersForDelete; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{teacher.name}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="deleteTeachers();">Удалить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeDeleteTeacherModal()">Отмена</button>
+  </div>
+</div>

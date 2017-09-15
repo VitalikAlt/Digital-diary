@@ -3,7 +3,7 @@ const StudentProfile = require('./table');
 class StudentProfileQuery {
     static get(params = {}) {
         return new Promise((res, rej) => {
-            StudentProfile.find(params, (err, data) => {
+            StudentProfile.find(params, {__v: false}, (err, data) => {
                 return res(data);
             })
         });

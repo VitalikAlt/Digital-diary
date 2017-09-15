@@ -1,17 +1,17 @@
 const Group = require('./table');
 
 class GroupQuery {
-    static getId(course, squad) {
+    static get(params = {}) {
         return new Promise((res, rej) => {
-            Group.find({course, squad}, (err, data) => {
-                return data[0]? res(data[0]._id) : res(undefined);
+            Group.find(params, {_v: false}, (err, data) => {
+                return err? rej(err) : res(data);
             })
         });
     }
 
-    static add(course, squad) {
+    static add(discipline_id, group_id) {
         return new Promise((res, rej) => {
-            const newItem = new Group({course, squad});
+            const newItem = new Group({discipline_id, group_id});
 
             newItem.save(function (err) {
                 return (!err)? res(newItem._id) : rej(err);

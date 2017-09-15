@@ -1,6 +1,14 @@
 const User = require('./table');
 
 class UserQuery {
+    static getById(id) {
+        return new Promise((res, rej) => {
+            User.find({_id: id}, (err, data) => {
+                return err? rej(err) : res(data[0]);
+            })
+        });
+    }
+
     static getUserIdExist(id) {
         return new Promise((res, rej) => {
             User.find({_id: id}, (err, data) => {
@@ -39,7 +47,7 @@ class UserQuery {
         });
     }
 
-    static updatePassword(login, newPassword) {
+    static updatePassword(id, newPassword) {
         return new Promise((res, rej) => {
             User.update({login: login}, {password: newPassword}, (err, result) => {
                 return (err)? rej(err) : res(result);

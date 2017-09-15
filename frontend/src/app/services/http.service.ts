@@ -43,14 +43,26 @@ export class HttpService {
       .catch(this.handleError);
   }
 
-  signUp(login: string, password: string, user: {login, password, role}): Observable<string> {
+  getStudentList(): Observable<Array<Object>> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'sign_up';
+    let url = this.baseUrl + 'student/list';
 
     return this.http
-      .post(url, JSON.stringify({login, password, user}), options)
+      .post(url, JSON.stringify({}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getStudentProfile(id): Observable<Object> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'student/get_profile';
+
+    return this.http
+      .post(url, JSON.stringify({id}), options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -66,6 +78,23 @@ export class HttpService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  updateStudentProfile(student): Observable<string> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'student/update';
+
+    return this.http
+      .post(url, JSON.stringify({id: student.id, data: student}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
+
+
+
 
   getTeacherProfile(id): Observable<Object> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -127,6 +156,18 @@ export class HttpService {
       .catch(this.handleError);
   }
 
+  getSubjectList(): Observable<Array<Object>> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'discipline/list';
+
+    return this.http
+      .post(url, JSON.stringify({}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   addSubject(name, teacher_id): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -139,11 +180,59 @@ export class HttpService {
       .catch(this.handleError);
   }
 
-  getSubjectList(): Observable<Array<Object>> {
+  updateSubjectGroups(discipline_id, assigned_group_ids): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'discipline/list';
+    let url = this.baseUrl + 'discipline/update';
+
+    return this.http
+      .post(url, JSON.stringify({discipline_id, assigned_group_ids}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  deleteSubject(id): Observable<string> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'discipline/delete';
+
+    return this.http
+      .post(url, JSON.stringify({id}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getGroupsByDisciplineId(discipline_id): Observable<Array<Object>> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'group/get';
+
+    return this.http
+      .post(url, JSON.stringify({discipline_id}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getGroupList(): Observable<Array<Object>> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'group/list';
+
+    return this.http
+      .post(url, JSON.stringify({}), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  upGroups(): Observable<Boolean> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let url = this.baseUrl + 'group/up';
 
     return this.http
       .post(url, JSON.stringify({}), options)

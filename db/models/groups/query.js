@@ -1,6 +1,14 @@
 const Group = require('./table');
 
 class GroupQuery {
+    static get(params = {}) {
+        return new Promise((res, rej) => {
+            Group.find(params, {_v: false}, (err, data) => {
+                return err? rej(err) : res(data);
+            })
+        });
+    }
+
     static getId(course, squad) {
         return new Promise((res, rej) => {
             Group.find({course, squad}, (err, data) => {
@@ -19,7 +27,7 @@ class GroupQuery {
         });
     }
 
-    static update(params, conditions) {
+    static update(params, conditions = {}) {
         return new Promise((res, rej) => {
             Group.update(conditions, params, function (err) {
                 return (!err)? res(true) : rej(err);

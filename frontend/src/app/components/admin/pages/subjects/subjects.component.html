@@ -16,9 +16,9 @@
     </tr>
     <tr>
       <td>-</td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по названию" [(ngModel)]="subjectFilters.name" [ngModelOptions]="{standalone: true}"></td>
-      <td class="search"><input type="text" class="form-control" placeholder="Поиск по преподавателю" [(ngModel)]="subjectFilters.teacher" [ngModelOptions]="{standalone: true}"></td>
-      <td><i (click)="openModalDisciplineAdd()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по названию" [(ngModel)]="subjectFilters.name"></td>
+      <td class="search"><input class="form-control" placeholder="Поиск по преподавателю" [(ngModel)]="subjectFilters.teacher"></td>
+      <td><i (click)="addSubjectData = {}; openModalDisciplineAdd()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Добавить" class="small material-icons pointer-center">add</i></td>
     </tr>
     <tr *ngFor="let subject of subjects | filterBy: subjectFilters | orderBy: subjectsSorts; let i = index">
       <td>{{i + 1}}</td>
@@ -26,8 +26,8 @@
       <td>{{subject.teacher}}</td>
       <!--редактировать профиль, редактировать логин и пароль, удалить-->
       <td>
-        <i (click)="openModalSubjectEdit(); selectedItem = subject" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать группы" class="small material-icons pointer-center">chrome_reader_mode</i>
-        <i (click)="openModalSubjectDelete(); selectedItem = subject" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
+        <i (click)="selectedSubject = subject; openModalSubjectEdit()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать группы" class="small material-icons pointer-center">chrome_reader_mode</i>
+        <i (click)="selectedSubject = subject; openModalSubjectDelete()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
       </td>
     </tr>
   </table>
@@ -38,10 +38,10 @@
     <div class="main-content">
       <h4 class="main">Добавить новую дисциплину</h4>
       <span>Название дисциплины:</span>
-      <input type="text" class="form-control" [(ngModel)]="addSubjectData.name" [ngModelOptions]="{standalone: true}">
+      <input class="form-control" [(ngModel)]="addSubjectData.name">
       <br>
       <span>Преподаватель:</span>
-      <input type="text" class="form-control" [(ngModel)]="teacherFilters.name" [ngModelOptions]="{standalone: true}">
+      <input class="form-control" [(ngModel)]="teacherFilters.name">
     </div>
     <div class="teachers-list">
       <table class="table bordered highlight centred">
@@ -84,13 +84,13 @@
         </tr>
         <tr>
           <td>
-            <input *ngIf="groupAssignedSearchPower" type="checkbox" class="filled-in" id="filled-in-box" [(ngModel)]="groupAssignedSearch" [ngModelOptions]="{standalone: true}"/>
+            <input *ngIf="groupAssignedSearchPower" type="checkbox" class="filled-in" id="filled-in-box" [(ngModel)]="groupAssignedSearch"/>
           </td>
-          <td class="search"><input type="text" class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupFilters.course" [ngModelOptions]="{standalone: true}"></td>
-          <td class="search"><input type="text" class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupFilters.squad" [ngModelOptions]="{standalone: true}"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupFilters.course"></td>
+          <td class="search"><input class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupFilters.squad"></td>
         </tr>
         <tr *ngFor="let group of groups | filterBy: groupFilters | orderBy: groupSorts" class="pointer-center">
-          <td><input type="checkbox" class="filled-in" [(ngModel)]="group.assigned" [ngModelOptions]="{standalone: true}"></td>
+          <td><input type="checkbox" class="filled-in" [(ngModel)]="group.assigned"></td>
           <td (click)="group.assigned = !group.assigned">{{group.course}}</td>
           <td (click)="group.assigned = !group.assigned">{{group.squad}}</td>
         </tr>
@@ -98,7 +98,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="addSubject();">Сохранить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="updateSubjects();">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalSubjectEdit()">Отмена</button>
   </div>
 </div>
@@ -112,7 +112,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat red" (click)="deleteSubject(); closeModalSubjectDelete()">Удалить</button>
+    <button class="waves-effect waves-green btn-flat red" (click)="deleteSubject();">Удалить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalSubjectDelete()">Отмена</button>
   </div>
 </div>
