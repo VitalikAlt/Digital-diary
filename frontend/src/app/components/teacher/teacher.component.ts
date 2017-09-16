@@ -12,7 +12,7 @@ export class TeacherComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   deleteAllCookies() {
     this.userService.set({});

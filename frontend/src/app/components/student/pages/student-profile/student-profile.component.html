@@ -1,7 +1,7 @@
 <div class="student-page-container">
   <div class="student-card">
     <div class="student-small-card">
-      <h4 class="h4">{{surname}} {{name}} {{fatherName}}</h4>
+      <h4 class="h4">{{student.surname}} {{student.name}} {{student.father_name}}</h4>
       <table class="big-screen">
         <tr>
           <td style="width: 60%">
@@ -11,12 +11,12 @@
             <div class="divider"></div>
             <div class="section">
               <h6>Взвод:</h6>
-              <p>7</p>
+              <p>{{student.squad}}</p>
             </div>
             <div class="divider"></div>
             <div class="section">
               <h6>Курс:</h6>
-              <p>3</p>
+              <p>{{student.course}}</p>
             </div>
           </td>
           <td>
@@ -33,12 +33,12 @@
       <div class="divider small-screen"></div>
       <div class="section small-screen">
         <h6>Взвод:</h6>
-        <p>7</p>
+        <p>{{student.squad}}</p>
       </div>
       <div class="divider small-screen"></div>
       <div class="section small-screen">
         <h6>Курс:</h6>
-        <p>3</p>
+        <p>{{student.course}}</p>
       </div>
       <!--<div class="divider"></div>-->
       <h4 class="h4" style="margin-top: 30px">Персональные данные</h4>
@@ -48,42 +48,42 @@
       <div class="divider"></div>
       <div class="section">
         <h6>Дата рождений:</h6>
-        <p>16/11/1996</p>
+        <p>{{student.birth_date}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Место рождения:</h6>
-        <p>г. Иваново улица Шубиных, дом 5</p>
+        <p>{{student.birth_place}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Семейное положение:</h6>
-        <p>Холост</p>
+        <p>{{student.family_status}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Общественная работа:</h6>
-        <p>Отсутствует</p>
+        <p>{{student.public_work}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Образовение:</h6>
-        <p>Высшее там-то там-то</p>
+        <p>{{student.education}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Год приёма:</h6>
-        <p>2015</p>
+        <p>{{student.start_study_year}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Факультет:</h6>
-        <p>ИВТФ</p>
+        <p>{{student.faculty}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Заключение ВВК:</h6>
-        <p>Б - годен с ограничением</p>
+        <p>{{student.conclusion}}</p>
       </div>
 
       <h4 class="h4" style="margin-top: 30px">Контактные данные</h4>
@@ -92,28 +92,28 @@
       <div class="divider"></div>
       <div class="divider"></div>
       <div class="section">
-        <h6>Адрес, номер телефона:</h6>
-        <p>г. Иваново улица Свободы дом 55, 89125875256</p>
+        <h6>Адрес, номер телефона (нужно разбить):</h6>
+        <p>{{student.residence_address}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>ФИО матери, место работы:</h6>
-        <p>Марьина Александра Сергеевна, ООО "Черепашьи радости"</p>
+        <p>{{student.mother_data}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Адрес матери, номер телефона:</h6>
-        <p>г. Иваново улица Свободы дом 55, 89125875256</p>
+        <p>{{student.mother_residence}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>ФИО отца, место работы:</h6>
-        <p>Грустин Алексей Максимович, ООО "Мамькины дети"</p>
+        <p>{{student.data}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Адрес отца, номер телефона:</h6>
-        <p>г. Иваново улица Свободы дом 55, 89125875256</p>
+        <p>{{student.mother_residence}}</p>
       </div>
 
       <h4 class="h4" style="margin-top: 30px">Документы</h4>
@@ -123,22 +123,22 @@
       <div class="divider"></div>
       <div class="section">
         <h6>Номер прописного свидетельства:</h6>
-        <p>25875256</p>
+        <p>{{student.cumulative_number}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Номер студенческого билета:</h6>
-        <p>563284325432</p>
+        <p>{{student.student_card_number}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Номер военного билета:</h6>
-        <p>752312556</p>
+        <p>{{student.military_number}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Дата, номер приказа ректора о заключении контракта:</h6>
-        <p>11.11.2014, 73286329</p>
+        <p>{{student.contract_data}}</p>
       </div>
     </div>
   </div>

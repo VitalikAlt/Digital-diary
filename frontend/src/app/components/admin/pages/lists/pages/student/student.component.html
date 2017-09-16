@@ -46,7 +46,7 @@
       <td>{{student.course}}</td>
       <td>{{student.squad}}</td>
       <td>
-        <i (click)="openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
+        <i (click)="modalUser = student; openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
         <i (click)="modalUser = student; openChangeStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
         <i (click)="setDeletedStudent(student); openDeleteStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
       </td>
@@ -127,15 +127,15 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Логин:</span>
-      <input type="text" class="form-control" disabled/>
+      <input class="form-control" [(ngModel)]="modalUser.login" disabled/>
     </div>
     <div class="form-group modal-input-block">
       <span>Пароль:</span>
-      <input type="text" class="form-control"/>
+      <input class="form-control" [(ngModel)]="modalUser.new_password"/>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="createSubject(); closeChangePasswordModal()">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="changePassword();">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangePasswordModal()">Отмена</button>
   </div>
 </div>
@@ -182,7 +182,7 @@
       </div>
       <div class="form-group modal-input-block">
         <span>Дата рождения:</span>
-        <input class="form-control" [(ngModel)]="modalUser.birt_date" materialize="pickadate"
+        <input class="form-control" [(ngModel)]="modalUser.birth_date" materialize="pickadate"
                [materializeParams]="[{format: 'dd/mm/yyyy', selectMonths: false, selectYears: 80}]"/>
       </div>
     </div>
@@ -287,7 +287,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="updateStudent();">Добавить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="updateStudent();">Сохранить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangeStudentModal()">Отмена</button>
   </div>
 </div>

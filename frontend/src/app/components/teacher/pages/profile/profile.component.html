@@ -1,7 +1,7 @@
 <div class="teacher-page-container">
   <div class="student-card">
     <div class="student-small-card">
-      <h4 class="h4">{{surname}} {{name}} {{fatherName}}</h4>
+      <h4 class="h4">{{teacher.surname}} {{teacher.name}} {{teacher.father_name}}</h4>
       <table class="big-screen">
         <tr>
           <td style="width: 60%">
@@ -11,12 +11,12 @@
             <div class="divider"></div>
             <div class="section">
               <h6>Воинское звание:</h6>
-              <p>Подполковник</p>
+              <p>{{teacher.military_rank}}</p>
             </div>
             <div class="divider"></div>
             <div class="section">
               <h6>Должность на кафедре:</h6>
-              <p>Старший преподаватель</p>
+              <p>{{teacher.work_position}}</p>
             </div>
           </td>
           <td>
@@ -33,12 +33,12 @@
       <div class="divider small-screen"></div>
       <div class="section small-screen">
         <h6>Воинское звание:</h6>
-        <p>Подполковник</p>
+        <p>{{teacher.military_rank}}</p>
       </div>
       <div class="divider small-screen"></div>
       <div class="section small-screen">
         <h6>Должность на кафедре:</h6>
-        <p>Старший преподаватель</p>
+        <p>{{teacher.work_position}}</p>
       </div>
       <!--<div class="divider"></div>-->
       <h4 class="h4" style="margin-top: 30px">Персональные данные</h4>
@@ -48,22 +48,22 @@
       <div class="divider"></div>
       <div class="section">
         <h6>Образовение:</h6>
-        <p>Высшее там-то там-то</p>
+        <p>{{teacher.education}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Дата рождений:</h6>
-        <p>16/11/1996</p>
+        <p>{{teacher.birth_date}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Начало работы:</h6>
-        <p>2015</p>
+        <p>{{teacher.work_start_year}}</p>
       </div>
       <div class="divider"></div>
       <div class="section">
         <h6>Адрес проживания:</h6>
-        <p>г. Иваново ул. Зеленная д. 55</p>
+        <p>{{teacher.residence_address}}</p>
       </div>
     </div>
   </div>

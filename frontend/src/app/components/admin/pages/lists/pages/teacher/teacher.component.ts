@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../../../services/http.service';
+import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-admin-lists',
@@ -41,7 +42,7 @@ export class TeacherListComponent implements OnInit {
       || !this.modalUser.fatherName || !this.modalUser.login || !this.modalUser.password)
       return toast('Заполнены не все поля!', 4000, 'error-toast');
 
-    this.httpService.addTeacher(this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName, this.modalUser.login, this.modalUser.password)
+    this.httpService.addTeacher(this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName, this.modalUser.login, Md5.hashStr(this.modalUser.password).toString())
       .subscribe((id) => {
         this.teachers.push({
           id: id,
@@ -59,8 +60,21 @@ export class TeacherListComponent implements OnInit {
       })
   }
 
+  changePassword() {
+    this.httpService.changePassword(this.modalUser.id, Md5.hashStr(this.modalUser.new_password).toString())
+      .subscribe((result) => {
+        toast('Пароль успешно изменён!', 4000, 'success-toast');
+        this.closeChangePasswordModal();
+      }, (error) => {
+        if (error === "No user with that id!")
+          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
+
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
+  }
+
   saveTeacherData() {
-    console.log(this.modalUser);
     this.httpService.updateTeacherProfile(this.modalUser)
       .subscribe((result) => {
         toast('Преподаватель обновлён!', 4000, 'success-toast');
@@ -124,7 +138,17 @@ export class TeacherListComponent implements OnInit {
   }
 
   openChangePasswordModal() {
-    this.changePasswordModal.emit({action:"modal",params:['open']});
+    this.httpService.getTeacherUserData(this.modalUser.id)
+      .subscribe((result) => {
+        this.changePasswordModal.emit({action:"modal",params:['open']});
+        this.modalUser = result;
+      }, (error) => {
+        if (error === "No user with that id!")
+          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
+
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      });
   }
 
   closeChangePasswordModal() {

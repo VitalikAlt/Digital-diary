@@ -1,3 +1,4 @@
+//TODO: В роут должна поступать инфа о том, кто юзер
 class BaseRoute {
     constructor(core, req, res, params) {
         this.core = core;

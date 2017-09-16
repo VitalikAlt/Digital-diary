@@ -49,7 +49,7 @@ class UserQuery {
 
     static updatePassword(id, newPassword) {
         return new Promise((res, rej) => {
-            User.update({login: login}, {password: newPassword}, (err, result) => {
+            User.update({_id: id}, {password: newPassword}, (err, result) => {
                 return (err)? rej(err) : res(result);
             })
         })

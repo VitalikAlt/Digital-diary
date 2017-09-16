@@ -36,7 +36,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'student/:id', component: StudentComponent,
+    path: 'student', component: StudentComponent,
     children:
       [
         { path: '', redirectTo: 'profile', pathMatch: "full"},

@@ -6,7 +6,7 @@
         </div>
         <a>
           <div class="userImg"></div>
-          <span class="white-text name" style="margin-left: 10px">Косов Р. М.</span>
+          <span class="white-text name" style="margin-left: 10px">{{userService.user.name}}</span>
         </a>
       </div>
     </li>
@@ -26,11 +26,11 @@
 
 <div class="col s12 tabs-container">
   <ul class="tabs" materialize="tabs">
+    <li class="tab col s3"><a [routerLink]="['profile']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Профиль</a></li>
+    <li class="tab col s3"><a [routerLink]="['journal']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Журнал</a></li>
+    <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Расписание</a></li>
+    <li class="tab col s3"><a [routerLink]="['reports']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Отчёты</a></li>
     <li class="tab col s3 pull-right pointer-center"><a (click)="deleteAllCookies()">Выйти</a></li>
-    <li class="tab col s3"><a [routerLink]="['profile']" [routerLinkActive]="['active']">Профиль</a></li>
-    <li class="tab col s3"><a [routerLink]="['journal']" [routerLinkActive]="['active']">Журнал</a></li>
-    <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
-    <li class="tab col s3"><a [routerLink]="['reports']" [routerLinkActive]="['active']">Отчёты</a></li>
   </ul>
 </div>
 

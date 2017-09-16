@@ -1,8 +1,8 @@
 <div>
   <div class="col s12 tabs-container">
     <ul class="tabs list-states" materialize="tabs">
-      <li class="tab pointer-half"><a [routerLink]="['students']" [routerLinkActive]="['active']">Студенты</a></li>
-      <li class="tab pointer-half"><a [routerLink]="['teachers']" [routerLinkActive]="['active']">Преподаватели</a></li>
+      <li class="tab pointer-half"><a [routerLink]="['students']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Студенты</a></li>
+      <li class="tab pointer-half"><a [routerLink]="['teachers']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Преподаватели</a></li>
     </ul>
   </div>
   <router-outlet></router-outlet>

@@ -1,5 +1,6 @@
 const BaseRoute = require(appRoot + '/routing/BaseRoute');
 
+//TODO разгроничить поля, которые отдаются админу и преподавателю
 class TeacherGetProfileRoute extends BaseRoute {
     constructor(core, req, res, params) {
         super(core, req, res, params);

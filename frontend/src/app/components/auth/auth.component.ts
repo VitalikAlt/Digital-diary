@@ -63,8 +63,11 @@ export class AuthComponent implements OnInit {
     if (!this.remember)
       return;
 
-    Cookie.set('stock_login', user.login);
-    Cookie.set('stock_password', user.password);
-    Cookie.set('stock_role', user.role);
+    Cookie.set('diary_login', user.login);
+    Cookie.set('diary_password', user.password);
+    Cookie.set('diary_role', user.role);
+
+    if (user.profile_id)
+      Cookie.set('diary_profile_id', user.profile_id);
   }
 }

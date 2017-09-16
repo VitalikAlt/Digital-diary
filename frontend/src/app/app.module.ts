@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MaterializeModule } from 'angular2-materialize';
 import { AppRoutingModule } from "./app-routing.module";
 import { NgSpinningPreloader } from 'ng2-spinning-preloader';
@@ -72,7 +72,7 @@ import { ArrayFilterPipe } from './pipes/filterBy';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     MaterializeModule
   ],

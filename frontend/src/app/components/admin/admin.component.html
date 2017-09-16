@@ -20,10 +20,10 @@
 
 <div class="col s12 tabs-container">
   <ul class="tabs" materialize="tabs">
+    <li class="tab col s3"><a [routerLink]="['lists']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Списки</a></li>
+    <li class="tab col s3"><a [routerLink]="['subjects']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Дисциплины</a></li>
+    <li class="tab col s3"><a [routerLink]="['groups']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Группы</a></li>
     <li class="tab col s3 pull-right pointer-center"><a (click)="deleteAllCookies()">Выйти</a></li>
-    <li class="tab col s3"><a [routerLink]="['lists']" [routerLinkActive]="['active']">Списки</a></li>
-    <li class="tab col s3"><a [routerLink]="['subjects']" [routerLinkActive]="['active']">Дисциплины</a></li>
-    <li class="tab col s3"><a [routerLink]="['groups']" [routerLinkActive]="['active']">Группы</a></li>
   </ul>
 </div>
 

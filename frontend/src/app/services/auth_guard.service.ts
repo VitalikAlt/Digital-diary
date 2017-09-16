@@ -16,12 +16,19 @@ export class AuthGuard implements CanActivate {
       if (!this.userService.user) {
         const cookies = Cookie.getAll();
 
-        if (!cookies.stock_login) {
+        if (!cookies.diary_login) {
           this.router.navigate(['/auth']);
           return res(false);
         }
 
-        this.userService.set({login: cookies.stock_login, password: cookies.stock_password});
+        const user = {
+          login: cookies.diary_login,
+          password: cookies.diary_password,
+          profile_id: cookies.diary_profile_id,
+          name: cookies.diary_name
+        };
+
+        this.userService.set(user);
       }
 
       return this.httpService.signIn(this.userService.user.login, this.userService.user.password)
@@ -49,7 +56,14 @@ export class AuthGuard implements CanActivate {
         if (!cookies.stock_login)
           return false;
 
-        this.userService.set({login: cookies.stock_login, password: cookies.stock_password});
+        const user = {
+          login: cookies.diary_login,
+          password: cookies.diary_password,
+          profile_id: cookies.diary_profile_id,
+          name: cookies.diary_name
+        };
+
+        this.userService.set(user);
       }
 
       return this.httpService.signIn(this.userService.user.login, this.userService.user.password)

@@ -6,14 +6,14 @@
         </div>
         <a>
           <div class="userImg"></div>
-          <span class="white-text name" style="margin-left: 10px">Косов Р. М.</span>
+          <span class="white-text name" style="margin-left: 10px">{{userService.user.name}}</span>
         </a>
       </div>
     </li>
     <li class="tab"><a [routerLink]="['profile']" [routerLinkActive]="['active']">Профиль</a></li>
     <li class="tab"><a [routerLink]="['progress']" [routerLinkActive]="['active']">Успеваемость</a></li>
     <li class="tab"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
-    <li class="tab"><a routerLink="/auth">Выйти</a></li>
+    <li class="tab"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
   <a materialize="sideNav" [materializeParams]="[{edge:'left', draggable: true, menuWidth: 300, closeOnClick: true}]"
      href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -24,10 +24,10 @@
 
 <div class="col s12 tabs-container">
   <ul class="tabs" materialize="tabs">
-    <li class="tab col s3 pull-right"><a routerLink="/auth">Выйти</a></li>
-    <li class="tab col s3"><a [routerLink]="['profile']" [routerLinkActive]="['active']">Профиль</a></li>
-    <li class="tab col s3"><a [routerLink]="['progress']" [routerLinkActive]="['active']">Успеваемость</a></li>
-    <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
+    <li class="tab col s3"><a [routerLink]="['profile']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Профиль</a></li>
+    <li class="tab col s3"><a [routerLink]="['progress']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Успеваемость</a></li>
+    <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Расписание</a></li>
+    <li class="tab col s3 pull-right pointer-center"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
 </div>
 

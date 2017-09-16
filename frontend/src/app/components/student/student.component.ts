@@ -1,8 +1,7 @@
 import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import { User } from '../../user';
-import { UserService1 } from '../../user.service'
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-student',
@@ -11,19 +10,14 @@ import { UserService1 } from '../../user.service'
 })
 export class StudentComponent implements OnInit {
 
-  private user: User;
+  constructor(private userService: UserService, private router: Router) { }
 
-  constructor(
-    private activeRoute: ActivatedRoute,
-    private userService: UserService1
-  ) { }
+  ngOnInit() { }
 
-  ngOnInit() {
-    this.activeRoute.params
-      .switchMap((params: Params) => this.userService.getUser(+params['id']))
-      .subscribe(user => this.user = user)
+  deleteAllCookies() {
+    this.userService.set({});
+    Cookie.deleteAll();
+    console.log(Cookie.getAll());
+    this.router.navigate(['/auth']);
   }
-
-  printRouterLink
-
 }

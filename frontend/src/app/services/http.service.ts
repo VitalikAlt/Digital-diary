@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+import { UserService } from './user.service';
+import { toast } from "angular2-materialize";
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,84 +14,65 @@ export class HttpService {
 
   private baseUrl = 'http://localhost:8080/';
 
-  constructor(private http: Http) { }
+  constructor(private httpClient: HttpClient, private userService: UserService) { }
 
-  private extractData (res: Response) {
-    let body = res.json();
-    return body || { };
-  }
+  private sendRequest(url, body): Observable<any> {
+    if (url !== 'sign_in') {
+      const user = this.userService.user;
 
-  private handleError(error: Response | any) {
-    let errMsg: string;
+      if (!user.login || !user.password) {
+        toast('Критическая ошибка! Перезагрузите страницу!', 4000, 'error-toast');
+        return Observable.throw('UserService critical error!');
+      }
 
-    if (error instanceof Response) {
-      const err = error.json() || '';
-      errMsg = (typeof err === 'object')? err.message : err;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
+
+      Object.assign(body, {login: user.login, password: user.password});
     }
 
-    return Observable.throw(errMsg);
+    return this.httpClient.post(this.baseUrl + url, body)
+      .catch(this.handleError);
   }
+
+  private handleError(errorResponse: HttpErrorResponse) {
+    let error;
+
+    try {
+      error = JSON.parse(errorResponse.error).message || errorResponse.error;
+    } catch (err) {
+      error = errorResponse.statusText;
+    }
+
+    return Observable.throw(error);
+  }
+
+
+
+
+
 
   signIn(login: string, password: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'sign_in';
-
-    return this.http
-      .post(url, JSON.stringify({login, password}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('sign_in', {login, password});
   }
+
+
+
+
+
 
   getStudentList(): Observable<Array<Object>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'student/list';
-
-    return this.http
-      .post(url, JSON.stringify({}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('student/list',{});
   }
 
-  getStudentProfile(id): Observable<Object> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'student/get_profile';
-
-    return this.http
-      .post(url, JSON.stringify({id}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+  getStudentProfile(id: string): Observable<Object> {
+    return this.sendRequest('student/get_profile',{id});
   }
 
   addStudent(course: string, squad: string, surname: string, name: string, father_name: string, login: string, password: string): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'student/add';
-
-    return this.http
-      .post(url, JSON.stringify({course, squad, surname, name, father_name, login, password}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('student/add',{course, squad, surname, name, father_name, login, password});
   }
 
   updateStudentProfile(student): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'student/update';
-
-    return this.http
-      .post(url, JSON.stringify({id: student.id, data: student}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('student/update',{id: student.id, data: student});
   }
 
 
@@ -97,158 +81,87 @@ export class HttpService {
 
 
   getTeacherProfile(id): Observable<Object> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'teacher/get_profile';
-
-    return this.http
-      .post(url, JSON.stringify({id}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('teacher/get_profile',{id});
   }
 
   updateTeacherProfile(teacher): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'teacher/update';
-
-    return this.http
-      .post(url, JSON.stringify({id: teacher.id, data: teacher}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('teacher/update',{id: teacher.id, data: teacher});
   }
 
   addTeacher(surname, name, father_name, login, password): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'teacher/add';
-
-    return this.http
-      .post(url, JSON.stringify({surname, name, father_name, login, password}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('teacher/add',{surname, name, father_name, login, password});
   }
 
   deleteTeachers(ids): Observable<Array<Object>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'teacher/delete';
-
-    return this.http
-      .post(url, JSON.stringify({ids}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('teacher/delete',{ids});
   }
 
   getTeacherList(): Observable<Array<Object>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'teacher/list';
-
-    return this.http
-      .post(url, JSON.stringify({}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('teacher/list',{});
   }
 
+
+
+
+
+
   getSubjectList(): Observable<Array<Object>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'discipline/list';
-
-    return this.http
-      .post(url, JSON.stringify({}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('discipline/list',{});
   }
 
   addSubject(name, teacher_id): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'discipline/add';
-
-    return this.http
-      .post(url, JSON.stringify({name, teacher_id}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('discipline/add',{name, teacher_id});
   }
 
   updateSubjectGroups(discipline_id, assigned_group_ids): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'discipline/update';
-
-    return this.http
-      .post(url, JSON.stringify({discipline_id, assigned_group_ids}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('discipline/update',{discipline_id, assigned_group_ids});
   }
 
   deleteSubject(id): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'discipline/delete';
-
-    return this.http
-      .post(url, JSON.stringify({id}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('discipline/delete',{id});
   }
 
+
+
+
+
+
   getGroupsByDisciplineId(discipline_id): Observable<Array<Object>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'group/get';
-
-    return this.http
-      .post(url, JSON.stringify({discipline_id}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('group/get',{discipline_id});
   }
 
   getGroupList(): Observable<Array<Object>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'group/list';
-
-    return this.http
-      .post(url, JSON.stringify({}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('group/list',{});
   }
 
   upGroups(): Observable<Boolean> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    let url = this.baseUrl + 'group/up';
-
-    return this.http
-      .post(url, JSON.stringify({}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.sendRequest('group/up',{});
   }
 
-  resetAdmin(secretKey: string, login: string, password: string): Observable<string> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
 
-    let url = this.baseUrl + 'reset_admin';
 
-    return this.http
-      .post(url, JSON.stringify({login, password, secret_key: secretKey}), options)
-      .map(this.extractData)
-      .catch(this.handleError);
+
+
+
+  getStudentUserData(student_id) {
+    return this.sendRequest('user/get', {student_id});
+  }
+
+  getTeacherUserData(teacher_id) {
+    return this.sendRequest('user/get', {teacher_id});
+  }
+
+  changePassword(id: string, new_password: string, old_password?: string): Observable<string> {
+    const params = old_password? {id, new_password, old_password} : {id, new_password};
+    return this.sendRequest('user/change_password', params);
+  }
+
+
+
+
+
+
+  resetAdmin(login: string, password: string, secret_key: string): Observable<string> {
+    return this.sendRequest('reset_admin', {login, password, secret_key});
   }
 }
