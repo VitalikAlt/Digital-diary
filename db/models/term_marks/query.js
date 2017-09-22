@@ -1,9 +1,9 @@
-const Group = require('./table');
+const TermMarks = require('./table');
 
-class GroupQuery {
-    static get(params = {}) {
+class TermMarksQuery {
+    static get(discipline_id, student_ids) {
         return new Promise((res, rej) => {
-            Group.find(params, {_v: false}, (err, data) => {
+            TermMarks.find({discipline_id, student_id: { $in: student_ids }}, {_v: false}, (err, data) => {
                 return err? rej(err) : res(data);
             })
         });
@@ -11,15 +11,15 @@ class GroupQuery {
 
     static getId(course, squad) {
         return new Promise((res, rej) => {
-            Group.find({course, squad}, (err, data) => {
+            TermMarks.find({course, squad}, (err, data) => {
                 return data[0]? res(data[0]._id) : res(undefined);
             })
         });
     }
 
-    static add(course, squad) {
+    static add(data) {
         return new Promise((res, rej) => {
-            const newItem = new Group({course, squad});
+            const newItem = new TermMarks(data);
 
             newItem.save(function (err) {
                 return (!err)? res(newItem._id) : rej(err);
@@ -29,7 +29,7 @@ class GroupQuery {
 
     static update(params, conditions = {}) {
         return new Promise((res, rej) => {
-            Group.update(conditions, params, function (err) {
+            TermMarks.update(conditions, params, function (err) {
                 return (!err)? res(true) : rej(err);
             });
         });
@@ -37,11 +37,11 @@ class GroupQuery {
 
     static delete(params) {
         return new Promise((res, rej) => {
-            Group.remove(params, (err, success) => {
+            TermMarks.remove(params, (err, success) => {
                 return (!err)? res(success) : rej(err);
             })
         })
     }
 }
 
-module.exports = GroupQuery;
+module.exports = TermMarksQuery;

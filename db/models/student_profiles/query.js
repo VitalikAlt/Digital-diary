@@ -9,6 +9,20 @@ class StudentProfileQuery {
         });
     }
 
+    static getUserIds(profileIds) {
+        return new Promise((res, rej) => {
+            StudentProfile.find({_id: { $in: profileIds }}, { user_id: true }, (err, data) => {
+                const ids = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    ids.push(data[i].user_id);
+                }
+
+                return res(ids);
+            })
+        })
+    }
+
     static add(el) {
         return new Promise((res, rej) => {
             const newItem = new StudentProfile(el);
@@ -27,9 +41,9 @@ class StudentProfileQuery {
         });
     }
 
-    static delete(params) {
+    static deleteByIds(ids) {
         return new Promise((res, rej) => {
-            StudentProfile.remove(params, (err, success) => {
+            StudentProfile.remove({_id: { $in: ids }}, (err, success) => {
                 return (!err)? res(success) : rej(err);
             })
         })

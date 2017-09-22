@@ -19,8 +19,8 @@ class StudentAddRoute extends BaseRoute {
             let groupId = await this.core.db.groups.getId(this.params.course, this.params.squad);
             groupId = groupId || (await this.core.db.groups.add(this.params.course, this.params.squad));
 
-            await this.core.db.studentProfile.add(Object.assign(this.params, {group_id: groupId, user_id: userId}));
-            this.complete(true);
+            const studentId = (await this.core.db.studentProfile.add(Object.assign(this.params, {group_id: groupId, user_id: userId})))._id;
+            this.complete(studentId);
         } catch (err) {
             this.core.log.error('StudentAdd error', err);
             this.complete(null, err, 'StudentAdd error');

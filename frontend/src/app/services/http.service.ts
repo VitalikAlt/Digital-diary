@@ -17,7 +17,7 @@ export class HttpService {
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
   private sendRequest(url, body): Observable<any> {
-    if (url !== 'sign_in') {
+    if (url !== 'sign_in' && url !== 'reset_admin') {
       const user = this.userService.user;
 
       if (!user.login || !user.password) {
@@ -26,7 +26,7 @@ export class HttpService {
       }
 
 
-      Object.assign(body, {login: user.login, password: user.password});
+      Object.assign(body, {sender: {login: user.login, password: user.password}});
     }
 
     return this.httpClient.post(this.baseUrl + url, body)
@@ -75,10 +75,19 @@ export class HttpService {
     return this.sendRequest('student/update',{id: student.id, data: student});
   }
 
+  deleteStudents(ids: Array<string>): Observable<String> {
+    return this.sendRequest('student/delete',{ids});
+  }
 
 
 
 
+
+
+
+  getTeacherList(): Observable<Array<Object>> {
+    return this.sendRequest('teacher/list',{});
+  }
 
   getTeacherProfile(id): Observable<Object> {
     return this.sendRequest('teacher/get_profile',{id});
@@ -92,18 +101,18 @@ export class HttpService {
     return this.sendRequest('teacher/add',{surname, name, father_name, login, password});
   }
 
-  deleteTeachers(ids): Observable<Array<Object>> {
+  deleteTeachers(ids): Observable<String> {
     return this.sendRequest('teacher/delete',{ids});
   }
 
-  getTeacherList(): Observable<Array<Object>> {
-    return this.sendRequest('teacher/list',{});
+
+
+
+
+
+  getSubjectsByTeacher(teacher_id: string): Observable<Array<Object>> {
+    return this.sendRequest('discipline/get',{teacher_id});
   }
-
-
-
-
-
 
   getSubjectList(): Observable<Array<Object>> {
     return this.sendRequest('discipline/list',{});
@@ -130,12 +139,29 @@ export class HttpService {
     return this.sendRequest('group/get',{discipline_id});
   }
 
+  getAssignedGroups(discipline_id: string): Observable<{squads, courses, ids}> {
+    return this.sendRequest('group/get_assigned',{discipline_id});
+  }
+
   getGroupList(): Observable<Array<Object>> {
     return this.sendRequest('group/list',{});
   }
 
   upGroups(): Observable<Boolean> {
     return this.sendRequest('group/up',{});
+  }
+
+
+
+
+
+
+  getMarks(discipline_id: string, group_id: string): Observable<Object> {
+    return this.sendRequest('mark/get',{discipline_id, group_id});
+  }
+
+  updateMarks(discipline_id: string, marks: Object): Observable<boolean> {
+    return this.sendRequest('mark/update',{discipline_id, marks});
   }
 
 

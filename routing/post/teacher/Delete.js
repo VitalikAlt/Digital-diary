@@ -19,26 +19,11 @@ class TeacherDeleteRoute extends BaseRoute {
                 this.core.db.users.deleteByIds(userIds),
             ]);
 
-            this.complete(await this.getList());
+            this.complete(true);
         } catch (err) {
             this.core.log.error('TeacherDelete error', err);
             this.complete(null, err, 'TeacherDelete error');
         }
-    }
-
-    async getList() {
-        const teacherList = [];
-
-        const teachers = await this.core.db.teacherProfile.get();
-
-        for (let i = 0; i < teachers.length; i++) {
-            teacherList.push({
-                id: teachers[i]._id,
-                name: `${teachers[i].surname} ${teachers[i].name[0]}. ${teachers[i].father_name[0]}.`
-            })
-        }
-
-        return teacherList
     }
 }
 

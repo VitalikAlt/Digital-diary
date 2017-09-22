@@ -6,20 +6,18 @@ class StudentDeleteRoute extends BaseRoute {
     }
 
     get paramNames() {
-        return [];
+        return ['ids'];
     }
 
     async handle() {
         try {
-            // if (await this.core.db.users.getUserLoginExist(this.params.login))
-            //     this.complete(null, 'Error: incorrect data', 'No user with that id!');
-            //
-            // const userId = await this.core.db.users.add(this.params);
-            //
-            // let groupId = await this.core.db.groups.get(this.params.course, this.params.squad);
-            // groupId = groupId || (await this.core.db.groups.add(this.params.course, this.params.squad));
-            //
-            // await this.core.db.studentProfile.add(Object.assign(this.params, {group_id: groupId, user_id: userId}));
+            const userIds = await this.core.db.studentProfile.getUserIds(this.params.ids);
+
+            await Promise.all([
+                this.core.db.studentProfile.deleteByIds(this.params.ids),
+                this.core.db.users.deleteByIds(userIds),
+            ]);
+
             this.complete(true);
         } catch (err) {
             this.core.log.error('StudentDelete error', err);

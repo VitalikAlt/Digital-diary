@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../../../services/http.service';
-import {Md5} from 'ts-md5/dist/md5';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-admin-lists',
@@ -96,8 +96,8 @@ export class TeacherListComponent implements OnInit {
     }
 
     this.httpService.deleteTeachers(ids)
-      .subscribe((list) => {
-        this.teachers = list;
+      .subscribe(() => {
+        this.ngOnInit();
         this.teachersForDelete = [];
         this.closeDeleteTeacherModal();
       }, (error) => {

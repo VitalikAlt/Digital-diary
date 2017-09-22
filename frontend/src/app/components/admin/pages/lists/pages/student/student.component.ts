@@ -44,8 +44,14 @@ export class StudentListComponent implements OnInit {
 
     this.httpService.addStudent(this.modalUser.course, this.modalUser.squad,
       this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName, this.modalUser.login, Md5.hashStr(this.modalUser.password).toString())
-      .subscribe(() => {
-        this.students.push(this.modalUser);
+      .subscribe((id) => {
+        this.students.push({
+          id: id,
+          name: `${this.modalUser.surname} ${this.modalUser.name[0]}. ${this.modalUser.fatherName[0]}.`,
+          course: this.modalUser.course,
+          squad: this.modalUser.squad
+        });
+
         toast('Студент добавлен!', 4000, 'success-toast');
         this.closeAddStudentModal();
       }, (error) => {
@@ -80,6 +86,24 @@ export class StudentListComponent implements OnInit {
         if (error === "No user with that id!")
           return toast('Студент не найден, обновите страницу!', 4000, 'error-toast');
 
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
+  }
+
+  deleteStudents() {
+    const ids = [];
+
+    for (let i = 0; i < this.studentsForDelete.length; i++) {
+      ids.push(this.studentsForDelete[i]['id']);
+    }
+
+    this.httpService.deleteStudents(ids).subscribe(() => {
+        this.studentsForDelete = [];
+        this.ngOnInit();
+        toast('Список студентов обновлён!', 4000, 'success-toast');
+        this.closeDeleteStudentModal();
+      }, (error) => {
         toast('Неизвестная ошибка!', 4000, 'error-toast');
         console.log(error);
       })
