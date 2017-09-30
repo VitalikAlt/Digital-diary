@@ -1,3 +1,49 @@
 <div>
-  Расписание занятий ещё в разработке.
+  <h6>1 неделя:</h6>
+  <table class="table bordered highlight centred schedule">
+    <thead>
+    <th>
+      <span class="hide-on-med-and-down show-on-medium">Время</span>
+      <span class="hide-on-med-and-up">Часы</span>
+    </th>
+    <th *ngFor="let day of days">
+      <span class="hide-on-med-and-down show-on-medium">{{day[0]}}</span>
+      <span class="hide-on-med-and-up">{{day[1]}}</span>
+    </th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let lesson of lessons; let lessonIndex = index;">
+      <td>
+        {{lesson}} пара
+      </td>
+      <td *ngFor="let day of days; let dayIndex = index">
+        {{getCell(1, lessonIndex, dayIndex)}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h6>2 неделя:</h6>
+  <table class="table bordered highlight centred schedule">
+    <thead>
+    <th>
+      <span class="hide-on-med-and-down show-on-medium">Время</span>
+      <span class="hide-on-med-and-up">Часы</span>
+    </th>
+    <th *ngFor="let day of days">
+      <span class="hide-on-med-and-down show-on-medium">{{day[0]}}</span>
+      <span class="hide-on-med-and-up">{{day[1]}}</span>
+    </th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let lesson of lessons; let lessonIndex = index;">
+      <td>
+        {{lesson}} пара
+      </td>
+      <td *ngFor="let day of days; let dayIndex = index;">
+        {{getCell(2, lessonIndex, dayIndex)}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

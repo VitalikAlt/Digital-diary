@@ -1,0 +1,7 @@
+.schedule th, .schedule td {
+  border-right: 1px solid #d0d0d0;
+}
+
+.schedule th:last-child, .schedule td:last-child {
+  border-right: none;
+}

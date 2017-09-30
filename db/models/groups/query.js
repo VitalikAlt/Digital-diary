@@ -17,6 +17,20 @@ class GroupQuery {
         });
     }
 
+    static getNames(groupIds) {
+        return new Promise((res, rej) => {
+            Group.find({_id: { $in: groupIds }}, (err, groups) => {
+                const names = [];
+
+                for (let i = 0; i < groups.length; i++) {
+                    names.push(`${groups[i].course}-${groups[i].squad}`);
+                }
+
+                return res(names);
+            })
+        })
+    }
+
     static add(course, squad) {
         return new Promise((res, rej) => {
             const newItem = new Group({course, squad});

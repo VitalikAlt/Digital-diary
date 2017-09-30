@@ -9,6 +9,7 @@
     <li class="tab"><a [routerLink]="['lists']" [routerLinkActive]="['active']">Списки</a></li>
     <li class="tab"><a [routerLink]="['subjects']" [routerLinkActive]="['active']">Дисциплины</a></li>
     <li class="tab"><a [routerLink]="['groups']" [routerLinkActive]="['active']">Группы</a></li>
+    <li class="tab"><a [routerLink]="['misses']" [routerLinkActive]="['active']">Пропуски</a></li>
     <li class="tab"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
     <li class="tab"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
@@ -17,6 +18,7 @@
   <a class="current-route" [routerLink]="['lists']" [routerLinkActive]="['d-flex']"><h4>Списки</h4></a>
   <a class="current-route" [routerLink]="['subjects']" [routerLinkActive]="['d-flex']"><h4>Дисциплины</h4></a>
   <a class="current-route" [routerLink]="['groups']" [routerLinkActive]="['d-flex']"><h4>Группы</h4></a>
+  <a class="current-route" [routerLink]="['misses']" [routerLinkActive]="['d-flex']"><h4>Пропуски</h4></a>
   <a class="current-route" [routerLink]="['schedule']" [routerLinkActive]="['d-flex']"><h4>Расписание</h4></a>
 </nav>
 
@@ -25,6 +27,7 @@
     <li class="tab col s3"><a [routerLink]="['lists']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Списки</a></li>
     <li class="tab col s3"><a [routerLink]="['subjects']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Дисциплины</a></li>
     <li class="tab col s3"><a [routerLink]="['groups']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Группы</a></li>
+    <li class="tab col s3"><a [routerLink]="['misses']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Пропуски</a></li>
     <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Расписание</a></li>
     <li class="tab col s3 pull-right pointer-center"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>

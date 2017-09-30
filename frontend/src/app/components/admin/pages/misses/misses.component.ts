@@ -4,11 +4,11 @@ import { HttpService } from '../../../../services/http.service';
 import { Configs } from '../../../../services/user.service';
 
 @Component({
-  selector: 'app-admin-schedule',
-  templateUrl: 'schedule.component.html',
-  styleUrls: ['schedule.component.css']
+  selector: 'app-admin-misses',
+  templateUrl: 'misses.component.html',
+  styleUrls: ['misses.component.css']
 })
-export class AdminScheduleComponent implements OnInit {
+export class AdminMissesComponent implements OnInit {
 
   public modalScheduleEdit = new EventEmitter<string|MaterializeAction>();
 

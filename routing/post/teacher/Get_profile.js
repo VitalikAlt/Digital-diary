@@ -17,6 +17,7 @@ class TeacherGetProfileRoute extends BaseRoute {
             if (!teacherProfile)
                 return this.complete(null, 'Error: incorrect data', 'No user with that id!');
 
+            teacherProfile._doc.id = teacherProfile._doc._id;
             delete teacherProfile._doc._id;
             delete teacherProfile._doc.user_id;
 

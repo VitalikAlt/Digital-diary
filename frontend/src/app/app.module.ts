@@ -35,6 +35,7 @@ import { AdminListsComponent } from './components/admin/pages/lists/lists.compon
 import { StudentListComponent } from './components/admin/pages/lists/pages/student/student.component';
 import { TeacherListComponent } from './components/admin/pages/lists/pages/teacher/teacher.component';
 import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjects.component';
+import { AdminMissesComponent } from './components/admin/pages/misses/misses.component';
 import { AdminScheduleComponent } from './components/admin/pages/schedule/schedule.component';
 
 import { ArraySortPipe } from './pipes/orderBy';
@@ -66,6 +67,7 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     StudentListComponent,
     TeacherListComponent,
     AdminSubjectsComponent,
+    AdminMissesComponent,
     AdminScheduleComponent,
 
     ArraySortPipe,

@@ -7,7 +7,10 @@ const discipline = require('./models/discipline/query');
 const groupDiscipline = require('./models/group_discipline/query');
 const termMarks = require('./models/term_marks/query');
 const scheduleCell = require('./models/schedule_cell/query');
+const studentMisses = require('./models/student_misses/query');
 
+
+//TODO переименовать все базы данных к виду abc_abc вместо камелКейса
 class Db {
     static connect(url) {
         mongoose.connect(url);
@@ -43,6 +46,10 @@ class Db {
 
     static get scheduleCell() {
         return scheduleCell;
+    }
+
+    static get studentMisses() {
+        return studentMisses;
     }
 }
 

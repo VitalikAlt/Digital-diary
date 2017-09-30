@@ -173,8 +173,25 @@ export class HttpService {
     return this.sendRequest('schedule/get',{group_id});
   }
 
+  getScheduleTeacher(teacher_id: string): Observable<Object> {
+    return this.sendRequest('schedule/get_teacher',{teacher_id});
+  }
+
   updateScheduleCell(params): Observable<boolean> {
     return this.sendRequest('schedule/update', params);
+  }
+
+
+
+
+
+
+  getMisses(date: Date): Observable<Object> {
+    return this.sendRequest('misses/get_by_date',{date});
+  }
+
+  updateMissCell(params): Observable<boolean> {
+    return this.sendRequest('misses/update', params);
   }
 
 

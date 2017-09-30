@@ -13,3 +13,13 @@ export class UserService {
     return this._user;
   }
 }
+
+export class Configs {
+  static get scheduleLessonsList() {
+    return ['1', '2', '3', '4'];
+  }
+
+  static get scheduleDaysList() {
+    return [['Понедельник', 'Пн.'], ['Вторник', 'Вт.'], ['Среда', 'Ср.'], ['Четверг', 'Чт.'], ['Пятница', 'Пт.']];
+  }
+}
