@@ -7,7 +7,7 @@ class GroupGetAssignedRoute extends BaseRoute {
     }
 
     get paramNames() {
-        return ['discipline_id'];
+        return [];
     }
 
     async handle() {
@@ -22,7 +22,7 @@ class GroupGetAssignedRoute extends BaseRoute {
             }
 
             for (let i = 0; i < groups.length; i++) {
-                if (!assignedGroupIds[groups[i]._id])
+                if (!assignedGroupIds[groups[i]._id] && this.params.discipline_id)
                     continue;
 
                 groupList.squads.push(groups[i].squad);

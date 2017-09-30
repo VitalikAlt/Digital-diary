@@ -1,0 +1,29 @@
+label {
+  font-size: 11px;
+}
+
+.centred th {
+  text-align: center;
+}
+
+.centred td {
+  text-align: center;
+}
+
+.pointer-center {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/*.schedule th:first-child {*/
+  /*border-left: 1px solid #d0d0d0;*/
+/*}*/
+
+.schedule th, .schedule td {
+  border-right: 1px solid #d0d0d0;
+  cursor: pointer;
+}
+
+.schedule th:last-child, .schedule td:last-child {
+  border-right: none;
+}

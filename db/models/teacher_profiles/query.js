@@ -23,6 +23,20 @@ class TeacherProfileQuery {
         })
     }
 
+    static getNames(profileIds) {
+        return new Promise((res, rej) => {
+            TeacherProfile.find({_id: { $in: profileIds }}, (err, teachers) => {
+                const names = [];
+
+                for (let i = 0; i < teachers.length; i++) {
+                    names.push(`${teachers[i].surname} ${teachers[i].name[0]}. ${teachers[i].father_name[0]}.`);
+                }
+
+                return res(names);
+            })
+        })
+    }
+
     static add(el) {
         return new Promise((res, rej) => {
             const newItem = new TeacherProfile(el);

@@ -9,6 +9,20 @@ class GroupQuery {
         });
     }
 
+    static getNames(disciplineIds) {
+        return new Promise((res, rej) => {
+            Group.find({_id: { $in: disciplineIds }}, (err, data) => {
+                const names = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    names.push(data[i].name);
+                }
+
+                return res(names);
+            })
+        })
+    }
+
     static add(name, teacher_id) {
         return new Promise((res, rej) => {
             const newItem = new Group({name, teacher_id});

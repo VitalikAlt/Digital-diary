@@ -25,6 +25,7 @@ import { AdminListsComponent } from './components/admin/pages/lists/lists.compon
 import { StudentListComponent } from './components/admin/pages/lists/pages/student/student.component';
 import { TeacherListComponent } from './components/admin/pages/lists/pages/teacher/teacher.component';
 import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjects.component';
+import { AdminScheduleComponent } from './components/admin/pages/schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -62,12 +63,13 @@ const routes: Routes = [
       [
         { path: '', redirectTo: 'lists', pathMatch: "full"},
         { path: 'lists', component: AdminListsComponent, children: [
-          { path: '', redirectTo: 'students', pathMatch: "full"},
-          { path: 'students', component: StudentListComponent},
-          { path: 'teachers', component: TeacherListComponent}
+          { path: '', redirectTo: 'students', pathMatch: "full" },
+          { path: 'students', component: StudentListComponent },
+          { path: 'teachers', component: TeacherListComponent }
         ]},
-        { path: 'groups', component: AdminGroupsComponent},
-        { path: 'subjects', component: AdminSubjectsComponent},
+        { path: 'groups', component: AdminGroupsComponent },
+        { path: 'subjects', component: AdminSubjectsComponent },
+        { path: 'schedule', component: AdminScheduleComponent }
       ],
     canActivate: [ AuthGuard ]
   }, {

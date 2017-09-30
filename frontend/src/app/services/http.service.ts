@@ -139,7 +139,7 @@ export class HttpService {
     return this.sendRequest('group/get',{discipline_id});
   }
 
-  getAssignedGroups(discipline_id: string): Observable<{squads, courses, ids}> {
+  getAssignedGroups(discipline_id?: string): Observable<{squads, courses, ids}> {
     return this.sendRequest('group/get_assigned',{discipline_id});
   }
 
@@ -162,6 +162,19 @@ export class HttpService {
 
   updateMarks(discipline_id: string, marks: Object): Observable<boolean> {
     return this.sendRequest('mark/update',{discipline_id, marks});
+  }
+
+
+
+
+
+
+  getSchedule(group_id: string): Observable<Object> {
+    return this.sendRequest('schedule/get',{group_id});
+  }
+
+  updateScheduleCell(params): Observable<boolean> {
+    return this.sendRequest('schedule/update', params);
   }
 
 

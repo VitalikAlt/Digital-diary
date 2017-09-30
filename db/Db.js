@@ -6,6 +6,7 @@ const teacherProfile = require('./models/teacher_profiles/query');
 const discipline = require('./models/discipline/query');
 const groupDiscipline = require('./models/group_discipline/query');
 const termMarks = require('./models/term_marks/query');
+const scheduleCell = require('./models/schedule_cell/query');
 
 class Db {
     static connect(url) {
@@ -38,6 +39,10 @@ class Db {
 
     static get termMarks() {
         return termMarks;
+    }
+
+    static get scheduleCell() {
+        return scheduleCell;
     }
 }
 
