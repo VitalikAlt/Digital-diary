@@ -1,19 +1,23 @@
 <div>
   <div class="row s12 m12 l12 xl12" style="padding-left: 7px;">
-    <div class="input-field col s12 m6 l3 xl3">
-      <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getSchedule()">
-        <option value="" disabled selected>Выберите курс</option>
-        <!-- <option [value]="2">2</option> -->
-        <option *ngFor="let course of courses" [value]="course">{{course}}</option>
-      </select>
-      <label>Курс</label>
+    <div *ngIf="courses.length !== 0">
+      <div class="input-field col s12 m6 l3 xl3">
+        <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getSchedule($event)">
+          <option value="" disabled selected>Выберите курс</option>
+          <option *ngFor="let course of courses" [ngValue]="course">{{course}}</option>
+        </select>
+        <label>Курс</label>
+      </div>
+      <div class="input-field col s12 m6 l3 xl3">
+        <select materialize="material_select" [(ngModel)]="currentSquad" (ngModelChange)="getSchedule($event)">
+          <option value="" disabled selected>Выберите взвод</option>
+          <option *ngFor="let squad of squads" [ngValue]="squad">{{squad}}</option>
+        </select>
+        <label>Взвод</label>
+      </div>
     </div>
-    <div class="input-field col s12 m6 l3 xl3">
-      <select materialize="material_select" [(ngModel)]="currentSquad" (ngModelChange)="getSchedule()">
-        <option value="" disabled selected>Выберите взвод</option>
-        <option *ngFor="let squad of squads" [value]="squad">{{squad}}</option>
-      </select>
-      <label>Взвод</label>
+    <div *ngIf="courses.length === 0">
+      Не удалось найти доступные группы!
     </div>
   </div>
   <div *ngIf="currentCourse && currentSquad">

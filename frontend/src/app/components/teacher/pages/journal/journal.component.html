@@ -1,6 +1,6 @@
 <div class="journal-page-container">
   <div class="row s12 m12 l12 xl12" style="padding-left: 7px;">
-    <div class="input-field col s12 m4 l3 xl3">
+    <div *ngIf="disciplines.length" class="input-field col s12 m4 l3 xl3">
       <select materialize="material_select" [(ngModel)]="currentDisciplineId" (ngModelChange)="updateCoursesAndGroups()">
         <option value="" disabled selected>Выберите дисциплину</option>
         <option *ngFor="let discipline of disciplines" [value]="discipline.id">{{discipline.name}}</option>
@@ -21,6 +21,7 @@
       </select>
       <label>Взвод</label>
     </div>
+    <span *ngIf="!disciplines.length">Не удалось найти доступные дисциплины!</span>
   </div>
   <div class="journal-data">
     <table class="table bordered highlight">

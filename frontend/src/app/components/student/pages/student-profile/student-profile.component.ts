@@ -3,11 +3,14 @@ import { toast } from "angular2-materialize";
 import { Cookie } from 'ng2-cookies';
 import { HttpService } from '../../../../services/http.service';
 import { UserService } from '../../../../services/user.service';
+import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
   selector: 'app-student-profile',
   templateUrl: 'student-profile.component.html',
-  styleUrls: ['student-profile.component.css']
+  styleUrls: ['student-profile.component.css'],
+  animations: [FadeInOutAnimation],
+  host: { '[@FadeInOutAnimation]': '' }
 })
 export class StudentProfileComponent implements OnInit {
 

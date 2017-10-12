@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { toast } from "angular2-materialize";
 import { HttpService } from '../../../../services/http.service';
 import { Configs, UserService } from '../../../../services/user.service';
+import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
   selector: 'app-teacher-schedule',
   templateUrl: 'schedule.component.html',
-  styleUrls: ['schedule.component.css']
+  styleUrls: ['schedule.component.css'],
+  animations: [FadeInOutAnimation],
+  host: { '[@FadeInOutAnimation]': 'true' }
 })
 export class TeacherScheduleComponent implements OnInit {
 

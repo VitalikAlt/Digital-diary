@@ -15,8 +15,8 @@ export class AdminScheduleComponent implements OnInit {
   public schedule;
 
   public groupIds: Object = {};
-  public courses: Array<string> = [];
-  public squads: Array<string> = [];
+  public courses: Array<Number> = [];
+  public squads: Array<Number> = [];
 
   public currentCourse: string = '';
   public currentSquad: string = '';

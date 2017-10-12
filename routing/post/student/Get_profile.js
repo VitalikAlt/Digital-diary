@@ -18,8 +18,9 @@ class StudentGetProfileRoute extends BaseRoute {
 
             delete studentProfile._doc._id;
             delete studentProfile._doc.user_id;
-            studentProfile._doc.birth_date =
-                `${studentProfile._doc.birth_date.getDate()}/${studentProfile._doc.birth_date.getMonth() + 1}/${studentProfile._doc.birth_date.getFullYear()}`;
+            if (studentProfile._doc.birth_date)
+                studentProfile._doc.birth_date =
+                    `${studentProfile._doc.birth_date.getDate()}/${studentProfile._doc.birth_date.getMonth() + 1}/${studentProfile._doc.birth_date.getFullYear()}`;
 
             const group = await this.core.db.groups.get({_id: studentProfile.group_id});
             studentProfile._doc.course = group[0].course;

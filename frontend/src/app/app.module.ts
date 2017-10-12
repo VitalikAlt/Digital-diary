@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterializeModule } from 'angular2-materialize';
 import { AppRoutingModule } from "./app-routing.module";
 import { NgSpinningPreloader } from 'ng2-spinning-preloader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { UserService1 } from './user.service';
@@ -78,7 +79,8 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    MaterializeModule
+    MaterializeModule,
+    BrowserAnimationsModule
   ],
   providers: [
     NgSpinningPreloader,

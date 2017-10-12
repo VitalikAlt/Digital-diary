@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
   selector: 'app-student-progress',
   templateUrl: 'student-progress.component.html',
-  styleUrls: ['student-progress.component.css']
+  styleUrls: ['student-progress.component.css'],
+  animations: [FadeInOutAnimation],
+  host: { '[@FadeInOutAnimation]': '' }
 })
 export class StudentProgressComponent implements OnInit {
 
