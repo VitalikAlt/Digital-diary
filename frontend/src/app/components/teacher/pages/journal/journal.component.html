@@ -1,21 +1,21 @@
 <div class="journal-page-container">
   <div class="row s12 m12 l12 xl12" style="padding-left: 7px;">
     <div class="input-field col s12 m4 l3 xl3">
-      <select materialize="material_select" [(ngModel)]="currentDisciplineId" (ngModelChange)="updateCoursesAndGroups($event)" [materializeSelectOptions]="selectOptions">
+      <select materialize="material_select" [(ngModel)]="currentDisciplineId" (ngModelChange)="updateCoursesAndGroups()">
         <option value="" disabled selected>Выберите дисциплину</option>
         <option *ngFor="let discipline of disciplines" [value]="discipline.id">{{discipline.name}}</option>
       </select>
       <label>Дисциплина</label>
     </div>
     <div *ngIf="currentDisciplineId" class="input-field col s12 m4 l3 xl3">
-      <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getMarks($event)" [materializeSelectOptions]="selectOptions">
+      <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getMarks()">
         <option value="" disabled selected>Выберите курс</option>
         <option *ngFor="let course of courses" [value]="course">{{course}}</option>
       </select>
       <label>Курс</label>
     </div>
     <div *ngIf="currentDisciplineId" class="input-field col s12 m4 l3 xl3">
-      <select materialize="material_select" [(ngModel)]="currentSquad" (ngModelChange)="getMarks($event)" [materializeSelectOptions]="selectOptions">
+      <select materialize="material_select" [(ngModel)]="currentSquad" (ngModelChange)="getMarks()">
         <option value="" disabled selected>Выберите взвод</option>
         <option *ngFor="let squad of squads" [value]="squad">{{squad}}</option>
       </select>

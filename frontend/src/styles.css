@@ -25,7 +25,6 @@ body {
   }
 
   .main-container {
-    background-color: red;
     padding: 0 !important;
     margin: 0 !important;
   }
@@ -33,7 +32,7 @@ body {
 
 .navbar{
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
   -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
   -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
   box-shadow: 0px 0px 10px rgba(0,0,0,.8);
@@ -65,6 +64,10 @@ body {
 /*styles for tabs*/
 .indicator {
   background-color: black !important;
+}
+
+.tabs {
+  white-space: normal;
 }
 
 .tabs .tab a {
@@ -107,4 +110,24 @@ body {
 
 .error-toast {
   background-color: #F44336;
+}
+
+/* for best datapicker vision*/
+.picker__header {
+  margin-bottom: 15px;
+}
+
+.picker__select--year.browser-default {
+  width: auto;
+  padding-right: 18px;
+}
+
+.picker__select--year.browser-default {
+  margin-left: 1.75em;
+}
+
+.material-tooltip {
+  word-spacing: 0.25em;
+  letter-spacing: normal;
+  line-height: inherit;
 }

@@ -29,7 +29,7 @@ export class AdminScheduleComponent implements OnInit {
 
   public teachers: Array<Object> = [];
   public disciplines: Array<Object> = [];
-  public teacherFilters: Object = {name: ''};
+  public teacherFilters: {name} = {name: ''};
 
   public editScheduleCell:
     {id: string, group_id: string, room: string, teacher_id: string, discipline_id: string, week_number: number, day_number: number, lesson_number: number}

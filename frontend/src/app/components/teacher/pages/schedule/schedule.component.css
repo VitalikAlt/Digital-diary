@@ -1,7 +1,43 @@
+.schedule {
+  table-layout: fixed;
+}
+
 .schedule th, .schedule td {
   border-right: 1px solid #d0d0d0;
 }
 
 .schedule th:last-child, .schedule td:last-child {
   border-right: none;
+}
+
+.centred th, .centred td {
+  text-align: center;
+}
+
+.small-screen {
+  visibility: hidden;
+}
+
+@media only screen and (max-width : 480px) {
+  .student-schedule-page-container h6 {
+    padding-top: 15px;
+    margin-top: 0px;
+    text-align: center;
+  }
+
+  .height-divider {
+    height: 1px;
+  }
+
+  .small-screen {
+    visibility: visible;
+  }
+
+  .student-schedule-page-container th:first-child, .student-schedule-page-container td:first-child {
+    width: 50px;
+  }
+
+  .schedule:last-child {
+    margin-bottom: 0px;
+  }
 }

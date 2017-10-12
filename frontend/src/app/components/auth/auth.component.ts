@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
+import { toast } from "angular2-materialize";
 import {HttpService} from '../../services/http.service';
 import {Md5} from 'ts-md5/dist/md5';
 import {Cookie} from 'ng2-cookies';
-import {UserService} from '../../services/user.service';
+import {UserService, Configs} from '../../services/user.service';
 import {AuthGuard} from '../../services/auth_guard.service'
 
 @Component({
@@ -13,10 +15,7 @@ import {AuthGuard} from '../../services/auth_guard.service'
 })
 export class AuthComponent implements OnInit {
 
-  public login: string;
-  public password: string;
   public incorrectInput: boolean;
-  public remember: boolean = false;
 
   constructor(private router: Router, private httpService: HttpService,
               private userService: UserService, private authGuard: AuthGuard) {
@@ -27,40 +26,30 @@ export class AuthComponent implements OnInit {
     (await this.authGuard.activate()) ? this.route(this.userService.user) : null;
   }
 
-  enter() {
-    const password = Md5.hashStr(this.password).toString();
-    this.httpService.signIn(this.login, password)
+  enter(authForm: NgForm) {
+    const password = Md5.hashStr(authForm.value.password).toString();
+    this.httpService.signIn(authForm.value.login, password)
       .subscribe((result) => {
-        this.route({login: this.login, password, role: result.role});
+        this.route({login: authForm.value.login, password, role: result.role, remember: authForm.value.remember});
       }, (error) => {
-        this.incorrectInput = true;
+        toast('Неверное имя пользователя или пароль!', 4000, 'error-toast');
       })
   }
 
   route(user) {
-    switch (user.role) {
-      case 'student':
-        this.saveUserData(user);
-        this.router.navigate(['/student']);
-        break;
-      case 'teacher':
-        this.saveUserData(user);
-        this.router.navigate(['/teacher']);
-        break;
-      case 'admin':
-        this.saveUserData(user);
-        this.router.navigate(['/admin']);
-        break;
-      default:
-        this.incorrectInput = true;
-        break;
+    if (Configs.allowedRoles.indexOf(user.role) !== -1) {
+      this.saveUserData(user);
+      this.router.navigate([`/${user.role}`]);
+      return;
     }
+
+    toast('Неизвестная роль! Обратитесь к администратору!', 4000, 'error-toast');
   }
 
   saveUserData(user) {
     this.userService.set(user);
 
-    if (!this.remember)
+    if (!user.remember)
       return;
 
     Cookie.set('diary_login', user.login);

@@ -1,22 +1,22 @@
-<div>
+<div class="student-schedule-page-container">
   <h6>1 неделя:</h6>
+  <div class="divider small-screen"></div>
   <table class="table bordered highlight centred schedule">
     <thead>
     <th>
-      <span class="hide-on-med-and-down show-on-medium">Время</span>
-      <span class="hide-on-med-and-up">Часы</span>
+      <span>День</span>
     </th>
-    <th *ngFor="let day of days">
-      <span class="hide-on-med-and-down show-on-medium">{{day[0]}}</span>
-      <span class="hide-on-med-and-up">{{day[1]}}</span>
+    <th *ngFor="let lesson of lessons">
+      <span>{{lesson}}</span>
     </th>
     </thead>
     <tbody>
-    <tr *ngFor="let lesson of lessons; let lessonIndex = index;">
+    <tr *ngFor="let day of days; let dayIndex = index;">
       <td>
-        {{lesson}} пара
+        <span class="hide-on-med-and-down show-on-medium">{{day[0]}}</span>
+        <span class="hide-on-med-and-up">{{day[1]}}</span>
       </td>
-      <td *ngFor="let day of days; let dayIndex = index">
+      <td *ngFor="let lesson of lessons; let lessonIndex = index;">
         {{getCell(1, lessonIndex, dayIndex)}}
       </td>
     </tr>
@@ -24,26 +24,27 @@
   </table>
 
   <h6>2 неделя:</h6>
+  <div class="divider small-screen"></div>
   <table class="table bordered highlight centred schedule">
     <thead>
     <th>
-      <span class="hide-on-med-and-down show-on-medium">Время</span>
-      <span class="hide-on-med-and-up">Часы</span>
+      <span>День</span>
     </th>
-    <th *ngFor="let day of days">
-      <span class="hide-on-med-and-down show-on-medium">{{day[0]}}</span>
-      <span class="hide-on-med-and-up">{{day[1]}}</span>
+    <th *ngFor="let lesson of lessons">
+      <span>{{lesson}}</span>
     </th>
     </thead>
     <tbody>
-    <tr *ngFor="let lesson of lessons; let lessonIndex = index;">
+    <tr *ngFor="let day of days; let dayIndex = index;">
       <td>
-        {{lesson}} пара
+        <span class="hide-on-med-and-down show-on-medium">{{day[0]}}</span>
+        <span class="hide-on-med-and-up">{{day[1]}}</span>
       </td>
-      <td *ngFor="let day of days; let dayIndex = index;">
+      <td *ngFor="let lesson of lessons; let lessonIndex = index;">
         {{getCell(2, lessonIndex, dayIndex)}}
       </td>
     </tr>
     </tbody>
   </table>
+  <div class="small-screen height-divider"></div>
 </div>

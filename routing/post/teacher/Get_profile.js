@@ -20,6 +20,8 @@ class TeacherGetProfileRoute extends BaseRoute {
             teacherProfile._doc.id = teacherProfile._doc._id;
             delete teacherProfile._doc._id;
             delete teacherProfile._doc.user_id;
+            teacherProfile._doc.birth_date =
+                `${teacherProfile._doc.birth_date.getDate()}/${teacherProfile._doc.birth_date.getMonth() + 1}/${teacherProfile._doc.birth_date.getFullYear()}`;
 
             this.complete(teacherProfile);
         } catch (err) {

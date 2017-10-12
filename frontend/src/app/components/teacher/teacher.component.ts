@@ -10,7 +10,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 })
 export class TeacherComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit() {}
 

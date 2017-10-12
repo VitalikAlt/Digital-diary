@@ -18,7 +18,7 @@ export class TeacherListComponent implements OnInit {
   public modalUser;
 
   public teacherSorts: [string, boolean] = ['name', false];
-  public teacherFilters: Object = {name: ''};
+  public teacherFilters: {name} = {name: ''};
   public teachersForDelete: Array<Object> = [];
 
   public teachers: Array<Object> = [];
@@ -75,6 +75,8 @@ export class TeacherListComponent implements OnInit {
   }
 
   saveTeacherData() {
+    const birthDate = this.modalUser.birth_date.split('/');
+    this.modalUser.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
     this.httpService.updateTeacherProfile(this.modalUser)
       .subscribe((result) => {
         toast('Преподаватель обновлён!', 4000, 'success-toast');

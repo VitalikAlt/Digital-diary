@@ -13,7 +13,7 @@ export class AdminGroupsComponent implements OnInit {
 
   public groups: Array<Object> = [];
   public groupSorts: [string, boolean] = ['course', false];
-  public groupFilters: Object = {course: '', squad: '', student_count: ''};
+  public groupFilters: {course, squad, student_count} = {course: '', squad: '', student_count: ''};
 
   constructor(private httpService: HttpService) { }
 

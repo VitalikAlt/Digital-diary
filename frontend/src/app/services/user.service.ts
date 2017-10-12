@@ -22,4 +22,8 @@ export class Configs {
   static get scheduleDaysList() {
     return [['Понедельник', 'Пн.'], ['Вторник', 'Вт.'], ['Среда', 'Ср.'], ['Четверг', 'Чт.'], ['Пятница', 'Пт.']];
   }
+
+  static get allowedRoles() {
+    return ['student', 'teacher', 'admin'];
+  }
 }

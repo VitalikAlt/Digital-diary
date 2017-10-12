@@ -18,7 +18,7 @@ export class StudentListComponent implements OnInit {
   public modalUser;
 
   public studentSorts: [string, boolean] = ['name', false];
-  public studentFilters: Object = {name: '', course: '', squad: ''};
+  public studentFilters: {name, course, squad} = {name: '', course: '', squad: ''};
   public studentsForDelete: Array<Object> = [];
 
   public students: Array<Object> = [];
@@ -78,6 +78,8 @@ export class StudentListComponent implements OnInit {
   }
 
   updateStudent() {
+    const birthDate = this.modalUser.birth_date.split('/');
+    this.modalUser.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
     this.httpService.updateStudentProfile(this.modalUser)
       .subscribe(() => {
         toast('Студент обновлён!', 4000, 'success-toast');

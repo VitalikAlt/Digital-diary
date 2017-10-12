@@ -27,12 +27,12 @@ export class AdminSubjectsComponent implements OnInit {
   public selectedSubject: any;
 
   public subjectsSorts: [string, boolean] = ['name', false];
-  public subjectFilters: Object = {name: '', teacher: ''};
+  public subjectFilters: {name, teacher} = {name: '', teacher: ''};
 
-  public teacherFilters: Object = {name: ''};
+  public teacherFilters: {name} = {name: ''};
 
   public groupSorts: [string, boolean] = ['course', false];
-  public groupFilters: Object = {course: '', squad: ''};
+  public groupFilters: {course, squad} = {course: '', squad: ''};
 
   //*************************************************************************
 

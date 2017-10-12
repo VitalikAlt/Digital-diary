@@ -22,7 +22,7 @@ export class TeacherJournalComponent implements OnInit {
   public squads: Array<string> = [];
 
 
-  public marks: Object = {};
+  public marks: any = {};
   public terms: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0];
 
   constructor(private userService: UserService, private httpService: HttpService) { }
