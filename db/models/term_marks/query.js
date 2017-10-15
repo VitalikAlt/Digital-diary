@@ -9,10 +9,10 @@ class TermMarksQuery {
         });
     }
 
-    static getId(course, squad) {
+    static getByStudentId(student_id) {
         return new Promise((res, rej) => {
-            TermMarks.find({course, squad}, (err, data) => {
-                return data[0]? res(data[0]._id) : res(undefined);
+            TermMarks.find({student_id}, {_v: false}, (err, data) => {
+                return err? rej(err) : res(data);
             })
         });
     }

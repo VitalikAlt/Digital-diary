@@ -8,8 +8,7 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
   selector: 'app-student-schedule',
   templateUrl: 'student-schedule.component.html',
   styleUrls: ['student-schedule.component.css'],
-  animations: [FadeInOutAnimation],
-  host: { '[@FadeInOutAnimation]': '' }
+  animations: [FadeInOutAnimation]
 })
 export class StudentScheduleComponent implements OnInit {
 

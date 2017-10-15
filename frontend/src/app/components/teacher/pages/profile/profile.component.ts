@@ -9,8 +9,7 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
   selector: 'app-teacher-profile',
   templateUrl: 'profile.component.html',
   styleUrls: ['profile.component.css'],
-  animations: [FadeInOutAnimation],
-  host: { '[@FadeInOutAnimation]': 'true' }
+  animations: [FadeInOutAnimation]
 })
 export class TeacherProfileComponent implements OnInit {
 

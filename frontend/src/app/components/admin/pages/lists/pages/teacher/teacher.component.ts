@@ -2,11 +2,13 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../../../services/http.service';
 import { Md5 } from 'ts-md5/dist/md5';
+import { FadeInOutAnimation } from '../../../../../../animations/FadeInOutAnimation';
 
 @Component({
   selector: 'app-admin-lists',
   templateUrl: 'teacher.component.html',
-  styleUrls: ['teacher.component.css']
+  styleUrls: ['teacher.component.css'],
+  animations: [FadeInOutAnimation]
 })
 export class TeacherListComponent implements OnInit {
 

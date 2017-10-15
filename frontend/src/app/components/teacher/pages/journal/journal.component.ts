@@ -8,8 +8,7 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
   selector: 'app-teacher-journal',
   templateUrl: 'journal.component.html',
   styleUrls: ['journal.component.css'],
-  animations: [FadeInOutAnimation],
-  host: { '[@FadeInOutAnimation]': 'true' }
+  animations: [FadeInOutAnimation]
 })
 export class TeacherJournalComponent implements OnInit {
 

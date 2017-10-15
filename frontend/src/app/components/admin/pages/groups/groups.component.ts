@@ -1,11 +1,13 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../services/http.service';
+import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
   selector: 'app-admin-groups',
   templateUrl: 'groups.component.html',
-  styleUrls: ['groups.component.css']
+  styleUrls: ['groups.component.css'],
+  animations: [FadeInOutAnimation]
 })
 export class AdminGroupsComponent implements OnInit {
 

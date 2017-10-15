@@ -1,4 +1,4 @@
-<div class="journal-page-container">
+<div class="journal-page-container" @FadeInOutAnimation>
   <div class="row s12 m12 l12 xl12" style="padding-left: 7px;">
     <div *ngIf="disciplines.length" class="input-field col s12 m4 l3 xl3">
       <select materialize="material_select" [(ngModel)]="currentDisciplineId" (ngModelChange)="updateCoursesAndGroups()">

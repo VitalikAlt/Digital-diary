@@ -2,11 +2,13 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../services/http.service';
 import { Configs } from '../../../../services/user.service';
+import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
   selector: 'app-admin-schedule',
   templateUrl: 'schedule.component.html',
-  styleUrls: ['schedule.component.css']
+  styleUrls: ['schedule.component.css'],
+  animations: [FadeInOutAnimation]  
 })
 export class AdminScheduleComponent implements OnInit {
 

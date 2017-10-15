@@ -1,4 +1,4 @@
-<div class="student-page-container">
+<div class="student-page-container" @FadeInOutAnimation>
   <div>
     <h5>Общая успеваемость</h5>
     <table class="table bordered highlight general-info-table">
@@ -20,42 +20,21 @@
     <h5>Учебные дисциплины</h5>
     <table class="table bordered highlight responsive-table">
       <tr>
-        <th>Название</th>
-        <th>Семестр 1</th>
-        <th>Семестр 2</th>
-        <th>Семестр 3</th>
-        <th>Семестр 4</th>
-        <th>Семестр 5</th>
-        <th>Семестр 6</th>
-        <th>Семестр 7</th>
-        <th>Семестр 8</th>
+        <th>Дисциплина</th>
+        <th *ngFor="let term of terms; let i = index;">{{i + 1}} семестр</th>
       </tr>
-      <tr>
-        <td>ВТП</td>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>ТТП</td>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+      <tr *ngFor="let disciplineId of marks.keys">
+        <td style="width: 15%; padding-top: 10px">
+          {{marks[disciplineId].name}}
+        </td>
+        <td *ngFor="let mark of marks[disciplineId].marks; trackBy: markTracker; let markIndex = index;">
+          {{marks[disciplineId].marks[markIndex]}}
+        </td>
       </tr>
     </table>
   </div>
 
-  <h5>Нормативы</h5>
+  <!-- <h5>Нормативы</h5>
   <table class="table bordered highlight responsive-table">
     <tr>
       <th>Название</th>
@@ -112,5 +91,5 @@
       <td>-</td>
       <td>-</td>
     </tr>
-  </table>
+  </table> -->
 </div>

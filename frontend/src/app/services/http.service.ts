@@ -160,6 +160,10 @@ export class HttpService {
     return this.sendRequest('mark/get',{discipline_id, group_id});
   }
 
+  getStudentMarks(student_id: string): Observable<Object> {
+    return this.sendRequest('mark/get_student', {student_id});
+  }
+
   updateMarks(discipline_id: string, marks: Object): Observable<boolean> {
     return this.sendRequest('mark/update',{discipline_id, marks});
   }
