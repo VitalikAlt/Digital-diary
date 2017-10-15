@@ -1,5 +1,5 @@
 <div @FadeInOutAnimation>
-  <div class="row s12 m12 l12 xl12" style="padding-left: 7px;">
+  <div class="row s12 m12 l12 xl12" style="padding-left: 7px; padding-right: 7px;">
     <div *ngIf="courses.length !== 0">
       <div class="input-field col s12 m6 l3 xl3">
         <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getSchedule($event)">
@@ -83,6 +83,9 @@
         </tr>
       </tbody>
     </table>
+    <div class="row clear-all">
+      <button type="button" class="waves-effect waves-light btn red darken-4" (click)="clearAllScheduleCells()">Очистить всё</button>
+    </div>
   </div>
 
 </div>
@@ -106,15 +109,28 @@
     </div>
     <br>
     <div *ngIf="editScheduleCell.teacher_id" class="input-field col s12 m6 l3 xl3">
-      <select materialize="material_select" [(ngModel)]="editScheduleCell.discipline_id" [materializeSelectOptions]="selectOptions">
-        <option value="" disabled selected>Выберите дисциплину</option>
-        <option *ngFor="let discipline of disciplines" [value]="discipline.id">{{discipline.name}}</option>
-      </select>
-      <label>Дисциплина</label>
+      <div *ngIf="disciplines.length">
+        <select materialize="material_select" [(ngModel)]="editScheduleCell.discipline_id" [materializeSelectOptions]="selectOptions">
+          <option value="" disabled selected>Выберите дисциплину</option>
+          <option *ngFor="let discipline of disciplines" [value]="discipline.id">{{discipline.name}}</option>
+        </select>
+
+        <label>Дисциплина</label>
+      </div>
+
+      <div *ngIf="!disciplines.length">
+        <select *ngIf="!disciplines.length" materialize="material_select" [(ngModel)]="editScheduleCell.discipline_id" [materializeSelectOptions]="selectOptions">
+          <option value="" disabled selected>Выберите дисциплину</option>
+          <option *ngFor="let discipline of disciplines" [value]="discipline.id">{{discipline.name}}</option>
+        </select>
+
+        <label>Дисциплина</label>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
     <button class="waves-effect waves-green btn-flat" (click)="saveScheduleCell();">Сохранить</button>
+    <button class="waves-effect waves-green btn-flat" (click)="deleteCell();">Удалить</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalScheduleEdit()">Отмена</button>
   </div>
 </div>

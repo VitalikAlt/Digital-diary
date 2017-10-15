@@ -8,7 +8,7 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
   selector: 'app-admin-schedule',
   templateUrl: 'schedule.component.html',
   styleUrls: ['schedule.component.css'],
-  animations: [FadeInOutAnimation]  
+  animations: [FadeInOutAnimation]
 })
 export class AdminScheduleComponent implements OnInit {
 
@@ -54,12 +54,28 @@ export class AdminScheduleComponent implements OnInit {
       })
   }
 
-  //TODO добавить удаление ячеек
   //TODO сделать так, чтобы преподаватели были привязаны к выбранной группе
   openModalScheduleEdit(weekNumber, dayNumber, lessonNumber) {
+    let cell;
+
+    try {
+      cell = this.schedule[weekNumber][lessonNumber + 1][dayNumber + 1];
+    } catch (err) { }
+
+    if (cell)
+      this.editScheduleCell = cell;
+    else {
+      this.editScheduleCell.id = '';
+      this.editScheduleCell.room = '';
+      this.editScheduleCell.teacher_id = '';
+      this.editScheduleCell.discipline_id = '';
+    }
+
     this.editScheduleCell.week_number = weekNumber;
     this.editScheduleCell.day_number = dayNumber + 1;
     this.editScheduleCell.lesson_number = lessonNumber + 1;
+
+    console.log(this.editScheduleCell);
 
     this.httpService.getTeacherList()
       .subscribe((teachers) => {
@@ -88,7 +104,6 @@ export class AdminScheduleComponent implements OnInit {
     this.httpService.getSchedule(groupId)
       .subscribe((schedule) => {
         this.schedule = schedule;
-        console.log(this.schedule);
       }, (error) => {
         toast('Неизвестная ошибка!', 4000, 'error-toast');
         console.log(error);
@@ -126,6 +141,45 @@ export class AdminScheduleComponent implements OnInit {
     this.httpService.getSubjectsByTeacher(this.editScheduleCell.teacher_id)
       .subscribe((disciplines) => {
         this.disciplines = disciplines;
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
+  }
+
+  deleteCell() {
+    if (!this.editScheduleCell.id) {
+      toast('Данные успешно удалены!', 4000, 'success-toast');
+      this.closeModalScheduleEdit();
+      return this.getSchedule();
+    }
+
+    this.httpService.deleteScheduleCell([this.editScheduleCell.id])
+      .subscribe((res) => {
+        toast('Данные удалены!', 4000, 'success-toast');
+        this.closeModalScheduleEdit();
+        this.getSchedule();
+      }, (error) => {
+        toast('Неизвестная ошибка!', 4000, 'error-toast');
+        console.log(error);
+      })
+  }
+
+  clearAllScheduleCells() {
+    const cellIds = [];
+    for (const weekNumber in this.schedule) {
+      for (const lessonNumber in this.schedule[weekNumber]) {
+        for (const dayNumber in this.schedule[weekNumber][lessonNumber]) {
+          cellIds.push(this.schedule[weekNumber][lessonNumber][dayNumber].id);
+        }
+      }
+    }
+
+    this.httpService.deleteScheduleCell(cellIds)
+      .subscribe((res) => {
+        toast('Данные удалены!', 4000, 'success-toast');
+        this.closeModalScheduleEdit();
+        this.getSchedule();
       }, (error) => {
         toast('Неизвестная ошибка!', 4000, 'error-toast');
         console.log(error);

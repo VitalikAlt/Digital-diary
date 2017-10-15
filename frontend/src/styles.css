@@ -131,3 +131,8 @@ body {
   letter-spacing: normal;
   line-height: inherit;
 }
+
+/*.carousel {*/
+  /*height: calc(100% - 43px);*/
+  /*overflow-y: auto;*/
+/*}*/

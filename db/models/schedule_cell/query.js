@@ -35,9 +35,9 @@ class TermMarksQuery {
         });
     }
 
-    static delete(params) {
+    static deleteByIds(ids) {
         return new Promise((res, rej) => {
-            TermMarks.remove(params, (err, success) => {
+            TermMarks.remove({_id: { $in: ids }}, (err, success) => {
                 return (!err)? res(success) : rej(err);
             })
         })

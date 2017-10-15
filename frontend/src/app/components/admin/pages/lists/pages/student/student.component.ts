@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../../../services/http.service';
-import {Md5} from 'ts-md5/dist/md5';
+import { Md5 } from 'ts-md5/dist/md5';
 import { FadeInOutAnimation } from '../../../../../../animations/FadeInOutAnimation';
 
 @Component({
@@ -11,6 +11,8 @@ import { FadeInOutAnimation } from '../../../../../../animations/FadeInOutAnimat
   animations: [FadeInOutAnimation]
 })
 export class StudentListComponent implements OnInit {
+
+  @ViewChild('updateStudentModal') updateStudentModal;
 
   public addStudentModal = new EventEmitter<string|MaterializeAction>();
   public changePasswordModal = new EventEmitter<string|MaterializeAction>();

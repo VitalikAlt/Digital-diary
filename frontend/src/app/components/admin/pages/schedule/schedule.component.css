@@ -11,12 +11,12 @@ label {
   cursor: pointer;
 }
 
-/*.schedule th:first-child {*/
-  /*border-left: 1px solid #d0d0d0;*/
-/*}*/
-
 .schedule {
   table-layout: fixed;
+}
+
+table.schedule:last-child {
+  margin-bottom: 5px;
 }
 
 .schedule th, .schedule td {
@@ -26,4 +26,20 @@ label {
 
 .schedule th:last-child, .schedule td:last-child {
   border-right: none;
+}
+
+.clear-all {
+  padding-top: 5px;
+  text-align: right;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0;
+}
+
+.clear-all button {
+  width: 100%;
+}
+
+.clear-all button:hover, .clear-all button:active, .clear-all button:focus {
+  color: white;
 }

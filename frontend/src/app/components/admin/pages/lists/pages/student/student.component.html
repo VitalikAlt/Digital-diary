@@ -47,72 +47,12 @@
       <td>{{student.squad}}</td>
       <td>
         <i (click)="modalUser = student; openChangePasswordModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Изменить пароль" class="small material-icons pointer-center">chrome_reader_mode</i>
-        <i (click)="modalUser = student; openChangeStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+        <i (click)="updateStudentModal.open(student)" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать профиль" class="small material-icons pointer-center">person</i>
+        <i (click)="setDeletedStudent(student); openDeleteStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Файлы" class="small material-icons pointer-center">folder_shared</i>
         <i (click)="setDeletedStudent(student); openDeleteStudentModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
       </td>
     </tr>
   </table>
-</div>
-
-<div id="addStudentModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="addStudentModal">
-  <div class="modal-content">
-    <h4 class="main">Добавить нового студента</h4>
-    <div class="main-divider">
-      <h6>Распределение:</h6>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Курс:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.course"/>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Взвод:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.squad"/>
-    </div>
-    <div class="main-divider">
-      <h6>Личные данные:</h6>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Фамилия:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Имя:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Отчество:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.fatherName"/>
-    </div>
-    <div class="main-divider">
-      <h6>Аккаунт:</h6>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-      <div class="divider"></div>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Логин:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.login"/>
-    </div>
-    <div class="form-group modal-input-block">
-      <span>Пароль:</span>
-      <input type="text" class="form-control" [(ngModel)]="modalUser.password"/>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="addStudent();">Добавить</button>
-
-    <button class="modal-action modal-close waves-effect waves-green btn-flat"
-            style="margin-right: 10px" (click)="closeAddStudentModal()">Отмена</button>
-  </div>
 </div>
 
 <div id="changePasswordModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="changePasswordModal">
@@ -317,3 +257,5 @@
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeDeleteStudentModal()">Отмена</button>
   </div>
 </div>
+
+<app-admin-lists-update-student-modal #updateStudentModal></app-admin-lists-update-student-modal>

@@ -39,6 +39,8 @@ import { AdminSubjectsComponent } from './components/admin/pages/subjects/subjec
 import { AdminMissesComponent } from './components/admin/pages/misses/misses.component';
 import { AdminScheduleComponent } from './components/admin/pages/schedule/schedule.component';
 
+import { UpdateStudentModal } from './modals/admin/lists/student/update/update.component';
+
 import { ArraySortPipe } from './pipes/orderBy';
 import { ArrayFilterPipe } from './pipes/filterBy';
 
@@ -72,7 +74,8 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     AdminScheduleComponent,
 
     ArraySortPipe,
-    ArrayFilterPipe
+    ArrayFilterPipe,
+    UpdateStudentModal
   ],
   imports: [
     BrowserModule,

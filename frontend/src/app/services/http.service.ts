@@ -185,6 +185,10 @@ export class HttpService {
     return this.sendRequest('schedule/update', params);
   }
 
+  deleteScheduleCell(ids: Array<string>): Observable<boolean> {
+    return this.sendRequest('schedule/delete',{ids});
+  }
+
 
 
 

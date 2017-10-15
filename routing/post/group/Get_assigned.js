@@ -1,6 +1,5 @@
 const BaseRoute = require(appRoot + '/routing/BaseRoute');
 
-//TODO удалить повторяющиеся элементы из списков групп и курсов
 class GroupGetAssignedRoute extends BaseRoute {
     constructor(core, req, res, params) {
         super(core, req, res, params);
@@ -25,8 +24,12 @@ class GroupGetAssignedRoute extends BaseRoute {
                 if (!assignedGroupIds[groups[i]._id] && this.params.discipline_id)
                     continue;
 
-                groupList.squads.push(groups[i].squad);
-                groupList.courses.push(groups[i].course);
+                if (groupList.squads.indexOf(groups[i].squad) === -1)
+                    groupList.squads.push(groups[i].squad);
+
+                if (groupList.courses.indexOf(groups[i].course) === -1)
+                    groupList.courses.push(groups[i].course);
+
                 groupList.ids[`${groups[i].course}_${groups[i].squad}`] = groups[i]._id;
             }
 
