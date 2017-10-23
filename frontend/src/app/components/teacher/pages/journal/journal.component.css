@@ -15,3 +15,7 @@ label {
 td input {
   margin: 0;
 }
+
+.normal-font {
+  font-size: 14px !important;
+}

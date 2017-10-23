@@ -21,7 +21,7 @@
           </td>
           <td>
             <div class="student-img-container col s4">
-              <img src="../../../../../assets/2.jpg" class="img-responsive" width="145" height="auto">
+              <img [src]="photoUrl" class="img-responsive" (error)="onErrorPhotoUrl($event)">
             </div>
           </td>
         </tr>

@@ -151,17 +151,20 @@
     </div>
 
     <div id="update-student-files" class="col s12">
-      <h4 class="main">Файлы студента</h4>
-      <pre>
-        asdas a fas g as fdad ads gas d
-        asdg asdg sda
-        asgd asd gsgdagdasgdsaadsgasd gsd g
-        asd gasd gsdagdsa
-        gasd gds ag gds gdasgdsag asdg sdag asdg
-        dsag dsa gsdagfhsd asfjsdd aadsajeashd
-        jahfhagjku h AGSjsvakgajknjhkjs sd fsdgs
-        sdafafafsd.
-      </pre>
+      <h4 class="main">Фото</h4>
+      <div class="divider"></div>
+      <div style="text-align: center">
+        <div class="student-photo">
+          <div class="photo-drag">
+            <div class="drag-helper">
+              Нажмите или перетащите файл
+            </div>
+            <input type="file" (change)="fileChangedEvent($event)" class="btn-search" />
+          </div>
+
+          <img [src]="photoUrl" (error)="onErrorPhotoUrl($event)"/>
+        </div>
+      </div>
     </div>
   </div>
   <div class="modal-footer">

@@ -1,11 +1,11 @@
 <nav>
   <ul id="slide-out" class="side-nav fixed">
-    <li class="tab">
+    <li class="tab head-tab">
       <div class="userView">
         <div class="background">
         </div>
         <a>
-          <div class="userImg"></div>
+          <div class="userImg" [style.background-image]="'url(' + photoUrl + ')'"></div>
           <span class="white-text name" style="margin-left: 10px">{{userService.user.name}}</span>
         </a>
       </div>

@@ -11,10 +11,13 @@ class MarkGetStudentRoute extends BaseRoute {
 
     async handle() {
         try {
+            let average = 0;
             const markList = {};
             const marks = await this.core.db.termMarks.getByStudentId(this.params.student_id);
 
             for (let i = 0; i < marks.length; i++) {
+                average += marks[i].mark;
+
                 markList[marks[i].discipline_id] = markList[marks[i].discipline_id] || {
                     marks: this.core.cfg.shared.common_student_term_marks.slice()
                 };
@@ -29,6 +32,7 @@ class MarkGetStudentRoute extends BaseRoute {
                 markList[disciplineIds[i]].name = disciplineNames[i];
             }
 
+            markList.average = (average / marks.length).toFixed(2);
             this.complete(markList);
         } catch (err) {
             this.core.log.error('MarkGetStudentRoute error', err);

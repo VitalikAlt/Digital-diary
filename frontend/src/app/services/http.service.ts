@@ -220,6 +220,29 @@ export class HttpService {
     return this.sendRequest('user/change_password', params);
   }
 
+  uploadUserPhoto(files: Array<File>, id, role) {
+    return new Promise((resolve, reject) => {
+      var formData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+      for(var i = 0; i < files.length; i++) {
+        formData.append("uploads[]", files[i], files[i].name);
+      }
+      formData.append("id", id);
+      formData.append("role", role);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+      xhr.open("POST", this.baseUrl+'user/photo_upload', true);
+      xhr.send(formData);
+    });
+  }
+
 
 
 

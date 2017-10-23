@@ -13,6 +13,7 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 export class StudentProgressComponent implements OnInit {
 
   public marks: any = {};
+  public averageMark: number = 0;
   public terms: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0];
 
   constructor(private userService: UserService, private httpService: HttpService) { }
@@ -21,6 +22,8 @@ export class StudentProgressComponent implements OnInit {
     this.httpService.getStudentMarks(this.userService.user.profile_id)
       .subscribe((marks) => {
         this.marks = marks;
+        this.averageMark = this.marks['average'];
+        delete this.marks.average;
         this.marks['keys'] = Object.keys(this.marks);
 
         if (this.marks['keys'][0])
@@ -35,8 +38,7 @@ export class StudentProgressComponent implements OnInit {
   markTracker(index: number) {
     return index;
   }
-
-  averageMark: number = 3.7;
+  
   missedCount: number = 5;
   visitedCount: number = 5;
   missedPercent: number = this.missedCount/(this.missedCount + this.visitedCount)* 100;

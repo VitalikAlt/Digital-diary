@@ -47,7 +47,7 @@ class RouteManager {
     async getRequestParams(req, method) {
         let params = [], err;
 
-        if (req.url !== '/upload')
+        if (req.url !== '/user/photo_upload')
             [params, err] = await method.getRequestParams();
 
         return [params, err];
@@ -66,6 +66,8 @@ class RouteManager {
     completeError(err, req, res) {
         if (err.code === "MODULE_NOT_FOUND")
             return this.sendIndex(req, res);
+
+        console.log(err)
 
         req.sendError(res, 'UNKNOWN_ERROR', err);
     }

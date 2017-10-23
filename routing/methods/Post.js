@@ -12,7 +12,7 @@ class Post extends BaseMethod {
             this.req.on('data', (data) => {
                 body += data;
 
-                if (body.length > 1e6) {
+                if (body.length > 1e6 && false) {
                     this.req.connection.destroy();
                     this.req.sendError(this.res, 'REQUEST_ENTITY_TOO_LARGE', this.req.url);
                     res([null, 'REQUEST_ENTITY_TOO_LARGE']);

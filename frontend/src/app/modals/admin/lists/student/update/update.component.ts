@@ -10,7 +10,10 @@ import { HttpService } from '../../../../../services/http.service';
 export class UpdateStudentModal implements OnInit {
 
   public user: any = {};
+  public photoUrl: string = '';
   public changeStudentModal = new EventEmitter<string|MaterializeAction>();
+
+  public filesToUpload: Array<File>;
 
   constructor(private httpService: HttpService) { }
 
@@ -35,6 +38,7 @@ export class UpdateStudentModal implements OnInit {
 
   open(user) {
     this.user = user;
+    this.photoUrl = `../../../../../../assets/data/photo/student/${this.user.id}.jpg`;
     this.httpService.getStudentProfile(this.user.id)
       .subscribe((result) => {
         this.changeStudentModal.emit({action:"modal",params:['open']});
@@ -53,4 +57,29 @@ export class UpdateStudentModal implements OnInit {
   close() {
     this.changeStudentModal.emit({action:"modal",params:['close']});
   }
+
+  onErrorPhotoUrl() {
+    this.photoUrl = `../../../../../../assets/data/photo/student/default.png`;
+  }
+
+  fileChangedEvent(fileInput: any){
+    this.filesToUpload = fileInput.target.files;
+    this.upload();
+  }
+
+  //TODO refactor upload, change toast to warning
+  upload() {
+    toast('Загрузка!', 4000, 'success-toast');
+    this.httpService.uploadUserPhoto(this.filesToUpload, this.user.id, 'student')
+    .then((result) => {
+      toast('Фото успешно обновлено!', 4000, 'success-toast');
+      this.photoUrl = `../../../../../../assets/data/photo/student/${this.user.id}.jpg?a=${Math.random()}`;
+      this.filesToUpload = [];
+    }, (error) => {
+      this.filesToUpload = [];
+      toast('Ошибка загрузки фото!', 4000, 'error-toast');
+      console.error(error);
+    });
+  }
+
 }
