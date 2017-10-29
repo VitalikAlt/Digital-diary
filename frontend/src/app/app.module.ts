@@ -23,6 +23,7 @@ import { StudentComponent } from './components/student/student.component';
 import { StudentProfileComponent } from './components/student/pages/student-profile/student-profile.component';
 import { StudentProgressComponent } from './components/student/pages/student-progress/student-progress.component'
 import { StudentScheduleComponent } from './components/student/pages/student-schedule/student-schedule.component';
+import { StudentSettingsComponent } from './components/student/pages/settings/settings.component';
 
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { TeacherProfileComponent } from './components/teacher/pages/profile/profile.component';
@@ -57,6 +58,7 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     StudentProfileComponent,
     StudentProgressComponent,
     StudentScheduleComponent,
+    StudentSettingsComponent,
 
     TeacherComponent,
     TeacherProfileComponent,

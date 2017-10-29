@@ -16,7 +16,7 @@ export class UserService {
 
 export class Configs {
   static get scheduleLessonsList() {
-    return ['1', '2', '3', '4'];
+    return ['8:30 - 10:00', '10:15 - 11:45', '12:30 - 14:00', '14:15 - 15:45'];
   }
 
   static get scheduleDaysList() {

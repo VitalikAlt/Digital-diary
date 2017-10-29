@@ -66,6 +66,10 @@ body {
   background-color: black !important;
 }
 
+.clearfix {
+  clear: both;
+}
+
 .tabs {
   white-space: normal;
 }

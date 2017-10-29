@@ -13,6 +13,7 @@
     <li class="tab"><a [routerLink]="['profile']" [routerLinkActive]="['active']">Профиль</a></li>
     <li class="tab"><a [routerLink]="['progress']" [routerLinkActive]="['active']">Успеваемость</a></li>
     <li class="tab"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
+    <li class="tab"><a [routerLink]="['settings']" [routerLinkActive]="['active']">Настройки</a></li>
     <li class="tab"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
   <a materialize="sideNav" [materializeParams]="[{edge:'left', draggable: true, menuWidth: 300, closeOnClick: true}]"
@@ -20,6 +21,7 @@
   <a class="current-route" [routerLink]="['profile']" [routerLinkActive]="['d-flex']"><h4>Профиль cтудента</h4></a>
   <a class="current-route" [routerLink]="['progress']" [routerLinkActive]="['d-flex']"><h4>Успеваемость студента</h4></a>
   <a class="current-route" [routerLink]="['schedule']" [routerLinkActive]="['d-flex']"><h4>Расписание студента</h4></a>
+  <a class="current-route" [routerLink]="['settings']" [routerLinkActive]="['d-flex']"><h4>Настройки</h4></a>
 </nav>
 
 <div class="col s12 tabs-container">
@@ -27,6 +29,7 @@
     <li class="tab col s3"><a [routerLink]="['profile']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Профиль</a></li>
     <li class="tab col s3"><a [routerLink]="['progress']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Успеваемость</a></li>
     <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Расписание</a></li>
+    <li class="tab col s3"><a [routerLink]="['settings']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Настройки</a></li>
     <li class="tab col s3 pull-right pointer-center"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
 </div>

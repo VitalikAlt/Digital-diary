@@ -17,10 +17,15 @@
   justify-content: center;
 }
 
+.photo-border {
+  padding: 10px;
+  border: 2px dashed rgba(138, 138, 138, 0.3);
+}
+
 .student-img-container img {
    width: 145px;
    height: auto;
-   box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+   /*box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
 }
 
 .student-img-container button {
