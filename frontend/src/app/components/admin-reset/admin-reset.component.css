@@ -43,3 +43,7 @@ h1 {
 .modal-input-block input {
   margin-bottom: 10px;
 }
+
+.normal-font {
+  font-size: 14px !important;
+}

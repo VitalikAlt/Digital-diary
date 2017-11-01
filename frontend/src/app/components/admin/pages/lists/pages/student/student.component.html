@@ -54,9 +54,43 @@
   </table>
 </div>
 
-<div id="changePasswordModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="changePasswordModal">
+<div id="addStudentModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="addStudentModal">
   <div class="modal-content">
-    <h4 class="main">Изменить пароль</h4>
+    <h4 class="main">Добавить нового студента</h4>
+    <div class="main-divider">
+      <h6>Распределение:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Курс:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.course"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Взвод:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.squad"/>
+    </div>
+    <div class="main-divider">
+      <h6>Личные данные:</h6>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+      <div class="divider"></div>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Фамилия:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.surname"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Имя:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.name"/>
+    </div>
+    <div class="form-group modal-input-block">
+      <span>Отчество:</span>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.fatherName"/>
+    </div>
     <div class="main-divider">
       <h6>Аккаунт:</h6>
       <div class="divider"></div>
@@ -66,16 +100,18 @@
     </div>
     <div class="form-group modal-input-block">
       <span>Логин:</span>
-      <input class="form-control" [(ngModel)]="modalUser.login" disabled/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.login"/>
     </div>
     <div class="form-group modal-input-block">
       <span>Пароль:</span>
-      <input class="form-control" [(ngModel)]="modalUser.new_password"/>
+      <input type="text" class="form-control" [(ngModel)]="modalUser.password"/>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="waves-effect waves-green btn-flat" (click)="changePassword();">Сохранить</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeChangePasswordModal()">Отмена</button>
+    <button class="waves-effect waves-green btn-flat" (click)="addStudent();">Добавить</button>
+
+    <button class="modal-action modal-close waves-effect waves-green btn-flat"
+            style="margin-right: 10px" (click)="closeAddStudentModal()">Отмена</button>
   </div>
 </div>
 

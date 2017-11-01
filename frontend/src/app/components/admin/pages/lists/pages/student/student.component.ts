@@ -139,6 +139,7 @@ export class StudentListComponent implements OnInit {
   }
 
   openAddStudentModal() {
+    console.log(1)
     this.addStudentModal.emit({action:"modal",params:['open']});
   }
 

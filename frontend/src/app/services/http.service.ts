@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 export class HttpService {
 
   //18.221.201.200
-  private baseUrl = 'http://0.0.0.0:8080/';
+  private baseUrl = 'http://localhost:8080/';
 
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
