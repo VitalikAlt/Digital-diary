@@ -34,7 +34,7 @@
           {{marks[studentId].name}}
         </td>
         <td *ngFor="let mark of marks[studentId].marks; trackBy: markTracker; let markIndex = index;">
-          <input class="normal-font" type="number" placeholder="-" [(ngModel)]="marks[studentId].marks[markIndex]">
+          <input type="number" placeholder="-" [(ngModel)]="marks[studentId].marks[markIndex]">
         </td>
       </tr>
     </table>
