@@ -15,6 +15,14 @@ class ErrorCodes {
         }
     }
 
+    static NO_PERMISSION() {
+        return {
+            status: 401,
+            error: 'No permission',
+            message: 'no permission for this action'
+        }
+    }
+
     static UNSUPPORTED_METHOD(param) {
         return {
             status: 405,

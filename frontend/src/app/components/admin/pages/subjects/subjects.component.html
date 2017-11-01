@@ -89,10 +89,10 @@
           <td class="search"><input class="form-control" placeholder="Поиск по курсу" [(ngModel)]="groupFilters.course"></td>
           <td class="search"><input class="form-control" placeholder="Поиск по взводу" [(ngModel)]="groupFilters.squad"></td>
         </tr>
-        <tr *ngFor="let group of groups | filterBy: groupFilters | orderBy: groupSorts" class="pointer-center">
+        <tr *ngFor="let group of groups | filterBy: groupFilters | orderBy: groupSorts" class="pointer-center" (click)="group.assigned = !group.assigned">
           <td><input type="checkbox" class="filled-in" [(ngModel)]="group.assigned"></td>
-          <td (click)="group.assigned = !group.assigned">{{group.course}}</td>
-          <td (click)="group.assigned = !group.assigned">{{group.squad}}</td>
+          <td>{{group.course}}</td>
+          <td>{{group.squad}}</td>
         </tr>
       </table>
     </div>

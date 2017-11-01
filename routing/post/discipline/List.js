@@ -9,6 +9,11 @@ class DisciplineListRoute extends BaseRoute {
         return [];
     }
 
+
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             let teachers = [];

@@ -10,6 +10,10 @@ class GroupUpRoute extends BaseRoute {
         return [];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             const groups_queries = [];

@@ -10,6 +10,10 @@ class TeacherDeleteRoute extends BaseRoute {
         return ['ids'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             const userIds = await this.core.db.teacherProfile.getUserIds(this.params.ids);

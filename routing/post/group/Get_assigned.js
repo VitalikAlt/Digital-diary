@@ -9,6 +9,10 @@ class GroupGetAssignedRoute extends BaseRoute {
         return [];
     }
 
+    get roles() {
+        return ['admin', 'teacher']
+    }
+
     async handle() {
         try {
             const groupList = {courses: [], squads: [], ids: {}}, assignedGroupIds = {};

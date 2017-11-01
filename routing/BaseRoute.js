@@ -8,9 +8,9 @@ class BaseRoute {
         this.checkParamsAndHandle();
     }
 
-    checkParamsAndHandle() {
-        if (this.secretRequest && this.params.secret_key !== this.core.cfg.secret_key)
-            return this.sendResponse(this.core.errors['BAD_PARAMS']('secret_key'), 400);
+    async checkParamsAndHandle() {
+        if (!(await this.checkRoles()) || !this.checkSecret())
+            return null;
 
         if (!this.paramNames)
             return this.handle();
@@ -23,6 +23,37 @@ class BaseRoute {
         }
 
         this.handle();
+    }
+
+    async checkRoles() {
+        if (!this.roles || !this.roles.length)
+            return true;
+
+        if (!this.params.sender.login || !this.params.sender.password)
+            return false;
+
+        const user = await this.core.db.users.getUser(this.params.sender.login, this.params.sender.password);
+
+        if (!user) {
+            this.sendResponse(this.core.errors['UNAUTHORIZED'](), 401);
+            return false;
+        }
+
+        if (this.roles.indexOf(user.role) === -1) {
+            this.sendResponse(this.core.errors['NO_PERMISSION'](), 401);
+            return false;
+        }
+
+        return true;
+    }
+
+    checkSecret() {
+        if (this.secretRequest && this.params.secret_key !== this.core.cfg.secret_key) {
+            this.sendResponse(this.core.errors['BAD_PARAMS']('secret_key'), 400);
+            return false;
+        }
+
+        return true;
     }
 
     complete(res, err, message) {

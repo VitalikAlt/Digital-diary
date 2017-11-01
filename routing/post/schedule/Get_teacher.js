@@ -20,6 +20,10 @@ class ScheduleGetRoute extends BaseRoute {
         return ['teacher_id'];
     }
 
+    get roles() {
+        return ['teacher']
+    }
+
     async handle() {
         try {
             const scheduleList = {};

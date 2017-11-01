@@ -68,7 +68,7 @@ export class HttpService {
     return this.sendRequest('student/get_profile',{id});
   }
 
-  addStudent(course: string, squad: string, surname: string, name: string, father_name: string, login: string, password: string): Observable<string> {
+  addStudent(course: number, squad: number, surname: string, name: string, father_name: string, login: string, password: string): Observable<string> {
     return this.sendRequest('student/add',{course, squad, surname, name, father_name, login, password});
   }
 

@@ -9,6 +9,10 @@ class TeacherUpdateRoute extends BaseRoute {
         return ['id', 'data'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             if (!(await this.core.db.studentProfile.get({_id: this.params.id}))[0])

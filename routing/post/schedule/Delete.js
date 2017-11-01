@@ -9,6 +9,10 @@ class ScheduleDeleteRoute extends BaseRoute {
         return ['ids'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             await this.core.db.scheduleCell.deleteByIds(this.params.ids);

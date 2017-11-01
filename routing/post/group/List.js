@@ -9,6 +9,10 @@ class GroupListRoute extends BaseRoute {
         return [];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             let groups_size = [];

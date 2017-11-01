@@ -9,6 +9,10 @@ class StudentDeleteRoute extends BaseRoute {
         return ['ids'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             const userIds = await this.core.db.studentProfile.getUserIds(this.params.ids);

@@ -7,16 +7,26 @@ class IndexRoute extends BaseRoute{
     }
 
     handle() {
-        let path = (this.req.url === '/')? 'index.html' : this.req.url;
+        let file, path = (this.req.url === '/')? 'index.html' : this.req.url;
 
         if (path.indexOf('?') !== -1)
-          path = path.slice(0, path.indexOf('?'))
+          path = path.slice(0, path.indexOf('?'));
 
-        const html = fs.readFileSync(`./frontend/dist/${path}`);
+        try {
+            file = fs.readFileSync(`./frontend/dist/${path}`);
+        } catch (err) {
+            return this.sendNoResponse();
+        }
 
         this.res.writeHeader(200, {"Content-Type": "text/html"});
-        this.res.write(html);
+        this.res.write(file);
         this.res.end();
+    }
+
+    sendNoResponse() {
+        this.res.writeHeader(404, {"Content-Type": "text/html"});
+        this.res.write('');
+        return this.res.end();
     }
 }
 

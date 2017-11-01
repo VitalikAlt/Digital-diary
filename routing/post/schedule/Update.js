@@ -9,6 +9,10 @@ class ScheduleUpdateRoute extends BaseRoute {
         return ['group_id', 'teacher_id', 'discipline_id', 'room', 'week_number', 'lesson_number', 'day_number'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             if (this.params.id)

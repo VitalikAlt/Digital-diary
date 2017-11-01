@@ -9,6 +9,10 @@ class TeacherAddRoute extends BaseRoute {
         return ['surname', 'name', 'father_name', 'login', 'password'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             if (await this.core.db.users.getUserLoginExist(this.params.login))

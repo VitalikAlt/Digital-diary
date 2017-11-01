@@ -9,6 +9,10 @@ class MarkGetRoute extends BaseRoute {
         return ['discipline_id', 'group_id'];
     }
 
+    get roles() {
+        return ['admin', 'teacher']
+    }
+
     async handle() {
         try {
             const students = {}, studentIds = [];

@@ -46,7 +46,10 @@ export class StudentListComponent implements OnInit {
       || !this.modalUser.fatherName || !this.modalUser.login || !this.modalUser.password)
       return toast('Заполнены не все поля!', 4000, 'error-toast');
 
-    this.httpService.addStudent(this.modalUser.course, this.modalUser.squad,
+    if (!Number(this.modalUser.course) || !Number(this.modalUser.squad))
+      return toast('Неверный курс или группа!', 4000, 'error-toast');
+
+    this.httpService.addStudent(Number(this.modalUser.course), Number(this.modalUser.squad),
       this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName, this.modalUser.login, Md5.hashStr(this.modalUser.password).toString())
       .subscribe((id) => {
         this.students.push({
@@ -139,7 +142,6 @@ export class StudentListComponent implements OnInit {
   }
 
   openAddStudentModal() {
-    console.log(1)
     this.addStudentModal.emit({action:"modal",params:['open']});
   }
 

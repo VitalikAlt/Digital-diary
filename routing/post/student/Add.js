@@ -9,10 +9,17 @@ class StudentAddRoute extends BaseRoute {
         return ['course', 'squad', 'surname', 'name', 'father_name', 'login', 'password'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             if (await this.core.db.users.getUserLoginExist(this.params.login))
                 return this.complete(null, 'Error: incorrect data', 'User already exist!');
+
+            if (typeof this.params.course !== 'number' || typeof this.params.squad !== 'number')
+                return this.complete(null, 'Error: incorrect data', 'Bad course or password!');
 
             const userId = (await this.core.db.users.add(Object.assign(this.params, {role: 'student'})))._id;
 

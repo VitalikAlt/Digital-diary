@@ -9,6 +9,10 @@ class DisciplineAddRoute extends BaseRoute {
         return ['name', 'teacher_id'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             if (!(await this.core.db.teacherProfile.get({_id: this.params.teacher_id}))[0])

@@ -9,6 +9,10 @@ class DisciplineGetRoute extends BaseRoute {
         return ['teacher_id'];
     }
 
+    get roles() {
+        return ['admin', 'teacher']
+    }
+
     async handle() {
         try {
             const disciplineList = [];

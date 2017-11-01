@@ -10,6 +10,11 @@ class DisciplineUpdateRoute extends BaseRoute {
         return ['discipline_id', 'assigned_group_ids'];
     }
 
+
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             const updateQueries = [];

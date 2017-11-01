@@ -10,6 +10,10 @@ class DisciplineDeleteRoute extends BaseRoute {
         return ['id'];
     }
 
+    get roles() {
+        return ['admin']
+    }
+
     async handle() {
         try {
             await Promise.all([

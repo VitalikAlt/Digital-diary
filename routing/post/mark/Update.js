@@ -9,6 +9,10 @@ class MarkUpdateRoute extends BaseRoute {
         return ['discipline_id', 'marks'];
     }
 
+    get roles() {
+        return ['teacher']
+    }
+
     async handle() {
         try {
             const newMarks = this.params.marks, oldMarks = {}, sqlQueries = [];
