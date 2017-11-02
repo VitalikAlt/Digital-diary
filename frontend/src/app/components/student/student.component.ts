@@ -11,6 +11,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class StudentComponent implements OnInit {
 
   public photoUrl: string = '';
+  public defaultPhotoUrl: string = '../../../../../assets/data/photo/student/default.png';
 
   constructor(public userService: UserService, private router: Router) { }
 

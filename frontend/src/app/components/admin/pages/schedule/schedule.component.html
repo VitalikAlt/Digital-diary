@@ -49,7 +49,7 @@
       <tbody>
         <tr *ngFor="let lesson of lessons; let lessonIndex = index;">
           <td>
-            {{lesson}} пара
+            {{lesson}}
           </td>
           <td *ngFor="let day of days; let dayIndex = index;"
               (click)="currentDay = dayIndex; currentTime = lessonIndex; openModalScheduleEdit(1, dayIndex, lessonIndex)">
@@ -74,7 +74,7 @@
       <tbody>
         <tr *ngFor="let lesson of lessons; let lessonIndex = index;">
           <td>
-            {{lesson}} пара
+            {{lesson}}
           </td>
           <td *ngFor="let day of days; let dayIndex = index;"
               (click)="currentDay = dayIndex; currentTime = lessonIndex; openModalScheduleEdit(2, dayIndex, lessonIndex)">

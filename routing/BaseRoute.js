@@ -29,7 +29,7 @@ class BaseRoute {
         if (!this.roles || !this.roles.length)
             return true;
 
-        if (!this.params.sender.login || !this.params.sender.password)
+        if (!this.params.sender || !this.params.sender.login || !this.params.sender.password)
             return false;
 
         const user = await this.core.db.users.getUser(this.params.sender.login, this.params.sender.password);

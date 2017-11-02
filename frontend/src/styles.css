@@ -10,6 +10,16 @@ body {
   background-size: cover;
 }
 
+.btn:hover, .btn:focus, .btn.focus {
+  color: #fff;
+}
+
+[type="checkbox"] + label {
+  height: 0;
+  position: fixed;
+  padding: 0;
+}
+
 @media only screen and (max-width : 480px) {
   html {
     height: 100%;

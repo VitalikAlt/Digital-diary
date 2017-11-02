@@ -7,18 +7,18 @@ import { UserService } from '../../../../services/user.service';
 import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
-  selector: 'app-student-settings',
+  selector: 'app-teacher-settings',
   templateUrl: 'settings.component.html',
   styleUrls: ['settings.component.css'],
   animations: [FadeInOutAnimation]
 })
-export class StudentSettingsComponent implements OnInit {
+export class TeacherSettingsComponent implements OnInit {
 
   public password: {old, new, newRepeat} = {old: '', new: '', newRepeat: ''};
 
   constructor(private httpService: HttpService, private userService: UserService) { }
 
-  ngOnInit() { }
+  ngOnInit() {  }
 
   changePassword() {
     if (!this.password.old || !this.password.new)

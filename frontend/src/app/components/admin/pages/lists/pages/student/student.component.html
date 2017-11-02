@@ -40,7 +40,8 @@
     </tr>
     <tr *ngFor="let student of students | filterBy: studentFilters | orderBy: studentSorts; let i = index">
       <td>
-        <input type="checkbox" class="filled-in" [(ngModel)]="student.deleted" (click)="changeDeletedStudents(student)">
+        <input type="checkbox" class="filled-in" id="{{student.id}}" [(ngModel)]="student.deleted" (click)="changeDeletedStudents(student)">
+        <label for="{{student.id}}"></label>
       </td>
       <td>{{student.name}}</td>
       <td>{{student.course}}</td>

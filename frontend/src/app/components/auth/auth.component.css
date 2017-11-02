@@ -174,3 +174,10 @@ span.incorrect-input{
 .checkbox {
   color: #666666;
 }
+
+.standart-label {
+  height: 25px;
+  position: relative;
+  padding-left: 25px;
+  font-size: 14px;
+}

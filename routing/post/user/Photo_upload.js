@@ -11,10 +11,6 @@ class UserPhotoUploadRoute extends BaseRoute {
         return [];
     }
 
-    get roles() {
-        return ['admin']
-    }
-
     async handle() {
         try {
             const form = new formidable.IncomingForm();

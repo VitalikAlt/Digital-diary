@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../../../services/http.service';
-import { Md5 } from 'ts-md5/dist/md5';
 import { FadeInOutAnimation } from '../../../../../../animations/FadeInOutAnimation';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-admin-lists',
@@ -71,7 +71,7 @@ export class StudentListComponent implements OnInit {
   }
 
   changePassword() {
-    this.httpService.changePassword(this.modalUser.id, Md5.hashStr(this.modalUser.new_password).toString())
+    this.httpService.changePassword(this.modalUser.login, Md5.hashStr(this.modalUser.new_password).toString())
       .subscribe((result) => {
         toast('Студент успешно изменён!', 4000, 'success-toast');
         this.closeChangePasswordModal();

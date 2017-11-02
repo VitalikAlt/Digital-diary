@@ -216,8 +216,8 @@ export class HttpService {
     return this.sendRequest('user/get', {teacher_id});
   }
 
-  changePassword(id: string, new_password: string, old_password?: string): Observable<string> {
-    const params = old_password? {id, new_password, old_password} : {id, new_password};
+  changePassword(login: string, new_password: string, old_password?: string): Observable<string> {
+    const params = old_password? {login, new_password, old_password} : {login, new_password};
     return this.sendRequest('user/change_password', params);
   }
 

@@ -19,6 +19,7 @@ import { TeacherProfileComponent } from './components/teacher/pages/profile/prof
 import { TeacherJournalComponent } from './components/teacher/pages/journal/journal.component';
 import { TeacherScheduleComponent } from './components/teacher/pages/schedule/schedule.component';
 import { TeacherReportsComponent } from './components/teacher/pages/reports/reports.component';
+import { TeacherSettingsComponent } from './components/teacher/pages/settings/settings.component';
 
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGroupsComponent } from './components/admin/pages/groups/groups.component';
@@ -57,7 +58,8 @@ const routes: Routes = [
         { path: 'profile', component: TeacherProfileComponent},
         { path: 'journal', component: TeacherJournalComponent},
         { path: 'schedule', component: TeacherScheduleComponent},
-        { path: 'reports', component: TeacherReportsComponent}
+        { path: 'reports', component: TeacherReportsComponent},
+        { path: 'settings', component: TeacherSettingsComponent}
       ],
     canActivate: [ AuthGuard ]
   },

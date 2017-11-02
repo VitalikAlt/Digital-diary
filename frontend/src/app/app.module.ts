@@ -30,6 +30,7 @@ import { TeacherProfileComponent } from './components/teacher/pages/profile/prof
 import { TeacherJournalComponent } from './components/teacher/pages/journal/journal.component';
 import { TeacherScheduleComponent } from './components/teacher/pages/schedule/schedule.component';
 import { TeacherReportsComponent } from './components/teacher/pages/reports/reports.component';
+import { TeacherSettingsComponent } from './components/teacher/pages/settings/settings.component';
 
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGroupsComponent } from './components/admin/pages/groups/groups.component';
@@ -41,6 +42,7 @@ import { AdminMissesComponent } from './components/admin/pages/misses/misses.com
 import { AdminScheduleComponent } from './components/admin/pages/schedule/schedule.component';
 
 import { UpdateStudentModal } from './modals/admin/lists/student/update/update.component';
+import { UpdateTeacherModal } from './modals/admin/lists/teacher/update/update.component';
 
 import { ArraySortPipe } from './pipes/orderBy';
 import { ArrayFilterPipe } from './pipes/filterBy';
@@ -65,6 +67,7 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     TeacherJournalComponent,
     TeacherScheduleComponent,
     TeacherReportsComponent,
+    TeacherSettingsComponent,
 
     AdminComponent,
     AdminGroupsComponent,
@@ -77,7 +80,9 @@ import { ArrayFilterPipe } from './pipes/filterBy';
 
     ArraySortPipe,
     ArrayFilterPipe,
-    UpdateStudentModal
+
+    UpdateStudentModal,
+    UpdateTeacherModal
   ],
   imports: [
     BrowserModule,

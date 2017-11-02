@@ -9,6 +9,14 @@ class UserQuery {
         });
     }
 
+    static getByLogin(login) {
+        return new Promise((res, rej) => {
+            User.find({login: login}, (err, data) => {
+                return err? rej(err) : res(data[0]);
+            })
+        });
+    }
+
     static getUserIdExist(id) {
         return new Promise((res, rej) => {
             User.find({_id: id}, (err, data) => {
@@ -47,9 +55,9 @@ class UserQuery {
         });
     }
 
-    static updatePassword(id, newPassword) {
+    static updatePassword(login, newPassword) {
         return new Promise((res, rej) => {
-            User.update({_id: id}, {password: newPassword}, (err, result) => {
+            User.update({login}, {password: newPassword}, (err, result) => {
                 return (err)? rej(err) : res(result);
             })
         })

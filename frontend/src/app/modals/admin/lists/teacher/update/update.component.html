@@ -1,0 +1,112 @@
+<div id="changeTeacherModal" class="modal modal-changer bottom-sheet" materialize="modal" [materializeActions]="changeTeacherModal">
+  <div class="modal-content modal-changer">
+    <ul class="tabs tabs-fixed-width fixed" materialize="tabs">
+      <li class="tab col s3"><a class="active" href="#update-teacher-profile">Профиль</a></li>
+      <li class="tab col s3"><a href="#update-teacher-files">Файлы</a></li>
+    </ul>
+
+    <div id="update-teacher-profile" class="col s12">
+      <div>
+        <div class="main-divider">
+          <h6>Служебные данные:</h6>
+          <div class="divider"></div>
+          <div class="divider"></div>
+          <div class="divider"></div>
+          <div class="divider"></div>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Воинское звание:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.military_rank"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Должность на кафедре:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.work_position"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Начало работы:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.work_start_year"/>
+        </div>
+      </div>
+      <div>
+        <div class="main-divider">
+          <h6>Личные данные:</h6>
+          <div class="divider"></div>
+          <div class="divider"></div>
+          <div class="divider"></div>
+          <div class="divider"></div>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Фамилия:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.surname"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Имя:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.name"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Отчество:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.father_name"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Адрес рождения:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.birth_place"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Дата рождения:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.birth_date" materialize="pickadate"
+                 [materializeParams]="[{format: 'dd/mm/yyyy', selectMonths: false, selectYears: 80}]"/>
+        </div>
+      </div>
+      <div>
+        <div class="main-divider">
+          <h6>Персональные данные:</h6>
+          <div class="divider"></div>
+          <div class="divider"></div>
+          <div class="divider"></div>
+          <div class="divider"></div>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Образование:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.education"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Адрес проживания:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.residence_address"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Номер пасспорта:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.passport_number"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Серия пасспорта:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.passport_series"/>
+        </div>
+        <div class="form-group modal-input-block">
+          <span>Номер военного билета:</span>
+          <input type="text" class="form-control" [(ngModel)]="user.military_number"/>
+        </div>
+      </div>
+    </div>
+
+    <div id="update-teacher-files" class="col s12">
+      <h4 class="main">Фото</h4>
+      <div class="divider"></div>
+      <div style="text-align: center">
+        <div class="teacher-photo">
+          <div class="photo-drag">
+            <div class="drag-helper">
+              Нажмите или перетащите файл
+            </div>
+            <input type="file" (change)="fileChangedEvent($event)" class="btn-search" />
+          </div>
+
+          <img [src]="photoUrl" (error)="onErrorPhotoUrl($event)"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="updateTeacher();">Сохранить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="close()">Отмена</button>
+  </div>
+</div>
