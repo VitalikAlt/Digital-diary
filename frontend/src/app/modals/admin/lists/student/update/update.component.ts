@@ -20,8 +20,10 @@ export class UpdateStudentModal implements OnInit {
   ngOnInit() { }
 
   updateStudent() {
-    const birthDate = this.user.birth_date.split('/');
-    this.user.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
+    if (this.user.birth_date) {
+      const birthDate = this.user.birth_date.split('/');
+      this.user.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
+    }
 
     this.httpService.updateStudentProfile(this.user)
       .subscribe(() => {
