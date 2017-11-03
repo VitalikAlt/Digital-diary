@@ -14,12 +14,14 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 export class TeacherProfileComponent implements OnInit {
 
   public teacher: any;
+  public photoUrl: string = '';
 
   constructor(private httpService: HttpService, private userService: UserService) { }
 
   ngOnInit() {
     this.teacher = {};
     const user = this.userService.user;
+    this.photoUrl = `../../../../../../assets/data/photo/teacher/${user.profile_id}.jpg`;
 
     this.httpService.getTeacherProfile(user.profile_id)
       .subscribe((teacher) => {
@@ -37,5 +39,9 @@ export class TeacherProfileComponent implements OnInit {
   updateUserData() {
     this.userService.user.name = `${this.teacher.surname} ${this.teacher.name[0]}. ${this.teacher.father_name[0]}.`;
     Cookie.set('diary_name', this.userService.user.name);
+  }
+
+  onErrorPhotoUrl() {
+    this.photoUrl = `../../../../../../assets/data/photo/teacher/default.png`;
   }
 }

@@ -23,9 +23,9 @@
 }
 
 .student-img-container img {
-   width: 145px;
-   height: auto;
-   /*box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
+  width: 145px;
+  height: auto;
+  /*box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
 }
 
 .student-img-container button {

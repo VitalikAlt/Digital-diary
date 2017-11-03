@@ -31,7 +31,7 @@ nav a:hover, nav a:focus, nav a:active {
 }
 
 .userImg {
-  background: #ffffff url('../../../assets/2.jpg') no-repeat fixed;
+  background-color: #ffffff;
   width: 64px;
   height: 64px;
   border-radius: 50%;

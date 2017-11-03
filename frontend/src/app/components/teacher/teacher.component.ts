@@ -10,9 +10,14 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 })
 export class TeacherComponent implements OnInit {
 
+  public photoUrl: string = '';
+  public defaultPhotoUrl: string = '../../../../../assets/data/photo/teacher/default.png';
+
   constructor(public userService: UserService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.photoUrl = `/assets/data/photo/teacher/${this.userService.user.profile_id}.jpg`;
+  }
 
   deleteAllCookies() {
     this.userService.set({});

@@ -5,7 +5,8 @@
         <div class="background">
         </div>
         <a>
-          <div class="userImg"></div>
+          <div class="userImg" style="position: fixed;" [style.background-image]="'url(' + defaultPhotoUrl + ')'"></div>
+          <div class="userImg" style="z-index: 5; background-color: transparent" [style.background-image]="'url(' + photoUrl + ')'"></div>
           <span class="white-text name" style="margin-left: 10px">{{userService.user.name}}</span>
         </a>
       </div>
