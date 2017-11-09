@@ -11,7 +11,6 @@ class ChangePasswordRoute extends BaseRoute {
 
     async handle() {
         try {
-            console.log(1111111111111111111111111111111111111111)
             if (!(await this.checkSender()))
                 return this.complete(null, 'Error: no permission', 'No permission for this action!');
 
@@ -31,7 +30,6 @@ class ChangePasswordRoute extends BaseRoute {
             return false;
 
         const user = await this.core.db.users.getUser(this.params.sender.login, this.params.sender.password);
-        console.log(user.password,this.params.old_password)
         return !(!user || user.role !== 'admin' && (user.login !== this.params.login || user.password !== this.params.old_password));
     }
 }

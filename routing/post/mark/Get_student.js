@@ -33,6 +33,7 @@ class MarkGetStudentRoute extends BaseRoute {
             }
 
             markList.average = (average / marks.length).toFixed(2);
+            markList.misses = (await this.core.db.studentMisses.get({student_id: this.params.student_id})).length;
             this.complete(markList);
         } catch (err) {
             this.core.log.error('MarkGetStudentRoute error', err);

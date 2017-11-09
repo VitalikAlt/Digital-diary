@@ -1,0 +1,22 @@
+<div class="misses-container" @FadeInOutAnimation>
+  <div class="hide-on-small-only" *ngIf="misses.length">
+    <div *ngFor="let miss of misses; let i = index" class="row" style="margin: 5px">
+      <h6>{{miss.date | date:'dd.MM.yyyy'}},    {{lessons[miss.lesson_number]}}</h6>
+      <h6>Причина: {{miss.reason}}</h6>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="hide-on-med-and-up" *ngIf="misses.length">
+    <div *ngFor="let miss of misses; let i = index" class="row" style="margin: 5px">
+        <div class="card-panel" style="padding: 10px; font-size: 16px; box-shadow: 0px 0px 10px rgba(0,0,0,.5)">
+          <h6 class="">{{miss.date | date:'dd.MM.yyyy'}},    {{lessons[miss.lesson_number]}}</h6>
+          <div class="divider"></div>
+          <h6 class="">Причина: {{miss.reason}}</h6>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="!misses.length" class="center-align no-misses">
+    <span style="font-size: 30px">Пропусков нет</span>
+    <img class="no-misses-img" src="./../../../../../assets/images/default/no-misses.png" />
+  </div>
+</div>

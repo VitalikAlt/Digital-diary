@@ -195,12 +195,20 @@ export class HttpService {
 
 
 
-  getMisses(date: Date): Observable<Object> {
-    return this.sendRequest('misses/get_by_date',{date});
+  getStudentMisses(student_id: string): Observable<Array<Object>> {
+    return this.sendRequest('misses/get_student',{student_id});
   }
 
-  updateMissCell(params): Observable<boolean> {
-    return this.sendRequest('misses/update', params);
+  getMisses(date: Date, group_id: string): Observable<Object> {
+    return this.sendRequest('misses/get_by_date',{date, group_id});
+  }
+
+  updateMissesCell(student_id: string, date: Date,lesson_number: number, reason: string, id?: string): Observable<boolean> {
+    return this.sendRequest('misses/update', {id, student_id, date, lesson_number, reason});
+  }
+
+  deleteMissesCell(id: string): Observable<boolean> {
+    return this.sendRequest('misses/delete', {id});
   }
 
 

@@ -22,12 +22,14 @@ import { AdminResetComponent } from './components/admin-reset/admin-reset.compon
 import { StudentComponent } from './components/student/student.component';
 import { StudentProfileComponent } from './components/student/pages/student-profile/student-profile.component';
 import { StudentProgressComponent } from './components/student/pages/student-progress/student-progress.component'
+import { StudentMissesComponent } from './components/student/pages/misses/misses.component';
 import { StudentScheduleComponent } from './components/student/pages/student-schedule/student-schedule.component';
 import { StudentSettingsComponent } from './components/student/pages/settings/settings.component';
 
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { TeacherProfileComponent } from './components/teacher/pages/profile/profile.component';
 import { TeacherJournalComponent } from './components/teacher/pages/journal/journal.component';
+import { TeacherMissesComponent } from './components/teacher/pages/misses/misses.component';
 import { TeacherScheduleComponent } from './components/teacher/pages/schedule/schedule.component';
 import { TeacherReportsComponent } from './components/teacher/pages/reports/reports.component';
 import { TeacherSettingsComponent } from './components/teacher/pages/settings/settings.component';
@@ -59,12 +61,14 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     StudentComponent,
     StudentProfileComponent,
     StudentProgressComponent,
+    StudentMissesComponent,
     StudentScheduleComponent,
     StudentSettingsComponent,
 
     TeacherComponent,
     TeacherProfileComponent,
     TeacherJournalComponent,
+    TeacherMissesComponent,
     TeacherScheduleComponent,
     TeacherReportsComponent,
     TeacherSettingsComponent,

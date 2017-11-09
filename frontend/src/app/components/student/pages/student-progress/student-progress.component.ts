@@ -14,6 +14,7 @@ export class StudentProgressComponent implements OnInit {
 
   public marks: any = {};
   public averageMark: number = 0;
+  public missesCount: number = 0;
   public terms: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0];
 
   constructor(private userService: UserService, private httpService: HttpService) { }
@@ -23,7 +24,11 @@ export class StudentProgressComponent implements OnInit {
       .subscribe((marks) => {
         this.marks = marks;
         this.averageMark = this.marks['average'];
+        this.missesCount = this.marks['misses'];
+
         delete this.marks.average;
+        delete this.marks.misses;
+
         this.marks['keys'] = Object.keys(this.marks);
 
         if (this.marks['keys'][0])
@@ -38,8 +43,7 @@ export class StudentProgressComponent implements OnInit {
   markTracker(index: number) {
     return index;
   }
-  
-  missedCount: number = 5;
-  visitedCount: number = 5;
-  missedPercent: number = this.missedCount/(this.missedCount + this.visitedCount)* 100;
+
+  // visitedCount: number = 5;
+  // missedPercent: number = this.missedCount/(this.missedCount + this.visitedCount)* 100;
 }

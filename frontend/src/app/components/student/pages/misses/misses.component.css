@@ -1,0 +1,22 @@
+label {
+  font-size: 11px;
+}
+
+.pointer-center {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.misses-container {
+  padding: 5px;
+}
+
+.no-misses {
+  margin-bottom: -10px;
+}
+
+.no-misses-img {
+  max-width: 50px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}

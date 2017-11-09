@@ -5,12 +5,12 @@ import { Configs } from '../../../../services/user.service';
 import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
 
 @Component({
-  selector: 'app-admin-misses',
+  selector: 'app-teacher-misses',
   templateUrl: 'misses.component.html',
   styleUrls: ['misses.component.css'],
   animations: [FadeInOutAnimation]
 })
-export class AdminMissesComponent implements OnInit {
+export class TeacherMissesComponent implements OnInit {
 
   public modalMissesEdit = new EventEmitter<string|MaterializeAction>();
 
@@ -19,7 +19,7 @@ export class AdminMissesComponent implements OnInit {
   public currentStudentId: string = '';
   public currentMissData: {id, lesson_number: number, reason: string} = {id: '', lesson_number: 0, reason: ''};
 
-  public missesDate: string = (new Date()).toDateString();
+  public missesDate: string;
   public currentCourse: string = '';
   public currentSquad: string = '';
 
@@ -52,8 +52,6 @@ export class AdminMissesComponent implements OnInit {
 
     if (!this.currentCourse || !this.currentSquad)
       return;
-
-    console.log(typeof this.missesDate);
 
     const groupId = this.groupIds[`${this.currentCourse}_${this.currentSquad}`];
 

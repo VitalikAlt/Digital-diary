@@ -11,12 +11,14 @@ import { AdminResetComponent } from './components/admin-reset/admin-reset.compon
 import { StudentComponent } from './components/student/student.component';
 import { StudentProfileComponent } from './components/student/pages/student-profile/student-profile.component';
 import { StudentProgressComponent } from './components/student/pages/student-progress/student-progress.component'
+import { StudentMissesComponent } from './components/student/pages/misses/misses.component';
 import { StudentScheduleComponent } from './components/student/pages/student-schedule/student-schedule.component';
 import { StudentSettingsComponent } from './components/student/pages/settings/settings.component';
 
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { TeacherProfileComponent } from './components/teacher/pages/profile/profile.component';
 import { TeacherJournalComponent } from './components/teacher/pages/journal/journal.component';
+import { TeacherMissesComponent } from './components/teacher/pages/misses/misses.component';
 import { TeacherScheduleComponent } from './components/teacher/pages/schedule/schedule.component';
 import { TeacherReportsComponent } from './components/teacher/pages/reports/reports.component';
 import { TeacherSettingsComponent } from './components/teacher/pages/settings/settings.component';
@@ -46,6 +48,7 @@ const routes: Routes = [
         { path: '', redirectTo: 'profile', pathMatch: "full" },
         { path: 'profile', component: StudentProfileComponent },
         { path: 'progress', component: StudentProgressComponent },
+        { path: 'misses', component: StudentMissesComponent },
         { path: 'schedule', component: StudentScheduleComponent },
         { path: 'settings', component: StudentSettingsComponent }
       ],
@@ -57,6 +60,7 @@ const routes: Routes = [
         { path: '', redirectTo: 'profile', pathMatch: "full"},
         { path: 'profile', component: TeacherProfileComponent},
         { path: 'journal', component: TeacherJournalComponent},
+        { path: 'misses', component: TeacherMissesComponent},
         { path: 'schedule', component: TeacherScheduleComponent},
         { path: 'reports', component: TeacherReportsComponent},
         { path: 'settings', component: TeacherSettingsComponent}

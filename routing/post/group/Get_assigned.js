@@ -15,10 +15,15 @@ class GroupGetAssignedRoute extends BaseRoute {
 
     async handle() {
         try {
-            const groupList = {courses: [], squads: [], ids: {}}, assignedGroupIds = {};
+            let assignedGroups;
 
             const groups = await this.core.db.groups.get();
-            const assignedGroups = await this.core.db.groupDiscipline.get({discipline_id: this.params.discipline_id});
+            const groupList = {courses: [], squads: [], ids: {}}, assignedGroupIds = {};
+
+            if (this.params.discipline_id)
+                assignedGroups = await this.core.db.groupDiscipline.get({discipline_id: this.params.discipline_id});
+            else
+                assignedGroups = await this.core.db.groupDiscipline.get({});
 
             for (let i = 0; i < assignedGroups.length; i++) {
                 assignedGroupIds[assignedGroups[i].group_id] = true;

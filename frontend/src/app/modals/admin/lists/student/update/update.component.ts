@@ -72,6 +72,11 @@ export class UpdateStudentModal implements OnInit {
   //TODO refactor upload, change toast to warning
   upload() {
     toast('Загрузка!', 4000, 'success-toast');
+
+    if (this.filesToUpload[0].name.slice(this.filesToUpload[0].name.lastIndexOf('.'), this.filesToUpload[0].name.length) !== '.jpg') {
+      return toast('Неподдерживаемый формат, нужен jpg!', 4000, 'error-toast');
+    }
+
     this.httpService.uploadUserPhoto(this.filesToUpload, this.user.id, 'student')
     .then((result) => {
       toast('Фото успешно обновлено!', 4000, 'success-toast');

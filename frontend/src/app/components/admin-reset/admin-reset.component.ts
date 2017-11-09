@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../services/http.service';
+import { Router } from '@angular/router';
 import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
@@ -16,9 +17,13 @@ export class AdminResetComponent implements OnInit {
   public login: string = '';
   public password: string = '';
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() { }
+
+  goHome() {
+    this.router.navigate(['/']);
+  }
 
   openAdminResetModal() {
     this.adminResetModal.emit({action:"modal",params:['open']});

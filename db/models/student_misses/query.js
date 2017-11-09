@@ -23,9 +23,9 @@ class StudentMissesQuery {
         })
     }
 
-    static add(name, teacher_id) {
+    static add(params) {
         return new Promise((res, rej) => {
-            const newItem = new StudentMisses({name, teacher_id});
+            const newItem = new StudentMisses(params);
 
             newItem.save(function (err) {
                 return (!err)? res(newItem._id) : rej(err);
@@ -41,9 +41,9 @@ class StudentMissesQuery {
         });
     }
 
-    static delete(params) {
+    static deleteById(id) {
         return new Promise((res, rej) => {
-            StudentMisses.remove(params, (err, success) => {
+            StudentMisses.remove({_id: id}, (err, success) => {
                 return (!err)? res(success) : rej(err);
             })
         })
