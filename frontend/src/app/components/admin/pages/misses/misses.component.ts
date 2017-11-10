@@ -19,7 +19,7 @@ export class AdminMissesComponent implements OnInit {
   public currentStudentId: string = '';
   public currentMissData: {id, lesson_number: number, reason: string} = {id: '', lesson_number: 0, reason: ''};
 
-  public missesDate: string = (new Date()).toDateString();
+  public missesDate: string = ''; //(new Date()).toDateString();
   public currentCourse: string = '';
   public currentSquad: string = '';
 
@@ -53,7 +53,7 @@ export class AdminMissesComponent implements OnInit {
     if (!this.currentCourse || !this.currentSquad)
       return;
 
-    console.log(typeof this.missesDate);
+    console.log(this.missesDate);
 
     const groupId = this.groupIds[`${this.currentCourse}_${this.currentSquad}`];
 
