@@ -7,14 +7,14 @@
       </select>
       <label>Дисциплина</label>
     </div>
-    <div *ngIf="currentDisciplineId" class="input-field col s12 m4 l3 xl3">
+    <div *ngIf="currentDisciplineId && courses.length" class="input-field col s12 m4 l3 xl3">
       <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getMarks()">
         <option value="" disabled selected>Выберите курс</option>
         <option *ngFor="let course of courses" [value]="course">{{course}}</option>
       </select>
       <label>Курс</label>
     </div>
-    <div *ngIf="currentDisciplineId" class="input-field col s12 m4 l3 xl3">
+    <div *ngIf="currentDisciplineId && squads.length" class="input-field col s12 m4 l3 xl3">
       <select materialize="material_select" [(ngModel)]="currentSquad" (ngModelChange)="getMarks()">
         <option value="" disabled selected>Выберите взвод</option>
         <option *ngFor="let squad of squads" [value]="squad">{{squad}}</option>
