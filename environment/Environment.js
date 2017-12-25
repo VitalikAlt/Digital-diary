@@ -1,7 +1,8 @@
 const Db = require('./../db/Db');
 
 class Environment {
-    constructor() {
+    constructor(cb) {
+        this.cb = cb;
         this.core = {};
         this.setVars();
         this.init();

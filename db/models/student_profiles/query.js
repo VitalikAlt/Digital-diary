@@ -48,6 +48,14 @@ class StudentProfileQuery {
             })
         })
     }
+
+    static delete(params = {}) {
+        return new Promise((res, rej) => {
+            StudentProfile.remove(params, (err, success) => {
+                return (!err)? res(success) : rej(err);
+            })
+        })
+    }
 }
 
 module.exports = StudentProfileQuery;

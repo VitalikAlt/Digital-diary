@@ -5,8 +5,8 @@ global.p = console.log;
 const Environment = require(appRoot + '/environment/Environment');
 
 class Server extends Environment {
-    constructor() {
-        super();
+    constructor(cb) {
+        super(cb);
     }
 
     async init() {
@@ -23,10 +23,12 @@ class Server extends Environment {
 
     createServer() {
         const http = require('http');
-        const server = http.createServer((req, res) => this.core.routeManager.handle(req, res));
+        this.server = http.createServer((req, res) => this.core.routeManager.handle(req, res));
 
-        server.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             this.core.log.info(`Server listening on: ${this.host}:${this.port}`);
+            this.core.stop = this.stop.bind(this);
+            this.cb(this.core)
         });
     }
 
@@ -44,6 +46,11 @@ class Server extends Environment {
         })
     }
 
+    async stop() {
+        await this.server.close(() => { this.core.log.info('Server closed connection') })
+        process.exit(0)
+    }
+
     get port() {
         return process.env.NODE_PORT || '8080';
     }
@@ -53,4 +60,4 @@ class Server extends Environment {
     }
 }
 
-module.exports = new Server();
+module.exports = Server;
