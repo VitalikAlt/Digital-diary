@@ -12,6 +12,6 @@ const ScheduleCell = new scheduleCell({
     week_number: { type: Number, required: true, min: 1, max: 2 }
 });
 
-const ScheduleCellModel = mongoose.model('ScheduleCell', ScheduleCell);
+const ScheduleCellModel = mongoose.model('schedule_cell', ScheduleCell);
 
 module.exports = ScheduleCellModel;

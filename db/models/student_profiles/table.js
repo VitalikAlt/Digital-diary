@@ -13,6 +13,7 @@ const StudentProfile = new studentProfile({
     birth_place: { type: String, required: false},
     birth_date: { type: Date, required: false},
     residence_address: { type: String, required: false},
+    phone_number: { type: String, required: false},
 
     education: { type: String, required: false},
     faculty: { type: String, required: false},
@@ -37,6 +38,6 @@ const StudentProfile = new studentProfile({
     conclusion: { type: String, required: false}
 });
 
-const StudentProfileModel = mongoose.model('StudentProfile', StudentProfile);
+const StudentProfileModel = mongoose.model('student_profile', StudentProfile);
 
 module.exports = StudentProfileModel;

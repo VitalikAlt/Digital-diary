@@ -24,6 +24,6 @@ const TeacherProfile = new teacherProfile({
     military_number: { type: String, required: false},
 });
 
-const TeacherProfileModel = mongoose.model('TeacherProfile', TeacherProfile);
+const TeacherProfileModel = mongoose.model('teacher_profile', TeacherProfile);
 
 module.exports = TeacherProfileModel;

@@ -44,6 +44,7 @@ class BaseRoute {
             return false;
         }
 
+        this.userRole = user.role;
         return true;
     }
 

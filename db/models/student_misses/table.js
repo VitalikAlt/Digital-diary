@@ -9,6 +9,6 @@ const StudentMisses = new studentMisses({
     reason: { type: String, required: true }
 });
 
-const StudentMissesModel = mongoose.model('StudentMisses', StudentMisses);
+const StudentMissesModel = mongoose.model('student_misses', StudentMisses);
 
 module.exports = StudentMissesModel;

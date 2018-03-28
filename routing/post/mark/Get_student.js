@@ -33,6 +33,7 @@ class MarkGetStudentRoute extends BaseRoute {
             }
 
             markList.average = (average / marks.length).toFixed(2);
+            markList.average = isNaN(markList.average)? 0 : markList.average;
             markList.misses = (await this.core.db.studentMisses.get({student_id: this.params.student_id})).length;
             this.complete(markList);
         } catch (err) {

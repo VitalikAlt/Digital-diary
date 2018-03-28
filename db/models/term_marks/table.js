@@ -10,6 +10,6 @@ const TermMarks = new termMarks({
     mark: { type: Number, required: true, min: 0, max: 5 }
 });
 
-const TermMarksModel = mongoose.model('TermMarks', TermMarks);
+const TermMarksModel = mongoose.model('term_marks', TermMarks);
 
 module.exports = TermMarksModel;

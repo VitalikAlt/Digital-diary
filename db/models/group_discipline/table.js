@@ -7,6 +7,6 @@ const GroupDiscipline = new groupDiscipline({
     group_id: { type: String, required: true }
 });
 
-const GroupDisciplineModel = mongoose.model('GroupDiscipline', GroupDiscipline);
+const GroupDisciplineModel = mongoose.model('group_discipline', GroupDiscipline);
 
 module.exports = GroupDisciplineModel;
