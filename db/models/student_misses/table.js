@@ -4,7 +4,7 @@ const studentMisses = mongoose.Schema;
 
 const StudentMisses = new studentMisses({
     student_id: { type: String, required: true },
-    lesson_number: { type: Number, required: true, min: 1, max: 5 },
+    lesson_number: { type: Number, required: true, min: 0, max: 4 },
     date: { type: Date, required: true},
     reason: { type: String, required: true }
 });

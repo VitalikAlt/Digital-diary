@@ -16,7 +16,7 @@ class BaseRoute {
             return this.handle();
 
         for (let i = 0; i < this.paramNames.length; i++) {
-            if (!this.params || !this.params[this.paramNames[i]]) {
+            if (!this.params || !this.params[this.paramNames[i]] && this.params[this.paramNames[i]] !== 0) {
                 this.sendResponse(this.core.errors['BAD_PARAMS'](this.paramNames[i]), 400);
                 return null;
             }

@@ -33,7 +33,6 @@ const StudentProfile = new studentProfile({
     passport_series: { type: String, required: false},
     passport_number: { type: String, required: false},
 
-    military_data: { type: String, required: false},
     contract_data: { type: String, required: false},
     conclusion: { type: String, required: false}
 });

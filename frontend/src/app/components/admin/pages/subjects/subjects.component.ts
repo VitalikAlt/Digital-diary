@@ -58,6 +58,9 @@ export class AdminSubjectsComponent implements OnInit {
   }
 
   addSubject() {
+    if (!this.addSubjectData.teacher)
+      return toast('Преподаватель не найден!', 4000, 'error-toast');
+
     this.httpService.addSubject(this.addSubjectData.name, this.addSubjectData.teacher.id)
       .subscribe((id) => {
         this.subjects.push({id, name: this.addSubjectData.name, teacher: this.addSubjectData.teacher.name});

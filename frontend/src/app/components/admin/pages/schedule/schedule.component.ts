@@ -65,6 +65,7 @@ export class AdminScheduleComponent implements OnInit {
     if (cell)
       this.editScheduleCell = cell;
     else {
+      this.teacherFilters.name = '';
       this.editScheduleCell.id = '';
       this.editScheduleCell.room = '';
       this.editScheduleCell.teacher_id = '';
@@ -124,6 +125,12 @@ export class AdminScheduleComponent implements OnInit {
 
     if (!groupId)
       return toast('Проблема с группами, перезагрузите страницу!', 4000, 'error-toast');
+
+    if (!this.editScheduleCell.teacher_id)
+      return toast('Преподаватель не найден!', 4000, 'error-toast');
+
+    if (!this.editScheduleCell.discipline_id)
+      return toast('Дисциплина не выбрана!', 4000, 'error-toast');
 
     this.editScheduleCell.group_id = groupId;
     this.httpService.updateScheduleCell(this.editScheduleCell)
