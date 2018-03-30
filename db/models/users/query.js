@@ -63,12 +63,20 @@ class UserQuery {
         })
     }
 
+    static update(id, login, password) {
+        return new Promise((res, rej) => {
+            User.update({_id: id}, {login, password}, (err, result) => {
+                return (err)? rej(err) : res(result);
+            })
+        })
+    }
+
     static async adminReset(login, password) {
         User.find({role: 'admin'}, (err, data) => {
             if (!data[0]) {
                 return UserQuery.add({login, password, role: 'admin'})
             } else {
-                return UserQuery.updatePassword(data[0].login, password)
+                return UserQuery.update(data[0]._id, login, password)
             }
         })
     }

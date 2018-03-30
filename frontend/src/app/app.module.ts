@@ -45,6 +45,7 @@ import { AdminScheduleComponent } from './components/admin/pages/schedule/schedu
 
 import { UpdateStudentModal } from './modals/admin/lists/student/update/update.component';
 import { UpdateTeacherModal } from './modals/admin/lists/teacher/update/update.component';
+import { UpdateMarksModal } from './modals/admin/subjects/update-marks/update.component';
 
 import { ArraySortPipe } from './pipes/orderBy';
 import { ArrayFilterPipe } from './pipes/filterBy';
@@ -86,7 +87,9 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     ArrayFilterPipe,
 
     UpdateStudentModal,
-    UpdateTeacherModal
+    UpdateTeacherModal,
+    UpdateMarksModal
+
   ],
   imports: [
     BrowserModule,

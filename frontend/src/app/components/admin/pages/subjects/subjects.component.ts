@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import {Component, OnInit, EventEmitter, ViewChild} from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../services/http.service';
 import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
+import {UpdateMarksModal} from "../../../../modals/admin/subjects/update-marks/update.component";
 
 @Component({
   selector: 'app-admin-subjects',
@@ -10,6 +11,8 @@ import { FadeInOutAnimation } from '../../../../animations/FadeInOutAnimation';
   animations: [FadeInOutAnimation]
 })
 export class AdminSubjectsComponent implements OnInit {
+
+  @ViewChild('updateMarksModal') updateMarksModal;
 
   public addDisciplineModal = new EventEmitter<string|MaterializeAction>();
   public editSubjectModal = new EventEmitter<string|MaterializeAction>();
@@ -133,6 +136,10 @@ export class AdminSubjectsComponent implements OnInit {
 
   closeModalSubjectEdit() {
     this.editSubjectModal.emit({action:"modal",params:['close']});
+  }
+
+  openModalSubjectMarksEdit() {
+
   }
 
   openModalSubjectDelete() {

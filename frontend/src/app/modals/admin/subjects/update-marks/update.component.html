@@ -1,0 +1,40 @@
+<div id="changeMarksModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="changeMarksModal">
+  <div class="modal-content modal-changer">
+    <div class="row s12 m12 l12 xl12" style="padding-left: 7px;">
+      <div *ngIf="currentDisciplineId && courses.length" class="input-field col s12 m4 l3 xl3">
+        <select materialize="material_select" [(ngModel)]="currentCourse" (ngModelChange)="getMarks()">
+          <option value="" disabled selected>Выберите курс</option>
+          <option *ngFor="let course of courses" [value]="course">{{course}}</option>
+        </select>
+        <label>Курс</label>
+      </div>
+      <div *ngIf="currentDisciplineId && squads.length" class="input-field col s12 m4 l3 xl3">
+        <select materialize="material_select" [(ngModel)]="currentSquad" (ngModelChange)="getMarks()">
+          <option value="" disabled selected>Выберите взвод</option>
+          <option *ngFor="let squad of squads" [value]="squad">{{squad}}</option>
+        </select>
+        <label>Взвод</label>
+      </div>
+    </div>
+    <div class="journal-data">
+      <table class="table bordered highlight">
+        <tr>
+          <th>Cтудент</th>
+          <th *ngFor="let term of terms; let i = index;">{{i + 1}} семестр</th>
+        </tr>
+        <tr *ngFor="let studentId of marks.keys">
+          <td style="width: 15%; padding-top: 10px">
+            {{marks[studentId].name}}
+          </td>
+          <td *ngFor="let mark of marks[studentId].marks; trackBy: markTracker; let markIndex = index;">
+            <input type="number" placeholder="-" [(ngModel)]="marks[studentId].marks[markIndex]">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="waves-effect waves-green btn-flat" (click)="saveMarks();">Сохранить</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="close()">Отмена</button>
+  </div>
+</div>

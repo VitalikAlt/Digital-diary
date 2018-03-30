@@ -27,8 +27,8 @@ export class StudentSettingsComponent implements OnInit {
     if (this.password.new !== this.password.newRepeat)
       return toast('Не совпадение новых паролей!', 4000, 'error-toast');
 
-    const oldPassword = Md5.hashStr(this.password.old).toString();
-    const newPassword = Md5.hashStr(this.password.new).toString();
+    const oldPassword = Md5.hashStr(`_${this.password.old}_`).toString();
+    const newPassword = Md5.hashStr(`_${this.password.new}_`).toString();
 
     if (this.userService.user.password !== oldPassword)
       return toast('Текущий пароль не верен!', 4000, 'error-toast');

@@ -27,6 +27,7 @@
       <!--редактировать профиль, редактировать логин и пароль, удалить-->
       <td>
         <i (click)="selectedSubject = subject; openModalSubjectEdit()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать группы" class="small material-icons pointer-center">chrome_reader_mode</i>
+        <i (click)="selectedSubject = subject; updateMarksModal.open(subject.id)" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Редактировать успеваемость" class="small material-icons pointer-center">folder_shared</i>
         <i (click)="selectedSubject = subject; openModalSubjectDelete()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Удалить" class="small material-icons pointer-center">delete_forever</i>
       </td>
     </tr>
@@ -102,6 +103,8 @@
     <button class="modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px" (click)="closeModalSubjectEdit()">Отмена</button>
   </div>
 </div>
+
+<app-admin-subjects-update-marks-modal #updateMarksModal></app-admin-subjects-update-marks-modal>
 
 <div id="deleteSubjectModal" class="modal modal-fixed-footer" materialize="modal" [materializeActions]="deleteSubjectModal">
   <div class="modal-content">

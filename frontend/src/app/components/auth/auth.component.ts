@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
   }
 
   enter(authForm: NgForm) {
-    const password = Md5.hashStr(authForm.value.password).toString();
+    const password = Md5.hashStr(`_${authForm.value.password}_`).toString();
     this.httpService.signIn(authForm.value.login, password)
       .subscribe((result) => {
         this.route({login: authForm.value.login, password, role: result.role, remember: authForm.value.remember});

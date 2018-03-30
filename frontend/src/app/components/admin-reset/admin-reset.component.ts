@@ -21,8 +21,9 @@ export class AdminResetComponent implements OnInit {
 
   ngOnInit() { }
 
-  goHome() {
+  goToMainPage() {
     this.router.navigate(['/']);
+    this.adminResetModal.emit({action:"modal",params:['close']});
   }
 
   openAdminResetModal() {
@@ -33,7 +34,7 @@ export class AdminResetComponent implements OnInit {
     if (!this.secretKey || !this.login || !this.password)
       return this.showResetError('Bad params in request');
 
-    this.httpService.resetAdmin(this.login, Md5.hashStr(this.password).toString(), this.secretKey)
+    this.httpService.resetAdmin(this.login, Md5.hashStr(`_${this.password}_`).toString(), this.secretKey)
       .subscribe(() => {
         toast('Профиль восстановлен!', 4000, 'success-toast');
       }, (error) => {

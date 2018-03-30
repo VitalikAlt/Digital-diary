@@ -10,7 +10,7 @@ class MarkUpdateRoute extends BaseRoute {
     }
 
     get roles() {
-        return ['teacher']
+        return ['teacher', 'admin']
     }
 
     async handle() {

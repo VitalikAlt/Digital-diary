@@ -49,8 +49,11 @@ export class StudentListComponent implements OnInit {
     if (!Number(this.modalUser.course) || !Number(this.modalUser.squad))
       return toast('Неверный курс или группа!', 4000, 'error-toast');
 
-    this.httpService.addStudent(Number(this.modalUser.course), Number(this.modalUser.squad),
-      this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName, this.modalUser.login, Md5.hashStr(this.modalUser.password).toString())
+    this.httpService.addStudent(
+      Number(this.modalUser.course), Number(this.modalUser.squad), this.modalUser.surname,
+      this.modalUser.name, this.modalUser.fatherName, this.modalUser.login,
+      Md5.hashStr(`_${this.modalUser.password}_`).toString()
+    )
       .subscribe((id) => {
         this.students.push({
           id: id,
@@ -71,7 +74,7 @@ export class StudentListComponent implements OnInit {
   }
 
   changePassword() {
-    this.httpService.changePassword(this.modalUser.login, Md5.hashStr(this.modalUser.new_password).toString())
+    this.httpService.changePassword(this.modalUser.login, Md5.hashStr(`_${this.modalUser.new_password}_`).toString())
       .subscribe((result) => {
         toast('Студент успешно изменён!', 4000, 'success-toast');
         this.closeChangePasswordModal();

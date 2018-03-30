@@ -46,7 +46,10 @@ export class TeacherListComponent implements OnInit {
       || !this.modalUser.fatherName || !this.modalUser.login || !this.modalUser.password)
       return toast('Заполнены не все поля!', 4000, 'error-toast');
 
-    this.httpService.addTeacher(this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName, this.modalUser.login, Md5.hashStr(this.modalUser.password).toString())
+    this.httpService.addTeacher(
+      this.modalUser.surname, this.modalUser.name, this.modalUser.fatherName,
+      this.modalUser.login, Md5.hashStr(`_${this.modalUser.password}_`).toString()
+    )
       .subscribe((id) => {
         this.teachers.push({
           id: id,
@@ -65,7 +68,7 @@ export class TeacherListComponent implements OnInit {
   }
 
   changePassword() {
-    this.httpService.changePassword(this.modalUser.id, Md5.hashStr(this.modalUser.new_password).toString())
+    this.httpService.changePassword(this.modalUser.id, Md5.hashStr(`_${this.modalUser.new_password}_`).toString())
       .subscribe((result) => {
         toast('Пароль успешно изменён!', 4000, 'success-toast');
         this.closeChangePasswordModal();
