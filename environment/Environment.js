@@ -43,7 +43,7 @@ class Environment {
         try {
             this.core.cfg = {};
             this.core.cfg.database = require('./../config/database/local.json');
-            this.core.cfg.secret = require('./../config/secret/config.json');
+            this.core.cfg.secret = require(`../config/secret/${process.env.NODE_ENV}.json`);
             this.core.cfg.shared = require('./../config/shared/config.json');
             this.core.log.info('Init configs success');
         } catch (err) {
