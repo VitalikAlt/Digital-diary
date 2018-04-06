@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "amazon",
     "update_branch": "git stash && git rebase origin/master && git stash apply",
-    "server:prod": "sudo NODE_HOST=0.0.0.0 NODE_PORT=80 node ServerRunner.js",
+    "server:prod": "sudo NODE_HOST=0.0.0.0 NODE_PORT=80 NODE_ENV=prod node ServerRunner.js",
     "build:prod": "cd frontend && npm run build:prod && cd ..",
     "start:prod": "npm run update_branch && npm run build:prod && npm run server:prod"
   },
