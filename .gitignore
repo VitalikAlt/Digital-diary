@@ -11,4 +11,5 @@ node_modules
 
 frontend/node_modules
 frontend/.idea
+frontend/dist
 frontend/src/assets/data/photo

@@ -12,7 +12,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class HttpService {
 
-  //18.221.201.200
+  //85.142.148.182
   private baseUrl = 'http://localhost:8080/';
 
   constructor(private httpClient: HttpClient, private userService: UserService) { }
