@@ -72,11 +72,14 @@ class UserQuery {
     }
 
     static async adminReset(login, password) {
-        User.find({role: 'admin'}, (err, data) => {
+        User.find({role: 'admin'}, async (err, data) => {
+            if (err)
+                return Promise.reject(err);
+
             if (!data[0]) {
-                return UserQuery.add({login, password, role: 'admin'})
+                return await UserQuery.add({login, password, role: 'admin'})
             } else {
-                return UserQuery.update(data[0]._id, login, password)
+                return await UserQuery.update(data[0]._id, login, password)
             }
         })
     }
