@@ -68,7 +68,7 @@ export class TeacherListComponent implements OnInit {
   }
 
   changePassword() {
-    this.httpService.changePassword(this.modalUser.id, Md5.hashStr(`_${this.modalUser.new_password}_`).toString())
+    this.httpService.changePassword(this.modalUser.login, Md5.hashStr(`_${this.modalUser.new_password}_`).toString())
       .subscribe((result) => {
         toast('Пароль успешно изменён!', 4000, 'success-toast');
         this.closeChangePasswordModal();
