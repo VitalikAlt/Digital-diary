@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { UserService } from './user.service';
 import { toast } from "angular2-materialize";
+import { Preloader } from './preloader.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -30,12 +31,18 @@ export class HttpService {
       Object.assign(body, {sender: {login: user.login, password: user.password}});
     }
 
+    Preloader.turnOn();
     return this.httpClient.post(this.baseUrl + url, body)
+      .map((value) => {
+        Preloader.turnOf();
+        return value;
+      })
       .catch(this.handleError);
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
     let error;
+    Preloader.turnOf();
 
     try {
       error = JSON.parse(errorResponse.error).message || errorResponse.error;

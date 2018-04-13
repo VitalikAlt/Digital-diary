@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { UserService1 } from './user.service';
 import { HttpService } from './services/http.service';
 import { UserService } from './services/user.service';
+import { Preloader } from './services/preloader.service';
 import { AuthGuard } from './services/auth_guard.service';
 
 import { AuthComponent } from './components/auth/auth.component';
@@ -104,7 +105,8 @@ import { ArrayFilterPipe } from './pipes/filterBy';
     UserService1,
     UserService,
     HttpService,
-    AuthGuard
+    AuthGuard,
+    Preloader
   ],
   bootstrap: [AppComponent]
 })

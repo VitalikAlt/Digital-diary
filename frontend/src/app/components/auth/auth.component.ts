@@ -6,7 +6,8 @@ import {HttpService} from '../../services/http.service';
 import {Md5} from 'ts-md5/dist/md5';
 import {Cookie} from 'ng2-cookies';
 import {UserService, Configs} from '../../services/user.service';
-import {AuthGuard} from '../../services/auth_guard.service'
+import {AuthGuard} from '../../services/auth_guard.service';
+import {Preloader} from '../../services/preloader.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,7 @@ export class AuthComponent implements OnInit {
 
   public incorrectInput: boolean;
 
-  constructor(private router: Router, private httpService: HttpService,
+  constructor(private router: Router, private httpService: HttpService, public preloader: Preloader,
               private userService: UserService, private authGuard: AuthGuard) {
   }
 

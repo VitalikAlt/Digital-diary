@@ -1,16 +1,23 @@
 <div class="container">
   <div class="card card-container">
-    <img id="profile-img" class="profile-img-card" src="./../../../assets/images/default/avatar_2x.png" />
-    <p id="profile-name" class="profile-name-card"></p>
-    <form class="form-signin" #authForm="ngForm" novalidate (ngSubmit)="enter(authForm)">
-      <span id="reauth-email" class="reauth-email"></span>
-      <input id="inputEmail" class="form-control" placeholder="Имя пользователя" ngModel name="login" required autofocus>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" ngModel name="password" required>
-      <div id="remember" class="checkbox">
-        <input class="filled-in " type="checkbox" id="remember-me" ngModel name="remember"/>
-        <label class="standart-label" for="remember-me">Запомнить меня</label>
-      </div>
-      <button type="submit" [disabled]="authForm.invalid" class="waves-effect waves-light btn">Войти</button>
-    </form>
+    <div class="progress" *ngIf="preloader.status">
+      <div class="indeterminate"></div>
+    </div>
+    <div class="card-content">
+      <img id="profile-img" class="profile-img-card" src="./../../../assets/images/default/avatar_2x.png" />
+
+      <p id="profile-name" class="profile-name-card"></p>
+      <form class="form-signin" #authForm="ngForm" novalidate (ngSubmit)="enter(authForm)">
+        <span id="reauth-email" class="reauth-email"></span>
+        <input id="inputEmail" class="form-control" placeholder="Имя пользователя" ngModel name="login" required autofocus>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" ngModel name="password" required>
+        <div id="remember" class="checkbox">
+          <input class="filled-in " type="checkbox" id="remember-me" ngModel name="remember"/>
+          <label class="standart-label" for="remember-me">Запомнить меня</label>
+        </div>
+        <button type="submit" [disabled]="authForm.invalid" class="waves-effect waves-light btn">Войти</button>
+      </form>
+    </div>
   </div>
+
 </div>

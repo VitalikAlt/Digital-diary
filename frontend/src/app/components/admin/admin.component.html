@@ -13,6 +13,9 @@
     <li class="tab"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
     <li class="tab"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
+  <div class="progress" *ngIf="preloader.status">
+    <div class="indeterminate"></div>
+  </div>
   <a materialize="sideNav" [materializeParams]="[{edge:'left', draggable: true, menuWidth: 300, closeOnClick: true}]"
      href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   <a class="current-route" [routerLink]="['lists']" [routerLinkActive]="['d-flex']"><h4>Списки</h4></a>
@@ -23,6 +26,9 @@
 </nav>
 
 <div class="col s12 tabs-container">
+  <div class="progress" *ngIf="preloader.status">
+    <div class="indeterminate"></div>
+  </div>
   <ul class="tabs" materialize="tabs" [materializeParams]="[{swipeable: true}]">
     <li class="tab col s3"><a [routerLink]="['lists']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Списки</a></li>
     <li class="tab col s3"><a [routerLink]="['subjects']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Дисциплины</a></li>

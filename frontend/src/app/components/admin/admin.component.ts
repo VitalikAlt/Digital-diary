@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { Preloader } from '../../services/preloader.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
@@ -11,14 +12,22 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 export class AdminComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,
+              private preloader: Preloader, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
+  }
+
+  ngDoCheck() {
+    this.cdRef.detectChanges();
+  }
 
   deleteAllCookies() {
     this.userService.set({});
     Cookie.deleteAll();
-    console.log(Cookie.getAll());
     this.router.navigate(['/auth']);
   }
 }

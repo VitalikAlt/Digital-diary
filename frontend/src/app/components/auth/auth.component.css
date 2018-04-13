@@ -15,8 +15,12 @@ input.ng-touched.ng-valid {
 
 .card-container.card {
   max-width: 370px;
-  padding: 40px 40px;
+  padding: 0;
   overflow: auto;
+}
+
+.card-content {
+  padding: 40px 40px;
 }
 
 @media (max-width: 480px), (max-height: 480px) {
@@ -32,6 +36,10 @@ input.ng-touched.ng-valid {
     flex-direction: column;
     justify-content: center;
     height: 100vh;
+  }
+
+  .card-content {
+    padding: 0;
   }
 }
 

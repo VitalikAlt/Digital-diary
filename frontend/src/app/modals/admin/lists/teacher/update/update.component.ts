@@ -1,6 +1,7 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import {Component, OnInit, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { MaterializeAction, toast } from "angular2-materialize";
 import { HttpService } from '../../../../../services/http.service';
+import {Preloader} from "../../../../../services/preloader.service";
 
 @Component({
   selector: 'app-admin-lists-update-teacher-modal',
@@ -15,9 +16,18 @@ export class UpdateTeacherModal implements OnInit {
 
   public filesToUpload: Array<File>;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, public preloader: Preloader,
+              private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
+  }
+
+  ngDoCheck() {
+    this.cdRef.detectChanges();
+  }
 
   updateTeacher() {
     if (this.user.birth_date) {
