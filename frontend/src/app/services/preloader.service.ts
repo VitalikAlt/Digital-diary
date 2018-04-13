@@ -1,4 +1,6 @@
+const MIN_ANIMATION_TIME = 1150; // миллисекунды
 let waitingFor: number = 0;
+let startAnimationTime: Date = new Date();
 
 export class Preloader {
   constructor() { }
@@ -8,21 +10,22 @@ export class Preloader {
   }
 
   static turnOn() {
-    console.log("+")
+    if (waitingFor === 0)
+      startAnimationTime = new Date();
+
     waitingFor++;
   }
 
 
   static turnOf() {
-    console.log("-")
+    const animationTime = +(new Date()) - +startAnimationTime;
+    if (waitingFor === 1 && animationTime < MIN_ANIMATION_TIME)
+      return setTimeout(() => waitingFor--, MIN_ANIMATION_TIME - animationTime);
+
     waitingFor--;
   }
 
   get status() {
     return waitingFor !== 0;
-  }
-
-  async status1() {
-    return Promise.resolve(waitingFor !== 0);
   }
 }
