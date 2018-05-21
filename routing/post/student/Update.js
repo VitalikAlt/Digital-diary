@@ -19,6 +19,7 @@ class TeacherUpdateRoute extends BaseRoute {
                 return this.complete(null, 'Error: incorrect data', 'No user with that id!');
 
             this.params.data.group_id = await this.core.db.groups.getId(this.params.data.course, this.params.data.squad);
+            this.params.data.group_id = this.params.data.group_id || (await this.core.db.groups.add(this.params.data.course, this.params.data.squad));
 
             if (!this.params.data.group_id)
                 return this.complete(null, 'Error: incorrect data', 'No group_id for that course and squad!');

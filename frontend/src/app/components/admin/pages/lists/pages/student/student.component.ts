@@ -35,6 +35,7 @@ export class StudentListComponent implements OnInit {
     this.httpService.getStudentList()
       .subscribe((students) => {
         this.students = students;
+        console.log(this.students)
       }, (error) => {
         toast('Неизвестная ошибка!', 4000, 'error-toast');
         console.log(error);
@@ -78,22 +79,6 @@ export class StudentListComponent implements OnInit {
       .subscribe((result) => {
         toast('Студент успешно изменён!', 4000, 'success-toast');
         this.closeChangePasswordModal();
-      }, (error) => {
-        if (error === "No user with that id!")
-          return toast('Студент не найден, обновите страницу!', 4000, 'error-toast');
-
-        toast('Неизвестная ошибка!', 4000, 'error-toast');
-        console.log(error);
-      })
-  }
-
-  updateStudent() {
-    const birthDate = this.modalUser.birth_date.split('/');
-    this.modalUser.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
-    this.httpService.updateStudentProfile(this.modalUser)
-      .subscribe(() => {
-        toast('Студент обновлён!', 4000, 'success-toast');
-        this.closeChangeStudentModal();
       }, (error) => {
         if (error === "No user with that id!")
           return toast('Студент не найден, обновите страницу!', 4000, 'error-toast');
@@ -168,26 +153,6 @@ export class StudentListComponent implements OnInit {
 
   closeChangePasswordModal() {
     this.changePasswordModal.emit({action:"modal",params:['close']});
-  }
-
-  openChangeStudentModal() {
-    this.httpService.getStudentProfile(this.modalUser.id)
-      .subscribe((result) => {
-        this.changeStudentModal.emit({action:"modal",params:['open']});
-
-        result['id'] = this.modalUser.id;
-        this.modalUser = result;
-      }, (error) => {
-        if (error === "No user with that id!")
-          return toast('Студент не найден, обновите страницу!', 4000, 'error-toast');
-
-        toast('Неизвестная ошибка!', 4000, 'error-toast');
-        console.log(error);
-      })
-  }
-
-  closeChangeStudentModal() {
-    this.changeStudentModal.emit({action:"modal",params:['close']});
   }
 
   openDeleteStudentModal() {

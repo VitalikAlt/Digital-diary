@@ -81,22 +81,6 @@ export class TeacherListComponent implements OnInit {
       })
   }
 
-  saveTeacherData() {
-    const birthDate = this.modalUser.birth_date.split('/');
-    this.modalUser.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
-    this.httpService.updateTeacherProfile(this.modalUser)
-      .subscribe((result) => {
-        toast('Преподаватель обновлён!', 4000, 'success-toast');
-        this.closeChangeTeacherModal();
-      }, (error) => {
-        if (error === "No user with that id!")
-          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
-
-        toast('Неизвестная ошибка!', 4000, 'error-toast');
-        console.log(error);
-      })
-  }
-
   deleteTeachers() {
     const ids = [];
 
@@ -162,26 +146,6 @@ export class TeacherListComponent implements OnInit {
 
   closeChangePasswordModal() {
     this.changePasswordModal.emit({action:"modal",params:['close']});
-  }
-
-  openChangeTeacherModal() {
-    this.httpService.getTeacherProfile(this.modalUser.id)
-      .subscribe((result) => {
-        this.changeTeacherModal.emit({action:"modal",params:['open']});
-
-        result['id'] = this.modalUser.id;
-        this.modalUser = result;
-      }, (error) => {
-        if (error === "No user with that id!")
-          return toast('Преподаватель не найден, обновите страницу!', 4000, 'error-toast');
-
-        toast('Неизвестная ошибка!', 4000, 'error-toast');
-        console.log(error);
-      })
-  }
-
-  closeChangeTeacherModal() {
-    this.changeTeacherModal.emit({action:"modal",params:['close']});
   }
 
   openDeleteTeacherModal() {
