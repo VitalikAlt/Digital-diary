@@ -33,7 +33,10 @@ export class AuthComponent implements OnInit {
       .subscribe((result) => {
         this.route({login: authForm.value.login, password, role: result.role, remember: authForm.value.remember});
       }, (error) => {
-        toast('Неверное имя пользователя или пароль!', 4000, 'error-toast');
+        if (error === "Incorrect login or password!")
+          return toast('Неверное имя пользователя или пароль!', 4000, 'error-toast');
+        else
+          return toast('Сервис временно недоступен!', 4000, 'error-toast');
       })
   }
 

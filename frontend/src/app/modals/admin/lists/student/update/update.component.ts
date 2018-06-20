@@ -47,6 +47,20 @@ export class UpdateStudentModal implements OnInit {
       this.user.birth_date = new Date(birthDate[2], birthDate[1], birthDate[0]);
     }
 
+    if (isNaN(Number(this.user.course))) {
+      this.user.birth_date = oldBirthDate;
+      return toast("Курс должен быть числовым значением!", 4000, "error-toast")
+    } else {
+      this.user.course = Number(this.user.course)
+    }
+
+    if (isNaN(Number(this.user.squad))) {
+      this.user.birth_date = oldBirthDate;
+      return toast("Взвод должен быть числовым значением!", 4000, "error-toast")
+    } else {
+      this.user.squad = Number(this.user.squad)
+    }
+
     this.httpService.updateStudentProfile(this.user).subscribe(
       () => {
         toast("Студент обновлён!", 4000, "success-toast");

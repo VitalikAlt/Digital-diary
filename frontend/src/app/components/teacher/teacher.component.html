@@ -15,7 +15,7 @@
     <li class="tab"><a [routerLink]="['journal']" [routerLinkActive]="['active']">Журнал</a></li>
     <li class="tab"><a [routerLink]="['misses']" [routerLinkActive]="['active']">Пропуски</a></li>
     <li class="tab"><a [routerLink]="['schedule']" [routerLinkActive]="['active']">Расписание</a></li>
-    <li class="tab"><a [routerLink]="['reports']" [routerLinkActive]="['active']">Отчёты</a></li>
+    <!-- <li class="tab"><a [routerLink]="['reports']" [routerLinkActive]="['active']">Отчёты</a></li> -->
     <li class="tab"><a [routerLink]="['settings']" [routerLinkActive]="['active']">Настройки</a></li>
     <li><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
@@ -28,7 +28,7 @@
   <a class="current-route" [routerLink]="['journal']" [routerLinkActive]="['d-flex']"><h4>Журнал</h4></a>
   <a class="current-route" [routerLink]="['misses']" [routerLinkActive]="['d-flex']"><h4>Пропуски</h4></a>
   <a class="current-route" [routerLink]="['schedule']" [routerLinkActive]="['d-flex']"><h4>Расписание</h4></a>
-  <a class="current-route" [routerLink]="['reports']" [routerLinkActive]="['d-flex']"><h4>Отчёты</h4></a>
+  <!-- <a class="current-route" [routerLink]="['reports']" [routerLinkActive]="['d-flex']"><h4>Отчёты</h4></a> -->
   <a class="current-route" [routerLink]="['settings']" [routerLinkActive]="['d-flex']"><h4>Настройки</h4></a>
 </nav>
 
@@ -41,7 +41,7 @@
     <li class="tab col s3"><a [routerLink]="['journal']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Журнал</a></li>
     <li class="tab col s3"><a [routerLink]="['misses']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Пропуски</a></li>
     <li class="tab col s3"><a [routerLink]="['schedule']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Расписание</a></li>
-    <li class="tab col s3"><a [routerLink]="['reports']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Отчёты</a></li>
+    <!-- <li class="tab col s3"><a [routerLink]="['reports']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Отчёты</a></li> -->
     <li class="tab col s3"><a [routerLink]="['settings']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Настройки</a></li>
     <li class="tab col s3 pull-right pointer-center"><a (click)="deleteAllCookies()">Выйти</a></li>
   </ul>
