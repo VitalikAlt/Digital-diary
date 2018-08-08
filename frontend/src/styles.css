@@ -18,8 +18,9 @@ body {
 
 [type="checkbox"]+label {
   height: 0;
-  position: fixed;
+  position: relative;
   padding: 0;
+  padding-top: 11px;
 }
 
 @media only screen and (max-width: 480px) {
