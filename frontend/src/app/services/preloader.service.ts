@@ -3,22 +3,20 @@ let waitingFor: number = 0;
 let startAnimationTime: Date = new Date();
 
 export class Preloader {
-  constructor() { }
+  constructor() {}
 
   logWaitingCount() {
     console.log(waitingFor);
   }
 
   static turnOn() {
-    if (waitingFor === 0)
-      startAnimationTime = new Date();
+    if (waitingFor === 0) startAnimationTime = new Date();
 
     waitingFor++;
   }
 
-
   static turnOf() {
-    const animationTime = +(new Date()) - +startAnimationTime;
+    const animationTime = +new Date() - +startAnimationTime;
     if (waitingFor === 1 && animationTime < MIN_ANIMATION_TIME)
       return setTimeout(() => waitingFor--, MIN_ANIMATION_TIME - animationTime);
 

@@ -10,22 +10,23 @@ body {
   background-size: cover;
 }
 
-.btn:hover, .btn:focus, .btn.focus {
+.btn:hover,
+.btn:focus,
+.btn.focus {
   color: #fff;
 }
 
-[type="checkbox"] + label {
+[type="checkbox"]+label {
   height: 0;
   position: fixed;
   padding: 0;
 }
 
-@media only screen and (max-width : 480px) {
+@media only screen and (max-width: 480px) {
   html {
     height: 100%;
     width: 100%;
   }
-
   body {
     background: #000 url('/assets/veteran.jpg') no-repeat fixed center;
     webkit-background-size: cover;
@@ -33,35 +34,34 @@ body {
     -o-background-size: cover;
     background-size: cover;
   }
-
   .main-container {
     padding: 0 !important;
     margin: 0 !important;
   }
 }
 
-.navbar{
+.navbar {
   font-size: 18px;
   font-weight: 500;
-  -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-  -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-  box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
 }
 
-.nav > li > a {
+.nav>li>a {
   padding: 20px 50px;
 }
 
 .main-container {
-  -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-  -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-  box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
   background-color: white;
   padding: 10px;
   margin: 15px;
 }
 
-.main-container h5{
+.main-container h5 {
   margin-top: 5px;
   margin-bottom: 0px;
 }
@@ -72,6 +72,7 @@ body {
 }
 
 /*styles for tabs*/
+
 .indicator {
   background-color: black !important;
 }
@@ -85,7 +86,7 @@ body {
 }
 
 .head-tab {
-  box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
 }
 
 .tabs .tab a {
@@ -96,7 +97,9 @@ body {
   color: black !important;
 }
 
-.tabs .tab a:hover, .tabs .tab a:focus, .tabs .tab a:active {
+.tabs .tab a:hover,
+.tabs .tab a:focus,
+.tabs .tab a:active {
   color: black !important;
   text-decoration: none !important;
 }
@@ -114,7 +117,7 @@ body {
 }
 
 .modal-footer {
-  box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   padding-right: 2% !important;
 }
 
@@ -131,6 +134,7 @@ body {
 }
 
 /* for best datapicker vision*/
+
 .picker__header {
   margin-bottom: 15px;
 }
@@ -151,11 +155,25 @@ body {
 }
 
 /*.carousel {*/
-  /*height: calc(100% - 43px);*/
-  /*overflow-y: auto;*/
+
+/*height: calc(100% - 43px);*/
+
+/*overflow-y: auto;*/
+
 /*}*/
 
-textarea, textarea.form-control, input.form-control, input[type="text"], input[type="password"], input[type="email"], input[type="number"], .form-control[type="text"], .form-control[type="password"], .form-control[type="email"], .form-control[type="tel"], .form-control[contenteditable] {
+textarea,
+textarea.form-control,
+input.form-control,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+.form-control[type="text"],
+.form-control[type="password"],
+.form-control[type="email"],
+.form-control[type="tel"],
+.form-control[contenteditable] {
   font-size: 16px !important;
 }
 
@@ -164,4 +182,5 @@ textarea, textarea.form-control, input.form-control, input[type="text"], input[t
   margin-bottom: 0;
   position: fixed;
   z-index: 100000;
+  height: 3px;
 }

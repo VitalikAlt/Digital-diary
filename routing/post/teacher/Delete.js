@@ -18,11 +18,27 @@ class TeacherDeleteRoute extends BaseRoute {
         try {
             const userIds = await this.core.db.teacherProfile.getUserIds(this.params.ids);
 
-            await Promise.all([
+            const teacherDisciplineIds = await this.core.db.discipline.getAllTeachersDisciplines(this.params.ids)
+
+            const deletePrms = [
                 this.core.db.teacherProfile.deleteByIds(this.params.ids),
                 this.core.db.users.deleteByIds(userIds),
-            ]);
+                this.core.db.discipline.deleteAllTeacherDisciplines(this.params.ids),
+                this.core.db.scheduleCell.deleteByDisciplineIds(teacherDisciplineIds)
+            ];
 
+            for (let i = 0; i < teacherDisciplineIds.length; i++) {
+                deletePrms.push(
+                    this.core.db.groupDiscipline.delete({
+                        discipline_id: teacherDisciplineIds[i]
+                    }),
+                    this.core.db.termMarks.delete({
+                        discipline_id: teacherDisciplineIds[i]
+                    })
+                )
+            }
+
+            await Promise.all(deletePrms)
             this.complete(true);
         } catch (err) {
             this.core.log.error('TeacherDelete error', err);
