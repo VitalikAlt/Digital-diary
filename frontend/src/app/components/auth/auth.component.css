@@ -190,4 +190,5 @@ span.incorrect-input {
   position: relative;
   padding-left: 25px;
   font-size: 14px;
+  padding-top: 0;
 }
