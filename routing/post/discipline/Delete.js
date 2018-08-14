@@ -1,6 +1,5 @@
 const BaseRoute = require(appRoot + '/routing/BaseRoute');
 
-//TODO добавить удаление оценок для дисциплины
 class DisciplineDeleteRoute extends BaseRoute {
     constructor(core, req, res, params) {
         super(core, req, res, params);
@@ -17,8 +16,15 @@ class DisciplineDeleteRoute extends BaseRoute {
     async handle() {
         try {
             await Promise.all([
-                await this.core.db.discipline.delete({_id: this.params.id}),
-                await this.core.db.groupDiscipline.delete({discipline_id: this.params.id})
+                this.core.db.discipline.delete({
+                    _id: this.params.id
+                }),
+                this.core.db.groupDiscipline.delete({
+                    discipline_id: this.params.id
+                }),
+                this.core.db.termMarks.delete({
+                    discipline_id: this.params.id
+                })
             ]);
 
             this.complete(true);

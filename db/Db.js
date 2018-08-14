@@ -11,10 +11,11 @@ const studentMisses = require('./models/student_misses/query');
 
 mongoose.Promise = global.Promise;
 
-//TODO переименовать все базы данных к виду abc_abc вместо камелКейса
 class Db {
     static connect(url) {
-        mongoose.connect(url, { useMongoClient: true });
+        mongoose.connect(url, {
+            useMongoClient: true
+        });
     }
 
     static get users() {

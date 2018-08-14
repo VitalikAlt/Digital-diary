@@ -1,9 +1,9 @@
-const Group = require('./table');
+const Disciplines = require('./table');
 
-class GroupQuery {
+class DisciplinesQuery {
     static get(params = {}) {
         return new Promise((res, rej) => {
-            Group.find(params, {
+            Disciplines.find(params, {
                 _v: false
             }, (err, data) => {
                 return err ? rej(err) : res(data);
@@ -13,7 +13,7 @@ class GroupQuery {
 
     static getAllTeachersDisciplines(teacherIds) {
         return new Promise((res, rej) => {
-            Group.find({
+            Disciplines.find({
                 teacher_id: {
                     $in: teacherIds
                 }
@@ -29,7 +29,7 @@ class GroupQuery {
 
     static getNames(disciplineIds) {
         return new Promise((res, rej) => {
-            Group.find({
+            Disciplines.find({
                 _id: {
                     $in: disciplineIds
                 }
@@ -47,7 +47,7 @@ class GroupQuery {
 
     static add(name, teacher_id) {
         return new Promise((res, rej) => {
-            const newItem = new Group({
+            const newItem = new Disciplines({
                 name,
                 teacher_id
             });
@@ -60,7 +60,7 @@ class GroupQuery {
 
     static update(params, conditions) {
         return new Promise((res, rej) => {
-            Group.update(conditions, params, function (err) {
+            Disciplines.update(conditions, params, function (err) {
                 return (!err) ? res(true) : rej(err);
             });
         });
@@ -68,7 +68,7 @@ class GroupQuery {
 
     static delete(params) {
         return new Promise((res, rej) => {
-            Group.remove(params, (err, success) => {
+            Disciplines.remove(params, (err, success) => {
                 return (!err) ? res(success) : rej(err);
             })
         })
@@ -76,7 +76,7 @@ class GroupQuery {
 
     static deleteAllTeacherDisciplines(teacherIds) {
         return new Promise((res, rej) => {
-            Group.remove({
+            Disciplines.remove({
                 teacher_id: {
                     $in: teacherIds
                 }
@@ -87,4 +87,4 @@ class GroupQuery {
     }
 }
 
-module.exports = GroupQuery;
+module.exports = DisciplinesQuery;

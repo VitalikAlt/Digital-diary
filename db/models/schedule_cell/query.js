@@ -1,9 +1,9 @@
-const TermMarks = require('./table');
+const ScheduleCells = require('./table');
 
-class TermMarksQuery {
+class ScheduleCellsQuery {
     static get(params = {}) {
         return new Promise((res, rej) => {
-            TermMarks.find(params, {
+            ScheduleCells.find(params, {
                 _v: false
             }, (err, data) => {
                 return err ? rej(err) : res(data);
@@ -13,7 +13,7 @@ class TermMarksQuery {
 
     static getId(course, squad) {
         return new Promise((res, rej) => {
-            TermMarks.find({
+            ScheduleCells.find({
                 course,
                 squad
             }, (err, data) => {
@@ -24,7 +24,7 @@ class TermMarksQuery {
 
     static add(data) {
         return new Promise((res, rej) => {
-            const newItem = new TermMarks(data);
+            const newItem = new ScheduleCells(data);
 
             newItem.save(function (err) {
                 return (!err) ? res(newItem._id) : rej(err);
@@ -34,7 +34,7 @@ class TermMarksQuery {
 
     static update(params, conditions = {}) {
         return new Promise((res, rej) => {
-            TermMarks.update(conditions, params, function (err) {
+            ScheduleCells.update(conditions, params, function (err) {
                 return (!err) ? res(true) : rej(err);
             });
         });
@@ -42,7 +42,7 @@ class TermMarksQuery {
 
     static deleteByDisciplineIds(disciplineIds) {
         return new Promise((res, rej) => {
-            TermMarks.remove({
+            ScheduleCells.remove({
                 discipline_id: {
                     $in: disciplineIds
                 }
@@ -54,7 +54,7 @@ class TermMarksQuery {
 
     static deleteByIds(ids) {
         return new Promise((res, rej) => {
-            TermMarks.remove({
+            ScheduleCells.remove({
                 _id: {
                     $in: ids
                 }
@@ -65,4 +65,4 @@ class TermMarksQuery {
     }
 }
 
-module.exports = TermMarksQuery;
+module.exports = ScheduleCellsQuery;

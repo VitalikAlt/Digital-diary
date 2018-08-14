@@ -1,4 +1,3 @@
-//TODO: В роут должна поступать инфа о том, кто юзер
 class BaseRoute {
     constructor(core, req, res, params) {
         this.core = core;
@@ -59,7 +58,10 @@ class BaseRoute {
 
     complete(res, err, message) {
         if (!res)
-            return this.sendResponse({err, message}, 400);
+            return this.sendResponse({
+                err,
+                message
+            }, 400);
 
         this.sendResponse(res, 200);
     }
