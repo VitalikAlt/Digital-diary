@@ -20,6 +20,8 @@ class StudentDeleteRoute extends BaseRoute {
             await Promise.all([
                 this.core.db.studentProfile.deleteByIds(this.params.ids),
                 this.core.db.users.deleteByIds(userIds),
+                this.core.db.termMarks.deleteByStudentIds(this.params.ids),
+                this.core.db.studentMisses.deleteByStudentIds(this.params.ids),
             ]);
 
             this.complete(true);
